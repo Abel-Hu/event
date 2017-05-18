@@ -32,10 +32,6 @@ module.exports = class extends think.controller.base {
       return;
     }
 
-    // 设置语言
-    think.lang = (this.param('lang') || this.header('lang')) || locale.default;
-    this.http.lang(think.lang);
-
     // 鉴权白名单
     this.whiteList = [];
   }
