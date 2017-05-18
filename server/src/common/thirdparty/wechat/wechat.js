@@ -24,9 +24,9 @@ module.exports = {
       return true;
     });
     url = url.substring(0, url.length - 1);
-    const json = await axios.get(url);
-    LOG.warn(`get sessionKey by js_code from wechat, code: ${code}, data: ${json}`);
-    return JSON.parse(json);
+    const response = await axios.get(url);
+    LOG.warn(`get sessionKey by js_code from wechat, code: ${code}, data: ${JSON.stringify(response.data)}`);
+    return response.data;
   },
   /**
    * 微信小程序登录数据解密
@@ -34,6 +34,10 @@ module.exports = {
    */
   async wxLoginDataDataDecrypt(data) {
     let sessionKey = await this.getSessionKeyByCode(data.code);
+    if (!think.isEmpty(sessionKey.errcode)) {
+      return {};
+    }
+
     sessionKey = new Buffer(sessionKey, 'base64');
     const encryptedData = new Buffer(data.encryptedData, 'base64');
     const iv = new Buffer(data.iv, 'base64');
