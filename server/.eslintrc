@@ -30,6 +30,7 @@
     "getCurrentTimestamp": true,
     "requireBaseModel": true,
     "requireBaseController": true,
+    "requireThirdparty": true,
     "getLogger": true
   },
   "parserOptions": {
