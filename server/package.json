@@ -1,5 +1,5 @@
 {
-  "name": "house",
+  "name": "event",
   "description": "powered by ruanzhijun",
   "version": "1.0.0",
   "license": "MIT",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
-    "babel-eslint": "^7.2.2",
+    "babel-eslint": "^7.2.3",
     "babel-runtime": "6.x.x",
     "bluebird": "^3.5.0",
     "cheerio": "^0.22.0",

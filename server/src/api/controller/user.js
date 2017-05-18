@@ -1,4 +1,5 @@
 const Base = requireBaseController();
+const wechatSDK = requireThirdparty('wechat');
 module.exports = class extends Base {
   init(...args) {
     super.init(...args);
@@ -16,5 +17,9 @@ module.exports = class extends Base {
     }
 
     */
+  }
+
+  async login() {
+    await wechatSDK.wxLoginDataDataDecrypt(this.param());
   }
 };

@@ -66,6 +66,16 @@ global.requireCommonService = function () {
 };
 
 /**
+ * 获取全局第三方sdk
+ * @param plugins 第三方sdk库名
+ * @param modules 厂商名
+ */
+global.requireThirdparty = function(plugins, modules) {
+  modules = modules || plugins;
+  return requireCommon(`${plugins}`, `thirdparty/${modules}`);
+};
+
+/**
  * 全局获取srvice
  */
 global.requireService = function (service, module) {
