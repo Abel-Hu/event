@@ -6,6 +6,6 @@ module.exports = class extends Base {
   }
 
   async indexAction() {
-    return this.success('实业误国，炒楼兴邦');
+    return this.success('work hard! play hard!');
   }
 };
