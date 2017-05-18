@@ -2,8 +2,6 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const { toNumber, toInteger, toString } = require('lodash');
 
-const config = think.config('token');
-const locale = think.config('locale');
 const privateCert = fs.readFileSync(`${think.ROOT_PATH}/cert/private.pem`, 'utf-8');
 const publicCert = fs.readFileSync(`${think.ROOT_PATH}/cert/public.pem`, 'utf-8');
 
