@@ -3,9 +3,9 @@
     {
       "name": "house",
       "script": "www/production.js",
-      "cwd": "/srv/house",
+      "cwd": "/srv/event/server",
       "exec_mode": "cluster",
-      "instances": 4,
+      "instances": 2,
       "max_memory_restart": "1G",
       "autorestart": true,
       "node_args": [],
