@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "house",
+      "name": "event",
       "script": "www/production.js",
       "cwd": "/srv/event/server",
       "exec_mode": "cluster",
