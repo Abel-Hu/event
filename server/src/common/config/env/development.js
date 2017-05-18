@@ -11,7 +11,7 @@ module.exports = {
   // 微信SDK
   wechatSDK: {
     wxAppId: 'wx2ffcac7f61012c07',
-    wxAppSecret: '87b22656dabe2731c02d1b9a854e9bc0'
+    wxAppSecret: '87b22656dabe2731c02d1b9a854e9bc0',
   },
   port: 9394,
 };

@@ -53,7 +53,7 @@ module.exports = class extends think.controller.base {
    * @param data 要加密的数据
    * @param expiresIn 过期时间(单位：秒)
    */
-  async encryptToken(data, expiresIn = config.expire) {
+  async encryptToken(data, expiresIn = 86400) {
     const sign = await jwt.sign(data, privateCert, { algorithm: 'RS256', expiresIn });
     return sign;
   }
