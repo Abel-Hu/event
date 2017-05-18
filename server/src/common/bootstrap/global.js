@@ -70,9 +70,8 @@ global.requireCommonService = function () {
  * @param plugins 第三方sdk库名
  * @param modules 厂商名
  */
-global.requireThirdparty = function(plugins, modules) {
-  modules = modules || plugins;
-  return requireCommon(`${plugins}`, `thirdparty/${modules}`);
+global.requireThirdparty = function (plugins, modules) {
+  return requireCommon(`${plugins}`, `thirdparty/${modules || plugins}`);
 };
 
 /**

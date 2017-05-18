@@ -2,8 +2,6 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const { toNumber, toInteger, toString } = require('lodash');
 
-const config = think.config('token');
-const locale = think.config('locale');
 const privateCert = fs.readFileSync(`${think.ROOT_PATH}/cert/private.pem`, 'utf-8');
 const publicCert = fs.readFileSync(`${think.ROOT_PATH}/cert/public.pem`, 'utf-8');
 
@@ -32,10 +30,6 @@ module.exports = class extends think.controller.base {
       return;
     }
 
-    // 设置语言
-    think.lang = (this.param('lang') || this.header('lang')) || locale.default;
-    this.http.lang(think.lang);
-
     // 鉴权白名单
     this.whiteList = [];
   }
@@ -53,7 +47,7 @@ module.exports = class extends think.controller.base {
    * @param data 要加密的数据
    * @param expiresIn 过期时间(单位：秒)
    */
-  async encryptToken(data, expiresIn = config.expire) {
+  async encryptToken(data, expiresIn = 86400) {
     const sign = await jwt.sign(data, privateCert, { algorithm: 'RS256', expiresIn });
     return sign;
   }
