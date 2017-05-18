@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/discover/index",
+    "pages/me/index"
+  ],
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/discover/index",
+      "text": "发现"
+    }, {
+      "pagePath":  "pages/me/index",
+      "text": "我"
+    }]
+  },
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "HiBeetleEvent",
+    "navigationBarTextStyle": "dark",
+    "enablePullDownRefresh": false,
+    "disableScroll": true
+  }
+}
