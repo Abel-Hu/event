@@ -7,11 +7,12 @@ import aop from 'store/aop'
 const LoginTimeOut = 604700 //  登陆过期时间 秒为单位 默认为 7天 ：604700
 const MzMemberKey = 'member' // 登陆缓存key
 const Api = {
-  login:'xxx/login'
+  login: '/api/user/login'
 }
 export default class extends aop {
 
   @observable member = {}
+
   @action
   async getMember() {
     let member = await wx.getStorage({key: MzMemberKey})
@@ -35,9 +36,11 @@ export default class extends aop {
 
     if (Object.keys(member).length === 0) {
       let {code} = await wx.login()
-      member = await wx.getUserInfo()
+      const user = await wx.getUserInfo()
+      const {userInfo, iv, signature, encryptedData, encryptData, rawData} = user
+      member = userInfo
       member.code = code
-      /*let {object, code, message} = await http.post(Api.login, member)
+      /*let {object, code, message} = await http.post(Api.login, { code, rawData, iv, encryptedData})
 
       if (code === 1) {
         member = Object.assign(member, object)

@@ -2,18 +2,29 @@
   "pages": [
     "pages/discover/index",
     "pages/me/index"
+
   ],
   "tabBar": {
+    "color":"#888",
+    "selectedColor":"#000",
+    "borderStyle": "white",
+    "backgroundColor": "#f7f7f7",
     "list": [{
       "pagePath": "pages/discover/index",
+      "iconPath":"/img/icon/plane.png",
+      "selectedIconPath":"/img/icon/plane.png",
       "text": "发现"
     }, {
       "pagePath":  "pages/me/index",
+      "iconPath":"/img/icon/me.png",
+      "selectedIconPath":"/img/icon/me.png",
+
       "text": "我"
     }]
   },
   "window": {
     "backgroundTextStyle": "dark",
+    "backgroundColor": "#eeeeee",
     "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTitleText": "HiBeetleEvent",
     "navigationBarTextStyle": "dark",
