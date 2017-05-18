@@ -1,0 +1,63 @@
+/*
+中文官网：http://eslint.cn
+语法：
+  "rule": [
+    ${level}, // 报错级别："off" 或 0 - 关闭规则；"warn" 或 1，发出警告；"error" 或 2，终止脚本
+    ${option1}, // 该规则下的其他子限制
+    ${option2},
+    .....
+  ]
+*/
+{
+  "parser": "babel-eslint",
+  // 继承airbnb的风格
+  "extends": "airbnb",
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "globals": {
+    "think": true,
+    "redis": true,
+    "mongodb": true,
+    "moment": true,
+    "requireService": true,
+    "requireCommon": true,
+    "requireCommonModel": true,
+    "requireCommonService": true,
+    "requireModel": true,
+    "getCurrentTime": true,
+    "getCurrentTimestamp": true,
+    "requireBaseModel": true,
+    "requireBaseController": true,
+    "getLogger": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2017
+  },
+  "rules": {
+    // 可嵌套最大深度为3
+    "max-depth": [
+      "error",
+      {
+        "max": 3
+      }
+    ],
+    // 禁止变量有下划线
+    "no-underscore-dangle": [
+      "off"
+    ],
+    // 不允许动态require
+    "import/no-dynamic-require": [
+      "off"
+    ],
+    // require只能放在文件顶部
+    "global-require": [
+      "off"
+    ],
+    // 类成员函数一定要用this，否则要定义为静态函数
+    "class-methods-use-this": [
+      "off"
+    ]
+  }
+}
