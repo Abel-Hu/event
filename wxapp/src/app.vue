@@ -1,14 +1,17 @@
 <script type="text/babel">
-  import vco from 'vco'
-  import {observer, inject} from 'utils/mobx-wechat'
+  import {app,observer} from 'vco'
   const stores={
     member:'wechat/member'
   }
-  @inject(stores)
   @observer
-  export default class extends vco.app {
+  export default class extends app {
+    constructor(){
+      this.appStore.register(stores)
+      this.storeApp = 'app.vue'
+    }
     async onLaunch(){
-      await this.store[stores.member].getMember()
+      await this.appStore.store[stores.member].getMember()
+
     }
   }
 

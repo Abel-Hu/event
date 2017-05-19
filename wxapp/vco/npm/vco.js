@@ -3,9 +3,11 @@
  */
 import app from './app'
 import page from './page'
+import {observer} from './store'
 export default {
   page,
   app,
+  observer,
   /**
    * 初始化app 实例化所有变量
    * @param AppClass
@@ -22,4 +24,10 @@ export default {
     let Cls = new PageClass()
     return Cls.$init()
   }
+}
+
+export {
+  page,
+  app,
+  observer
 }

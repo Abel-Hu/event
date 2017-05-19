@@ -1,24 +1,32 @@
 <template>
-    <view>
-        <view class="userInfo">
-            <view class="avatar"><image class="img" src="{{member.avatarUrl}}"></image></view>
-            <view class="name">{{member.nickName}}</view>
-        </view>
+  <view>
+    <view class="userInfo">
+      <view class="avatar">
+        <image class="img" src="{{member.avatarUrl}}"></image>
+      </view>
+      <view class="name">{{member.nickName}}</view>
     </view>
+  </view>
 </template>
 <script type="text/babel">
-  import vco from 'vco'
-  import {observer, inject} from 'utils/mobx-wechat'
-  const stores={
-    member:'wechat/member'
+  import {page, observer} from 'vco'
+  const stores = {
+    member: 'wechat/member'
   }
-  @inject(stores)
   @observer
-  export default class extends vco.page {
-    state(){
-      return{
-        member:this.store[stores.member].member
+  export default class extends page {
+    constructor() {
+      this.appStore.register(stores)
+      this.storeApp = 'me.vue'
+    }
+    state() {
+      return {
+        member: this.appStore.store[stores.member].member
       }
+    }
+
+    async onLoad() {
+      //await this.appStore.store[stores.member].getMember()
     }
   }
 </script>
