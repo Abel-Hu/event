@@ -26,23 +26,29 @@ const init = {
   },
 };
 
+const afterRedisReady = function () {
+  LOG.info(`Redis ${firstUpperCase(redisConfig.mode)} Ready`);
+};
+
+
 if (!think.isEmpty(redisConfig.hosts)) {
   const initFunction = `init${firstUpperCase(redisConfig.mode)}`;
   init[initFunction]();
 
   redis.on('ready', () => {
-    LOG.info(`Redis ${firstUpperCase(redisConfig.mode)} Ready`);
+    afterRedisReady();
   });
 
   redis.on('reconnecting', () => {
-    LOG.info(`Reconnecting Redis ${firstUpperCase(redisConfig.mode)} with ${redis.stream._handle.owner._peername.address}:${redis.stream._handle.owner._peername.port}`);
+    // todo
   });
 
   redis.on('connect', () => {
-    LOG.info(`Connect Redis ${firstUpperCase(redisConfig.mode)} with ${redis.stream._handle.owner._peername.address}:${redis.stream._handle.owner._peername.port}`);
+    // todo
   });
 
   redis.on('error', (err) => {
+    console.log(err);
     LOG.error('redis error: ', err.stack);
   });
 }
