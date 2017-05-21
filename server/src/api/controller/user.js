@@ -21,8 +21,8 @@ module.exports = class extends Base {
 
   async loginAction() {
     const wxdata = await wechatSDK.wxLoginDataDataDecrypt(this.param());
-    console.log(wxdata);
-    const token = this.encryptToken(wxdata);
-    return this.success(token);
+    const token = await this.encryptToken(wxdata);
+    wxdata.token = token;
+    return this.success(wxdata);
   }
 };
