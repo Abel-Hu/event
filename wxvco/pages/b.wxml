@@ -1,0 +1,5 @@
+<view>
+    <navigator url="/pages/a">to a</navigator>
+    {{props.todo.todoText}}
+    <image class="userinfo-avatar" src="{{props.member.member.avatarUrl}}" background-size="cover"></image>
+</view>
