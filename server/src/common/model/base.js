@@ -3,6 +3,7 @@
  */
 const timeUtil = requireCommon('time');
 const path = require('path');
+require('mongoose-long')(mongodb);
 
 module.exports = class extends think.model.base {
   // 最先执行
@@ -34,8 +35,8 @@ module.exports = class extends think.model.base {
    */
   async beforeAdd(data) {
     const tmp = data;
-    tmp.createTime = timeUtil.nowMillisecond();
-    tmp.updateTime = tmp.createTime;
+    tmp.createTime = mongodb.Types.Long.fromNumber(timeUtil.nowMillisecond());
+    tmp.updateTime = mongodb.Types.Long.fromNumber(tmp.createTime);
     return tmp;
   }
 
@@ -45,7 +46,7 @@ module.exports = class extends think.model.base {
    */
   async beforeUpdate(data) {
     const tmp = data;
-    tmp.updateTime = timeUtil.nowMillisecond();
+    tmp.updateTime = mongodb.Types.Long.fromNumber(timeUtil.nowMillisecond());
     return tmp;
   }
 

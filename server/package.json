@@ -19,6 +19,7 @@
     "jsonwebtoken": "^7.3.0",
     "log4js": "^1.1.1",
     "mongoose": "^4.9.5",
+    "mongoose-long": "^0.1.1",
     "source-map-support": "0.4.0",
     "thinkjs": "^2.2.18"
   },

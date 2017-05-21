@@ -1,4 +1,5 @@
 const Base = think.service('base', 'common');
+const vipConfig = think.config('vip') || [];
 module.exports = class extends Base {
   // 最先执行
   init(...args) {
@@ -16,6 +17,7 @@ module.exports = class extends Base {
   async create(wxdata, ip) {
     const tmp = wxdata;
     tmp.ip = ip;
+    tmp.isVip = vipConfig.indexOf(tmp.openId) > -1;
     await this.userModel.save(tmp);
   }
 };
