@@ -6,13 +6,19 @@ module.exports = class extends Base {
 
     // 注入service
     this.userService = requireService('user', 'api');
+
+    // 白名单
+    this.whiteList = ['login'];
   }
 
+  /**
+   * 用户登录
+   */
   async loginAction() {
     const { ip } = this.param();
     const wxdata = await wechatSDK.wxLoginDataDataDecrypt(this.param());
     if (think.isEmpty(wxdata)) {
-      return this.showError('USER_WXDATA_PARSE_ERROR');
+      return this.showError(E.USER.WXDATA_PARSE_ERROR);
     }
 
     await this.userService.create(wxdata, ip);

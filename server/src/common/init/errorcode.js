@@ -9,16 +9,16 @@ fs.readdirSync(basePath).filter((lang) => {
   const object = {};
   const errorcode = `${basePath}${path.sep}${lang}`;
   fs.readdirSync(errorcode).filter((v) => {
-    const module = require(`${errorcode}${path.sep}${v}`);
-    Object.keys(module).filter((k) => {
-      object[k] = module[k];
+    const module = v.replace('.js', '').toUpperCase();
+    const kv = require(`${errorcode}${path.sep}${v}`);
+    Object.keys(kv).filter((k) => {
+      think.isEmpty(object[module]) ? object[module] = {} : true;
+      think.isEmpty(object[module][k]) ? object[module][k] = {} : true;
+      object[module][k][lang] = kv[k];
       return true;
     });
     return true;
   });
-  E[lang] = object;
+  global.E = object;
   return true;
 });
-
-console.log(E['zh'].SYSTEM_ERROR.getCode());
-console.log(E['zh'].SYSTEM_ERROR.getMessage());

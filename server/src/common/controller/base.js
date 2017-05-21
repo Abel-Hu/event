@@ -16,6 +16,9 @@ module.exports = class extends think.controller.base {
     // 不让服务器信息暴露出去
     this.http.res.removeHeader('x-powered-by');
 
+    // 自动获取语言
+    this.lang(this.header('lang').trim() || think.config('locale').default);
+
     const method = this.http.method.toLowerCase();
     this.LOG.debug(`method: ${method}, url: ${this.http.url}`);
     this.LOG.debug(`request header: ${JSON.stringify(this.header())}`);
@@ -102,8 +105,9 @@ module.exports = class extends think.controller.base {
    */
   showError(error) {
     const data = {};
-    data.code = error.getCode();
-    data.message = error.getMessage();
+    const lang = this.lang();
+    data.code = error[lang].getCode();
+    data.message = error[lang].getMessage();
     data.time = timeUtil.nowMillisecond();
     this.type(this.config('json_content_type'));
 
@@ -138,7 +142,7 @@ module.exports = class extends think.controller.base {
    */
   getSize(size) {
     const sizes = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-    const i = toInteger(Math.floor(Math.log(size) / Math.log(1024)));
+    const i = parseInt(Math.floor(Math.log(size) / Math.log(1024)), 10);
     return `${Math.floor(size / (1024 ** i))} ${sizes[i]}`;
   }
 };
