@@ -30,6 +30,13 @@ module.exports = class extends think.model.base {
   }
 
   /**
+   * 获取本表实例
+   */
+  getModel() {
+    return this._model;
+  }
+
+  /**
    * 添加前aop实现
    * @param data 待添加的数据
    */
@@ -48,14 +55,5 @@ module.exports = class extends think.model.base {
     const tmp = data;
     tmp.updateTime = mongodb.Types.Long.fromNumber(timeUtil.nowMillisecond());
     return tmp;
-  }
-
-  /**
-   * 保存数据
-   * @param data 待保存的数据
-   */
-  async save(data) {
-    this.beforeAdd(data);
-    await this._model.create(data);
   }
 };

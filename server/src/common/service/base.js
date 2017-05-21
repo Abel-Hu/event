@@ -11,11 +11,4 @@ module.exports = class extends think.service.base {
     const channel = `${arr[1]}.${arr[2]}.${think.camelCase(arr[3].replace('.js', ''))}`;
     this.LOG = getLogger(channel);
   }
-
-  /**
-   * 爬虫入口(必须要子类继承)
-   */
-  crawler() {
-    throw new Error(`please implement the method: ${this.LOG.category}.crawler()`);
-  }
 };
