@@ -25,7 +25,6 @@ const init = {
 
 const afterRedisReady = function () {
   LOG.info(`Redis ${firstUpperCase(redisConfig.mode)} Ready`);
-  console.log(redis);
 };
 
 
