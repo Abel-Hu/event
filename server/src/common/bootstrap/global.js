@@ -78,7 +78,12 @@ global.requireModel = function (plugins, dir) {
  * @param message 错误提示语句
  */
 global.ErrorCode = function (code, message) {
-  return { code, message };
+  this.getCode = function () {
+    return code;
+  };
+  this.getMessage = function () {
+    return message;
+  }
 };
 
 /**
