@@ -11,7 +11,8 @@ const Redis = require('ioredis');
 // 初始化方法
 const init = {
   initSingle() {
-    return new Redis(redisConfig.hosts);
+    // return new Redis(redisConfig.hosts);
+    return new Redis(6379, '127.0.0.1', { password: 'admin' });
   },
 
   initCluster() {
@@ -41,6 +42,7 @@ if (!think.isEmpty(redisConfig.hosts)) {
   });
 
   redis.on('error', (err) => {
+    console.error(err);
     LOG.error(err);
   });
 }
