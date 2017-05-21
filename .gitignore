@@ -21,8 +21,7 @@ coverage/
 
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
-/server/node_modules/
-/wxapp/node_modules/
+node_modules/
 
 # .nyc output
 .nyc_output
@@ -38,7 +37,6 @@ output/
 output.tar.gz
 
 /app/
-/dist/
 
 runtime/
 

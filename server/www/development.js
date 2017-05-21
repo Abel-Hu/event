@@ -1,4 +1,4 @@
-// 本地环境
+// 开发环境
 const Thinkjs = require('thinkjs');
 const path = require('path');
 

@@ -6,43 +6,45 @@
 const redisConfig = think.config('ioredis') || {};
 const { firstUpperCase } = requireCommon('string');
 const LOG = getLogger(__filename);
-global.redis = {};
 const Redis = require('ioredis');
 
 // 初始化方法
 const init = {
   initSingle() {
-    redis = new Redis({
-      port: 6379,          // Redis port
-      host: '127.0.0.1',   // Redis host
-      family: 4,           // 4 (IPv4) or 6 (IPv6)
-      password: 'admin',
-      db: 0,
+    return new Redis({
+      host: redisConfig.hosts.host,
+      port: redisConfig.hosts.port,
+      password: redisConfig.hosts.password,
     });
   },
 
   initCluster() {
-    redis = new Redis.Cluster(redisConfig.hosts);
+    return new Redis.Cluster(redisConfig.hosts);
   },
 };
 
+const afterRedisReady = function () {
+  LOG.info(`Redis ${firstUpperCase(redisConfig.mode)} Ready`);
+};
+
+
 if (!think.isEmpty(redisConfig.hosts)) {
   const initFunction = `init${firstUpperCase(redisConfig.mode)}`;
-  init[initFunction]();
+  global.redis = init[initFunction]();
 
   redis.on('ready', () => {
-    LOG.info(`Redis ${firstUpperCase(redisConfig.mode)} Ready`);
+    afterRedisReady();
   });
 
   redis.on('reconnecting', () => {
-    LOG.info(`Reconnecting Redis ${firstUpperCase(redisConfig.mode)} with ${redis.stream._handle.owner._peername.address}:${redis.stream._handle.owner._peername.port}`);
+    // todo
   });
 
   redis.on('connect', () => {
-    LOG.info(`Connect Redis ${firstUpperCase(redisConfig.mode)} with ${redis.stream._handle.owner._peername.address}:${redis.stream._handle.owner._peername.port}`);
+    // todo
   });
 
   redis.on('error', (err) => {
-    LOG.error('redis error: ', err.stack);
+    LOG.error(err);
   });
 }

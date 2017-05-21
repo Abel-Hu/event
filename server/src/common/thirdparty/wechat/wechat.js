@@ -38,7 +38,13 @@ module.exports = {
       return {};
     }
 
-    sessionKey = new Buffer(sessionKey, 'base64');
+    // 解析出来的结构
+    // {
+    //    "session_key":"mbmix9T8JLbRvBesHr0QWw==",
+    //    "expires_in":7200,
+    //    "openid":"om0oZ0R0ESHEW_2_d-2nZTOy1AsM"
+    // }
+    sessionKey = new Buffer(sessionKey.session_key, 'base64');
     const encryptedData = new Buffer(data.encryptedData, 'base64');
     const iv = new Buffer(data.iv, 'base64');
 
@@ -68,6 +74,7 @@ module.exports = {
         return true;
       });
 
+      delete decoded.watermark;
       return decoded;
     } catch (err) {
       LOG.error(err);
