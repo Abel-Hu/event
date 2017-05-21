@@ -10,15 +10,15 @@ module.exports = {
     database: 'event',
   },
   // redis配置
-  ioredis: {
-    // 运行模式：single-单点模式；cluster-集群模式
-    mode: 'single',
-    hosts: {
-      host: '127.0.0.1',
-      port: 6379,
-      password: 'admin',
-    },
-  },
+  // ioredis: {
+  //   // 运行模式：single-单点模式；cluster-集群模式
+  //   mode: 'single',
+  //   hosts: {
+  //     host: '127.0.0.1',
+  //     port: 6379,
+  //     password: 'admin',
+  //   },
+  // },
   // 微信SDK
   wechatSDK: {
     // 微信小程序appId
