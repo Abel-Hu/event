@@ -33,7 +33,7 @@ module.exports = {
    * @param data 微信小程序登录数据
    */
   async wxLoginDataDataDecrypt(data) {
-    let { sessionKey } = await this.getSessionKeyByCode(data.code);
+    let sessionKey = await this.getSessionKeyByCode(data.code);
     if (!think.isEmpty(sessionKey.errcode)) {
       return {};
     }
