@@ -11,8 +11,11 @@ const Redis = require('ioredis');
 // 初始化方法
 const init = {
   initSingle() {
-    console.log(redisConfig.hosts);
-    return new Redis(redisConfig.hosts);
+    return new Redis({
+      host: redisConfig.hosts.host,
+      port: redisConfig.hosts.port,
+      password: redisConfig.hosts.password,
+    });
   },
 
   initCluster() {
@@ -22,6 +25,7 @@ const init = {
 
 const afterRedisReady = function () {
   LOG.info(`Redis ${firstUpperCase(redisConfig.mode)} Ready`);
+  console.log(redis);
 };
 
 
