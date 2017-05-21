@@ -10,14 +10,13 @@ const page = function (o, inject) {
   return observer(async(o))
 }
 const app = function (o, inject) {
-  o.onLaunch = o.onLaunch || function () {
-    }
+  o.onLaunch = o.onLaunch || function () {}
   const launch = o.onLaunch
   o.onLaunch = function () {
     launch()
     setTimeout(() => {
       injectStore(o, inject)
-      o.launch && co.call(o, o.launch)
+      o.launch && co.call(o,o.launch)
     })
   }
   return o

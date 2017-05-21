@@ -40,6 +40,7 @@ module.exports = class extends Store {
       const {userInfo, iv, signature, encryptedData, encryptData, rawData} = user
       member = userInfo
       member.code = code
+      console.log(userInfo, iv, signature, encryptedData, encryptData, rawData, code)
       /*let {object, code, message} = yield http.post(Api.login, { code, rawData, iv, encryptedData})
 
        if (code === 1) {
@@ -48,7 +49,6 @@ module.exports = class extends Store {
        yield wx.setStorage({key: MzMemberKey, data: member}) // 微信异步set*/
       yield wx.setStorage({key: MzMemberKey, data: member}) // debug
     }
-    console.log('member', member)
     this.member = member
     //
     getApp().member = member// 约定token
