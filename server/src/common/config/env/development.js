@@ -16,7 +16,7 @@ module.exports = {
     hosts: {
       host: '127.0.0.1',
       port: 6379,
-      password: 'np876du6d6u7iyjbu6d6uf7igyguvtykuyighgbtybui',
+      password: 'admin',
     },
   },
   // 微信SDK
