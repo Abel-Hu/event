@@ -23,13 +23,13 @@ const options = {
 mongodb.connect(uri, options);
 
 mongodb.connection.on('connected', () => {
-  LOG.warn(`connect to mongodb://${config.host}:${config.port}/${config.database} success.`);
+  LOG.warn(`Connect to mongodb://${config.host}:${config.port}/${config.database} success`);
 });
 mongodb.connection.on('error', (err) => {
-  LOG.warn(`connect to mongodb://${config.host}:${config.port}/${config.database} failed.`);
+  LOG.warn(`Connect to mongodb://${config.host}:${config.port}/${config.database} failed`);
   LOG.warn(err);
   process.exit(1);
 });
 mongodb.connection.on('disconnected', () => {
-  LOG.warn('disconnected');
+  LOG.warn(`Disconnected mongodb://${config.host}:${config.port}/${config.database}`);
 });

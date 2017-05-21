@@ -6,17 +6,17 @@
 const redisConfig = think.config('ioredis') || {};
 const { firstUpperCase } = requireCommon('string');
 const LOG = getLogger(__filename);
-global.redis = {};
 const Redis = require('ioredis');
 
 // 初始化方法
+global.redis = {};
 const init = {
   initSingle() {
     redis = new Redis({
-      port: 6379,          // Redis port
-      host: '127.0.0.1',   // Redis host
-      family: 4,           // 4 (IPv4) or 6 (IPv6)
-      password: 'admin',
+      port: redisConfig.hosts.port,
+      host: redisConfig.hosts.host,
+      family: 4,
+      password: redisConfig.hosts.password,
       db: 0,
     });
   },
