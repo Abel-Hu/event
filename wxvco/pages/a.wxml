@@ -11,4 +11,7 @@
     </view>
   </view>
   <navigator url="/pages/b">to b</navigator>
+  <view>
+    {{props.member.ns}}
+  </view>
 </view>

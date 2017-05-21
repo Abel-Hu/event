@@ -1,8 +1,10 @@
 const vco = require('./vco/index')
-const o = vco.app({
+wx.vco = vco
+const {app} = vco
+const o = app({
   vco,
-  *launch () {
-    yield this.props.member.getMember()
+  onLaunch(){
+    console.log('onLaunch')
   }
-}, {member: 'wechat/member'})
+})
 App(o)

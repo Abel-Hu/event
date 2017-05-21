@@ -1,4 +1,4 @@
-const {Store} = getApp().vco
+const {Store} = wx.vco
 module.exports = class extends Store {
   state() {
     return {
