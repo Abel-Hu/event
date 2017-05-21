@@ -21,9 +21,9 @@ module.exports = class extends Base {
       return this.showError(E.USER.WXDATA_PARSE_ERROR);
     }
 
-    const user = await this.userService.create(wxdata, ip);
-    const token = await this.encryptToken(user);
-    user.token = token;
+    let user = await this.userService.create(wxdata, ip);
+    user = JSON.parse(JSON.stringify(user));
+    user = await this.encryptToken(user);
     return this.success(user);
   }
 };
