@@ -3,11 +3,9 @@
  */
 import app from './app'
 import page from './page'
-import {observer} from './store'
+//import {observer} from './store'
+import {observer,inject} from './mobx-wechat'
 export default {
-  page,
-  app,
-  observer,
   /**
    * 初始化app 实例化所有变量
    * @param AppClass
@@ -29,5 +27,6 @@ export default {
 export {
   page,
   app,
-  observer
+  observer,
+  inject
 }

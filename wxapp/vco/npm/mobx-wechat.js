@@ -1,45 +1,25 @@
-import {useStrict, autorun, observable, action} from './mobx'
-import {deepCopy} from './mobx-tool'
+import {useStrict, autorun, observable, action, spy} from './mobx'
+import {toJS} from './tojs'
 /**
  * 启动严格模式
  */
 useStrict(false)
 /**
- * 复用Store 缓存
- * @type {{}}
- * @private
- */
-let _StoreObjectCache = {} // 缓存Store 对象共享数据
-/**
  * 注入Store
  * @param StoreClass
  * @returns {Function}
  */
-export const inject = function (...injectArg) {
+export const inject = function (stores) {
   return function (page) {
     return class extends page {
       constructor(...args) {
         super(...args)
-        this.store = this.store || {}
-        if (typeof injectArg[0] === 'object') {
-          Object.keys(injectArg[0]).map((keys) => {
-            let pathVal = injectArg[0][keys]
-            if (!_StoreObjectCache[pathVal]) {
-              let Cls = require(`../store/${pathVal}`)
-              _StoreObjectCache[pathVal] = new Cls.default()
-            }
-            this.store[pathVal] = _StoreObjectCache[pathVal]
-          })
-        }
-        else {
-          injectArg.map((pathVal) => {
-            if (!_StoreObjectCache[pathVal]) {
-              let Cls = require(`../store/${pathVal}`)
-              _StoreObjectCache[pathVal] = new Cls.default()
-            }
-            this.store[pathVal] = _StoreObjectCache[pathVal]
-          })
-        }
+        this.store = {}
+        Object.keys(stores).map((key) => {
+          let path = stores[key]
+          let Cls = require(`../store/${path}`)
+          this.store[path] = new Cls.default()
+        })
         super.constructor()
       }
     }
@@ -51,67 +31,45 @@ export const inject = function (...injectArg) {
  * @returns {{}}
  */
 export const observer = function (page) {
-  /**
-   * 绑定mobx 与 page
-   */
-  let connected = observable(false)
-
-  /**
-   * _UpdateState 监听观察者变化 同步到 setData
-   * 私有变量
-   * 单向绑定 state
-   * 双向绑定store 没有定义state的话采取 store绑定数据 懒人模式
-   */
-  function _UpdateState() {
-    if (typeof this.state === 'function') {
-      let state = this.state()
-      // state = deepCopy(state)
-      this.setData({...state})
-    } else {
-      let store = this.store || {}
-      // toJS(store) // 暂时取消转换成js 的类型判断 节省性能
-      store = deepCopy(store) // 删除原型链
-      this.setData(store)
-    }
-  }
 
   return class extends page {
-    _isUnload = false // 监听是否同一个监听名称避免重复监听
-    constructor(){
+    /**
+     * 监听观察者变化 同步到 setData
+     * 私有变量
+     * 单向绑定 state
+     * 双向绑定store 没有定义state的话采取 store绑定数据 懒人模式
+     */
+    $update() {
+      var props = this.store || {}
+      this.setData({props: toJS(props)})
+    }
 
-    }
-    onShow(...arg) {
-      action(() => {
-        console.log('onShow')
-        connected.set(true)
-      })()
-      super.onShow && super.onShow(...arg)
-    }
-
-    onHide(...arg) {
-      action(() => {
-        connected.set(false)
-      })()
-      super.onHide && super.onHide(...arg)
-    }
 
     onLoad(...arg) {
-      console.log('onLoad')
-      autorun(() => {
-        if (connected.get() && !this._isUnload) {
-          console.log('this.store', this.store)
-          _UpdateState.call(this)
-        }
+      this.store = observable(this.store)
+      console.log('onLoad', JSON.stringify(this.store))
+      this.$unload = autorun(() => {
+        console.log('this.store', JSON.stringify(this.store))
+        this.$update()
       })
       super.onLoad && super.onLoad(...arg)
     }
 
+    onShow(...arg) {
+      console.log('onShow')
+      super.onShow && super.onShow(...arg)
+    }
+
+    onHide(...arg) {
+      console.log('onHide')
+      super.onHide && super.onHide(...arg)
+    }
+
     onUnload(...arg) {
-      action(() => {
-        connected.set(false)
-        this._isUnload = true
-      })()
+      this.$unload()
       super.onUnload && super.onUnload(...arg)
     }
   }
 }
+
+
