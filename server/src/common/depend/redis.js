@@ -9,20 +9,13 @@ const LOG = getLogger(__filename);
 const Redis = require('ioredis');
 
 // 初始化方法
-global.redis = {};
 const init = {
   initSingle() {
-    redis = new Redis({
-      port: redisConfig.hosts.port,
-      host: redisConfig.hosts.host,
-      family: 4,
-      password: redisConfig.hosts.password,
-      db: 0,
-    });
+    return new Redis(redisConfig.hosts);
   },
 
   initCluster() {
-    redis = new Redis.Cluster(redisConfig.hosts);
+    return new Redis.Cluster(redisConfig.hosts);
   },
 };
 
@@ -33,14 +26,14 @@ const afterRedisReady = function () {
 
 if (!think.isEmpty(redisConfig.hosts)) {
   const initFunction = `init${firstUpperCase(redisConfig.mode)}`;
-  init[initFunction]();
+  global.redis = init[initFunction]();
 
   redis.on('ready', () => {
     afterRedisReady();
   });
 
   redis.on('reconnecting', () => {
-    // todo
+    LOG.info('reconnecting');
   });
 
   redis.on('connect', () => {
