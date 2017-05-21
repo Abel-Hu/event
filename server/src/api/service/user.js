@@ -3,6 +3,9 @@ module.exports = class extends Base {
   // 最先执行
   init(...args) {
     super.init(...args);
+
+    // 注入model
+    this.userModel = this.model('user');
   }
 
   /**
@@ -11,6 +14,8 @@ module.exports = class extends Base {
    * @param ip 用户创建时获取到的ip
    */
   async create(wxdata, ip) {
-    console.log(wxdata);
+    const tmp = wxdata;
+    tmp.ip = ip;
+    await this.userModel.save(tmp);
   }
 };

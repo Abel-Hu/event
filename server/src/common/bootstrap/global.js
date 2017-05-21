@@ -83,7 +83,7 @@ global.ErrorCode = function (code, message) {
   };
   this.getMessage = function () {
     return message;
-  }
+  };
 };
 
 /**

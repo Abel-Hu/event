@@ -1,5 +1,4 @@
 // 自动加载错误码
-const LOG = getLogger(__filename);
 const path = require('path');
 const fs = require('fs');
 
@@ -12,8 +11,8 @@ fs.readdirSync(basePath).filter((lang) => {
     const module = v.replace('.js', '').toUpperCase();
     const kv = require(`${errorcode}${path.sep}${v}`);
     Object.keys(kv).filter((k) => {
-      think.isEmpty(object[module]) ? object[module] = {} : true;
-      think.isEmpty(object[module][k]) ? object[module][k] = {} : true;
+      object[module] = object[module] ? object[module] : object[module] = {};
+      object[module][k] = object[module][k] ? object[module][k] : object[module][k] = {};
       object[module][k][lang] = kv[k];
       return true;
     });

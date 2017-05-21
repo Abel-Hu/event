@@ -1,6 +1,7 @@
 /**
  * model基类
  */
+const timeUtil = requireCommon('time');
 const path = require('path');
 
 module.exports = class extends think.model.base {
@@ -25,5 +26,35 @@ module.exports = class extends think.model.base {
     } catch (e) {
       this.LOG.error(e);
     }
+  }
+
+  /**
+   * 添加前aop实现
+   * @param data 待添加的数据
+   */
+  async beforeAdd(data) {
+    const tmp = data;
+    tmp.createTime = timeUtil.nowMillisecond();
+    tmp.updateTime = tmp.createTime;
+    return tmp;
+  }
+
+  /**
+   * 修改前aop实现
+   * @param data 待修改的数据
+   */
+  async beforeUpdate(data) {
+    const tmp = data;
+    tmp.updateTime = timeUtil.nowMillisecond();
+    return tmp;
+  }
+
+  /**
+   * 保存数据
+   * @param data 待保存的数据
+   */
+  async save(data) {
+    this.beforeAdd(data);
+    await this._model.create(data);
   }
 };

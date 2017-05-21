@@ -15,7 +15,7 @@ module.exports = class extends Base {
    * 用户登录
    */
   async loginAction() {
-    const { ip } = this.param();
+    const ip = this.ip();
     const wxdata = await wechatSDK.wxLoginDataDataDecrypt(this.param());
     if (think.isEmpty(wxdata)) {
       return this.showError(E.USER.WXDATA_PARSE_ERROR);

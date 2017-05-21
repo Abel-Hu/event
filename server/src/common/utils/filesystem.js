@@ -4,7 +4,6 @@
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { toString } = require('lodash');
 
 const isWindows = os.platform() === 'win32';
 module.exports = {
@@ -21,10 +20,7 @@ module.exports = {
       const dirpathArray = dirpath.split(path.sep).filter((v) => {
         const b = !think.isEmpty(v);
         return b;
-      }).map((v) => {
-        const str = toString(v);
-        return str;
-      });
+      }).map(v => v || '');
 
       // 处理windows盘符的问题
       if (isWindows) {

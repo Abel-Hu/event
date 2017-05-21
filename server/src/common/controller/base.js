@@ -41,8 +41,8 @@ module.exports = class extends think.controller.base {
    * 获取客户端ip(覆盖thinkjs的，它的获取有问题)
    */
   ip() {
-    const ipArray = this.header('X-Forwarded-For').split(',');
-    return toString(ipArray[ipArray.length - 1]).trim();
+    const ipArray = this.header('X-Forwarded-For').split(',') || [];
+    return ipArray[ipArray.length - 1].trim() || '0.0.0.0';
   }
 
   /**
@@ -74,6 +74,15 @@ module.exports = class extends think.controller.base {
   }
 
   /**
+   * 获取当前页面大小
+   */
+  pageSize() {
+    const maxPageSize = 30;
+    const pageSize = parseInt(this.param('pageSize'), 10) || maxPageSize;
+    return pageSize > maxPageSize ? maxPageSize : pageSize;
+  }
+
+  /**
    * 游标分页面列表规范
    * @param list 返回数据(list类型)
    * @param moreItem 额外字段(json格式)
@@ -91,7 +100,7 @@ module.exports = class extends think.controller.base {
       if (think.isEmpty(obj[sequenceField])) {
         throw new Error(`missing 'sequence' field, sequenceField :${sequenceField}`);
       }
-      _lastSequence = toNumber(obj[sequenceField]) || 0;
+      _lastSequence = parseInt(obj[sequenceField], 10) || 0;
     }
 
     const format = { _lastSequence, pageSize: _list.length, _list };
