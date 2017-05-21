@@ -33,12 +33,14 @@ module.exports = {
    * @param data 微信小程序登录数据
    */
   async wxLoginDataDataDecrypt(data) {
-    let sessionKey = await this.getSessionKeyByCode(data.code);
+    let {sessionKey} = await this.getSessionKeyByCode(data.code);
     if (!think.isEmpty(sessionKey.errcode)) {
       return {};
     }
 
-    sessionKey = new Buffer(sessionKey, 'base64');
+    // 解析出来的结构
+    // {"session_key":"mbmix9T8JLbRvBesHr0QWw==","expires_in":7200,"openid":"om0oZ0R0ESHEW_2_d-2nZTOy1AsM"}
+    sessionKey = new Buffer(sessionKey.sessionk_ley, 'base64');
     const encryptedData = new Buffer(data.encryptedData, 'base64');
     const iv = new Buffer(data.iv, 'base64');
 
