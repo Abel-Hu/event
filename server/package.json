@@ -17,7 +17,7 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "iconv-lite": "^0.4.17",
-    "ioredis": "^2.5.0",
+    "ioredis": "^3.0.0",
     "jsonwebtoken": "^7.3.0",
     "lodash": "^4.17.4",
     "log4js": "^1.1.1",
