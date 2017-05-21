@@ -12,12 +12,26 @@ module.exports = {
   // redis配置
   ioredis: {
     // 运行模式：single-单点模式；cluster-集群模式
-    mode: 'single',
-    hosts: {
+    mode: 'cluster',
+    hosts: [{
       host: '127.0.0.1',
-      port: 6379,
-      password: 'admin',
-    },
+      port: 7000,
+    }, {
+      host: '127.0.0.1',
+      port: 7001,
+    }, {
+      host: '127.0.0.1',
+      port: 7002,
+    }, {
+      host: '127.0.0.1',
+      port: 7003,
+    }, {
+      host: '127.0.0.1',
+      port: 7004,
+    }, {
+      host: '127.0.0.1',
+      port: 7005,
+    }],
   },
   // 微信SDK
   wechatSDK: {

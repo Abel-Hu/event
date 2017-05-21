@@ -41,7 +41,6 @@ if (!think.isEmpty(redisConfig.hosts)) {
   });
 
   redis.on('error', (err) => {
-    console.error(err);
     LOG.error(err);
   });
 }
