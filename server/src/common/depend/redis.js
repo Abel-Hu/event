@@ -33,7 +33,7 @@ if (!think.isEmpty(redisConfig.hosts)) {
   });
 
   redis.on('reconnecting', () => {
-    LOG.info('reconnecting');
+    // todo
   });
 
   redis.on('connect', () => {
