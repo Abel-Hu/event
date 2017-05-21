@@ -11,6 +11,7 @@ const Redis = require('ioredis');
 // 初始化方法
 const init = {
   initSingle() {
+    console.log(redisConfig.hosts);
     return new Redis(redisConfig.hosts);
   },
 
