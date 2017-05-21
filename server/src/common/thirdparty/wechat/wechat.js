@@ -23,6 +23,7 @@ module.exports = {
     const cache = config.cache || false;
     const cacheKey = sessionCacheKey(code);
     const jsonString = cache ? await redis.get(cacheKey) : '';
+    console.log(`redis  ===>  ${jsonString}`);
     if (!think.isEmpty(jsonString)) {
       return JSON.parse(jsonString);
     }
