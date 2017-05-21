@@ -1,7 +1,7 @@
 # Y-用户模块
 
 
-### 登录接口  POST   /api/user/login
+### 登录接口  POST   /api/user/login 【免鉴权】
 
 参数			|是否必要		|类型			|说明
 --				|--				|--				|--
