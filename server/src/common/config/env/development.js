@@ -21,8 +21,6 @@ module.exports = {
   },
   // 微信SDK
   wechatSDK: {
-    // 是否需要缓存
-    cache: true,
     // 微信小程序appId
     wxAppId: 'wx2ffcac7f61012c07',
     // 微信小程序appSecret

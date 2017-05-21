@@ -6,28 +6,12 @@ const LOG = getLogger(__filename);
 const crypto = require('crypto');
 const axios = require('axios');
 
-/**
- * sessionKey缓存key
- * @param code 用户授权后获得的code
- */
-const sessionCacheKey = function (code) {
-  return `sessionKey:${code}`;
-};
-
 module.exports = {
   /**
    * 通过code换取会话密钥session_key
    * @param code 用户授权后获得的code
    */
   async getSessionKeyByCode(code) {
-    const cache = config.cache || false;
-    const cacheKey = sessionCacheKey(code);
-    const jsonString = cache ? await redis.get(cacheKey) : '';
-    console.log(`redis  ===>  ${jsonString}`);
-    if (!think.isEmpty(jsonString)) {
-      return JSON.parse(jsonString);
-    }
-
     let url = 'https://api.weixin.qq.com/sns/jscode2session?';
     const data = {
       appid: config.wxAppId,
@@ -42,9 +26,6 @@ module.exports = {
     url = url.substring(0, url.length - 1);
     const response = await axios.get(url);
     LOG.warn(`get sessionKey by js_code from wechat, code: ${code}, data: ${JSON.stringify(response.data)}`);
-    if (cache) {
-      redis.setex(cacheKey, 7000, JSON.stringify(response.data));
-    }
     return response.data;
   },
   /**
