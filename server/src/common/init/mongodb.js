@@ -1,3 +1,4 @@
+// 初始化mongodb
 global.mongodb = require('mongoose');
 
 mongodb.Promise = global.Promise;

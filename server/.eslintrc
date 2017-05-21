@@ -20,7 +20,6 @@
     "think": true,
     "redis": true,
     "mongodb": true,
-    "moment": true,
     "requireService": true,
     "requireCommon": true,
     "requireCommonModel": true,

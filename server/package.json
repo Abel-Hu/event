@@ -17,9 +17,7 @@
     "eslint-config-airbnb": "^14.1.0",
     "ioredis": "^3.0.0",
     "jsonwebtoken": "^7.3.0",
-    "lodash": "^4.17.4",
     "log4js": "^1.1.1",
-    "moment": "^2.18.1",
     "mongoose": "^4.9.5",
     "source-map-support": "0.4.0",
     "thinkjs": "^2.2.18"

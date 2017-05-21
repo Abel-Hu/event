@@ -9,7 +9,8 @@ module.exports = {
    * @param str 字符串或者对象
    */
   isJSON(str) {
-    if (typeof (str) === 'object' && Object.prototype.toString.call(str).toLowerCase() === '[object object]' && !str.length) {
+    const type = Object.prototype.toString.call(str).toLowerCase();
+    if (typeof (str) === 'object' && (type === '[object object]' || type === '[object array]' ) && !str.length) {
       return true;
     }
 

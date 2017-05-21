@@ -1,9 +1,9 @@
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
-const { toNumber, toInteger, toString } = require('lodash');
 
 const privateCert = fs.readFileSync(`${think.ROOT_PATH}/cert/private.pem`, 'utf-8');
 const publicCert = fs.readFileSync(`${think.ROOT_PATH}/cert/public.pem`, 'utf-8');
+const timeUtil = requireCommon('time');
 
 module.exports = class extends think.controller.base {
 
@@ -48,7 +48,7 @@ module.exports = class extends think.controller.base {
    * @param expiresIn 过期时间(单位：秒)
    */
   async encryptToken(data, expiresIn = 86400) {
-    const sign = await jwt.sign(data, privateCert, { algorithm: 'RS256', expiresIn });
+    const sign = await jwt.sign(data || {}, privateCert, { algorithm: 'RS256', expiresIn });
     return sign;
   }
 
@@ -104,7 +104,7 @@ module.exports = class extends think.controller.base {
     const data = {};
     data.code = error.getCode();
     data.message = error.getMessage();
-    data.time = moment.now();
+    data.time = timeUtil.nowMillisecond();
     this.type(this.config('json_content_type'));
 
     // 返回数据打log
@@ -122,7 +122,7 @@ module.exports = class extends think.controller.base {
     const data = {};
     data.code = 1;
     data.data = object;
-    data.time = moment.now();
+    data.time = timeUtil.nowMillisecond();
     this.type(this.config('json_content_type'));
 
     // 返回数据打log

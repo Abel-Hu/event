@@ -1,8 +1,4 @@
-/**
- * 全局加载 redis 集群
- * https://www.npmjs.com/package/ioredis
- * debug 指令 DEBUG=ioredis:* npm start
- */
+// 初始化redis
 const redisConfig = think.config('ioredis') || {};
 const { firstUpperCase } = requireCommon('string');
 const LOG = getLogger(__filename);
