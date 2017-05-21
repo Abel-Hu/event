@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/discover/index",
-    "pages/me/index"
+    "pages/me/index",
+    "pages/discover/index"
+
 
   ],
   "tabBar": {
