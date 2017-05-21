@@ -1,7 +1,7 @@
 /**
  * Created by ken on 2017/5/21.
  */
-const {regeneratorRuntime, Store} = getApp().vco
+const {regeneratorRuntime, Store} = wx.vco
 const LoginTimeOut = 604700 //  登陆过期时间 秒为单位 默认为 7天 ：604700
 const MzMemberKey = 'member' // 登陆缓存key
 const Api = {
@@ -10,11 +10,16 @@ const Api = {
 module.exports = class extends Store {
   state() {
     return {
-      member: {}
+      member: {},
+      ns: 'wechat/member',
+      get toMember() {
+        return JSON.stringify(this.member)
+      }
     }
   }
 
   * getMember() {
+    console.log('getmember')
     let member = yield wx.getStorage({key: MzMemberKey})
     member = member && member.data || {}
 
@@ -40,7 +45,7 @@ module.exports = class extends Store {
       const {userInfo, iv, signature, encryptedData, encryptData, rawData} = user
       member = userInfo
       member.code = code
-      console.log(userInfo, iv, signature, encryptedData, encryptData, rawData, code)
+      //console.log(userInfo, iv, signature, encryptedData, encryptData, rawData, code)
       /*let {object, code, message} = yield http.post(Api.login, { code, rawData, iv, encryptedData})
 
        if (code === 1) {
@@ -51,7 +56,7 @@ module.exports = class extends Store {
     }
     this.member = member
     //
-    getApp().member = member// 约定token
+    //getApp().member = member// 约定token
     return this.member
   }
 }
