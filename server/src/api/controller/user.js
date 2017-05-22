@@ -5,7 +5,7 @@ module.exports = class extends Base {
     super.init(...args);
 
     // 注入service
-    this.userService = requireService('user');
+    this.userService = requireService('user', 'api');
 
     // 白名单
     this.whiteList = ['login'];
