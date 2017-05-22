@@ -1,7 +1,7 @@
 {
-  "name": "event",
+  "name": "HiBeetleEvent",
   "description": "powered by ruanzhijun",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "scripts": {
     "start": "npm run eslint && node www/development.js",

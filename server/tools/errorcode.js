@@ -15,11 +15,11 @@ const filename = path.resolve(`${__dirname}${path.sep}..${path.sep}..${path.sep}
 const errorcodePath = path.resolve(`${__dirname}${path.sep}..${path.sep}src${path.sep}common${path.sep}errorcode${path.sep}zh`);
 
 // 组织文档内容
-let content = '# 错误码文档\r\n\r\n\r\n';
+let content = '';
+content += '# 错误码文档\r\n\r\n\r\n';
 
 // 遍历所有错误码文件夹，根据errorCode排好序
 const errorObj = {};
-const errorModule = {};
 const errorModuleName = {};
 fs.readdirSync(errorcodePath).filter((v) => {
   const file = `${errorcodePath}${path.sep}${v}`;
@@ -44,15 +44,15 @@ fs.readdirSync(errorcodePath).filter((v) => {
 Object.keys(errorObj).filter((module) => {
   const moduleName = errorModuleName[module];
   content += `### ${moduleName}(${module})\r\n\r\n`;
-  content += `错误码|错误描述\n`;
-  content += `--|--\n`;
+  content += '错误码|错误描述\n';
+  content += '--|--\n';
 
   const _errorObj = errorObj[module];
   Object.keys(_errorObj).filter((k) => {
     content += `${k}|${_errorObj[k]}\n`;
     return true;
   });
-  content += `\r\n\r\n`;
+  content += '\r\n\r\n';
   return true;
 });
 
