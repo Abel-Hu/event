@@ -3,7 +3,7 @@
  */
 const timeUtil = requireCommon('time');
 const path = require('path');
-require('mongoose-long')(mongodb);
+require('mongoose-long')(mongoose);
 
 module.exports = class extends think.model.base {
   // 最先执行
@@ -18,11 +18,11 @@ module.exports = class extends think.model.base {
       this.LOG = getLogger(channel);
 
       // 自动注册一个非严格的Schema，方便做爬虫
-      if (think.isEmpty(mongodb.modelSchemas[this.name])) {
-        const schema = new mongodb.Schema({}, { strict: false, versionKey: false });
-        this._model = mongodb.model(this.name, schema, this.name);
+      if (think.isEmpty(mongoose.modelSchemas[this.name])) {
+        const schema = new mongoose.Schema({}, { strict: false, versionKey: false });
+        this._model = mongoose.model(this.name, schema, this.name);
       } else {
-        this._model = mongodb.model(this.name);
+        this._model = mongoose.model(this.name);
       }
     } catch (e) {
       this.LOG.error(e);
