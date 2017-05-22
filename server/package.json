@@ -22,7 +22,7 @@
     "mongoose": "^4.9.5",
     "mongoose-long": "^0.1.1",
     "source-map-support": "0.4.0",
-    "thinkjs": "^2.2.18"
+    "thinkjs": "next"
   },
   "devDependencies": {
     "ava": "^0.19.0",
