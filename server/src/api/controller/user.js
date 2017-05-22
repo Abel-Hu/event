@@ -21,7 +21,7 @@ module.exports = class extends Base {
       return this.showError(E.USER.WXDATA_PARSE_ERROR);
     }
 
-    let user = await this.userService.create(wxdata, ip);
+    const user = await this.userService.create(wxdata, ip);
     const token = await this.encryptToken(user);
     const member = {};
     ['_id', 'nickName', 'avatarUrl', 'isVip'].filter((k) => {
