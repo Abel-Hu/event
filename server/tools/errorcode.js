@@ -11,8 +11,12 @@ global.ErrorCode = function (code, message) {
 const fs = require('fs');
 const path = require('path');
 
+const runtimeFile = path.resolve(`${__dirname}${path.sep}..${path.sep}runtime${path.sep}errorcode.json`);
 const filename = path.resolve(`${__dirname}${path.sep}..${path.sep}..${path.sep}接口文档${path.sep}2-错误码文档.MD`);
 const errorcodePath = path.resolve(`${__dirname}${path.sep}..${path.sep}src${path.sep}common${path.sep}errorcode${path.sep}zh`);
+
+// 读取上次的错误码内容
+const lastErrorCode = fs.readFileSync(runtimeFile).toString().trim();
 
 // 组织文档内容
 let content = '[返回公共文档](/接口文档/1-公共文档.MD)\r\n\r\n';
@@ -41,20 +45,28 @@ fs.readdirSync(errorcodePath).filter((v) => {
   return true;
 });
 
-Object.keys(errorObj).filter((module) => {
-  const moduleName = errorModuleName[module];
-  content += `### ${moduleName}(${module})\r\n\r\n`;
-  content += '错误码|错误描述\n';
-  content += '--|--\n';
+// 比较与上次是否不同，如果不同则重新生成，相同则退出
+const thisErrorCode = JSON.stringify(errorObj).trim();
+if (lastErrorCode !== thisErrorCode) {
+  // 遍历所有模块生成文档
+  Object.keys(errorObj).filter((module) => {
+    const moduleName = errorModuleName[module];
+    content += `### ${moduleName}(${module})\r\n\r\n`;
+    content += '错误码|错误描述\n';
+    content += '--|--\n';
 
-  const _errorObj = errorObj[module];
-  Object.keys(_errorObj).filter((k) => {
-    content += `${k}|${_errorObj[k]}\n`;
+    const _errorObj = errorObj[module];
+    Object.keys(_errorObj).filter((k) => {
+      content += `${k}|${_errorObj[k]}\n`;
+      return true;
+    });
+    content += '\r\n\r\n';
     return true;
   });
-  content += '\r\n\r\n';
-  return true;
-});
 
-// 写入文件
-fs.writeFileSync(filename, content);
+  // 写入文件
+  fs.writeFileSync(runtimeFile, thisErrorCode);
+  fs.writeFileSync(filename, content);
+
+  // 提交到github
+}
