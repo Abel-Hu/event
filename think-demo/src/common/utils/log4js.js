@@ -5,6 +5,7 @@ const fs = require('fs');
 const log4js = require('log4js');
 
 const logconfig = think.config('log4js');
+console.log(think);
 if (!fs.existsSync(logconfig.customBaseDir)) {
   think.mkdir(logconfig.customBaseDir);
 }
