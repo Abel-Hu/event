@@ -5,7 +5,7 @@ module.exports = class extends Base {
     super.init(...args);
 
     // 注入service
-    this.userService = requireService('user', 'api');
+    this.userService = requireService('user');
 
     // 白名单
     this.whiteList = ['login'];
@@ -27,11 +27,13 @@ module.exports = class extends Base {
     const member = {};
     ['_id', 'nickName', 'avatarUrl', 'isVip'].filter((k) => {
       member[k] = user[k];
+      console.log(member[k]);
       return true;
     });
     member.token = token;
     member.uid = member._id;
     delete member._id;
+    console.log(member);
     return this.success(member);
   }
 };

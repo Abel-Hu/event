@@ -51,7 +51,7 @@ global.requireThirdparty = function (plugins, modules) {
 /**
  * 全局获取srvice
  */
-global.requireService = function (service, module = '') {
+global.requireService = function (service, module) {
   const Service = think.service(service, module);
   return new Service();
 };
