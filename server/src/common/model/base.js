@@ -42,8 +42,8 @@ module.exports = class extends think.model.base {
    */
   async beforeAdd(data) {
     const tmp = data;
-    tmp.createTime = mongodb.Types.Long.fromNumber(timeUtil.nowMillisecond());
-    tmp.updateTime = mongodb.Types.Long.fromNumber(tmp.createTime);
+    tmp.createTime = mongoose.Types.Long.fromNumber(timeUtil.nowMillisecond());
+    tmp.updateTime = mongoose.Types.Long.fromNumber(tmp.createTime);
     return tmp;
   }
 
@@ -53,7 +53,7 @@ module.exports = class extends think.model.base {
    */
   async beforeUpdate(data) {
     const tmp = data;
-    tmp.updateTime = mongodb.Types.Long.fromNumber(timeUtil.nowMillisecond());
+    tmp.updateTime = mongoose.Types.Long.fromNumber(timeUtil.nowMillisecond());
     return tmp;
   }
 };
