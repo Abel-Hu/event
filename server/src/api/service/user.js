@@ -23,11 +23,6 @@ module.exports = class extends Base {
       user.isVip = vipConfig.indexOf(user.openId) > -1;
       user = await this.userModel.create(user);
     }
-    user = JSON.parse(JSON.stringify(user));
-    console.log(user);
-    user.uid = user._id;
-    delete user._id;
-    delete user.openId;
-    return user;
+    return JSON.parse(JSON.stringify(user));
   }
 };
