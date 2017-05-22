@@ -14,6 +14,15 @@ module.exports = class extends Base {
   }
 
   /**
+   * 根据uid获取用户
+   * @param uid 用户id
+   */
+  async getUserByUid(uid) {
+    const user = await this._model.findOne({ _id: uid });
+    return user;
+  }
+
+  /**
    * 根据openId获取用户
    * @param openId 微信小程序第三方id
    */

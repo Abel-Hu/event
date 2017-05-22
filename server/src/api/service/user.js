@@ -26,6 +26,7 @@ module.exports = class extends Base {
     user = JSON.parse(JSON.stringify(user));
     user.uid = user._id;
     delete user._id;
+    delete user.openId;
     return user;
   }
 };
