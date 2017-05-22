@@ -20,7 +20,7 @@
     "E": true,
     "think": true,
     "redis": true,
-    "mongodb": true,
+    "mongoose": true,
     "ErrorCode": true,
     "requireService": true,
     "requireCommon": true,
