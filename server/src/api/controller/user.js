@@ -27,7 +27,7 @@ module.exports = class extends Base {
     const member = {};
     ['_id', 'nickName', 'avatarUrl', 'isVip'].filter((k) => {
       member[k] = user[k];
-      console.log(member[k]);
+      console.log(k+'   '+user[k]);
       return true;
     });
     member.token = token;
