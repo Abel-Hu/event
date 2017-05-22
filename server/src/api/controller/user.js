@@ -22,6 +22,7 @@ module.exports = class extends Base {
     }
 
     const user = await this.userService.create(wxdata, ip);
+    console.log(user);
     const token = await this.encryptToken(user);
     const member = {};
     ['_id', 'nickName', 'avatarUrl', 'isVip'].filter((k) => {
