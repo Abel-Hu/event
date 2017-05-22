@@ -16,7 +16,7 @@ const filename = path.resolve(`${__dirname}${path.sep}..${path.sep}..${path.sep}
 const errorcodePath = path.resolve(`${__dirname}${path.sep}..${path.sep}src${path.sep}common${path.sep}errorcode${path.sep}zh`);
 
 // 读取上次的错误码内容
-const lastErrorCode = fs.readFileSync(runtimeFile).toString().trim();
+const lastErrorCode = fs.exists(runtimeFile) ? fs.readFileSync(runtimeFile).toString().trim() : '';
 
 // 组织文档内容
 let content = '[返回公共文档](/接口文档/1-公共文档.MD)\r\n\r\n';
@@ -69,6 +69,7 @@ if (lastErrorCode !== thisErrorCode) {
   fs.writeFileSync(filename, content);
 
   // 提交到github
+  const process = require('child_process');
   process.exec('ifconfig', function (error, stdout, stderr) {
     console.log(stdout);
   });
