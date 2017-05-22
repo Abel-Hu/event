@@ -70,7 +70,8 @@ if (lastErrorCode !== thisErrorCode) {
 
   // 提交到github
   const exec = require('child_process').exec;
-  exec(`cd ${path.dirname(filename)} && dir && git add . && git commit -m 自动生成错误码文档 && git push`, function (error, stdout) {
+  exec(`cd ${path.dirname(filename)} && dir && git add . && git commit -m 自动生成错误码文档 && git push`, (error, stdout) => {
     console.log(stdout);
+    return 1;
   });
 }
