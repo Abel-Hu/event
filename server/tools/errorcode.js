@@ -69,4 +69,7 @@ if (lastErrorCode !== thisErrorCode) {
   fs.writeFileSync(filename, content);
 
   // 提交到github
+  process.exec('ifconfig', function (error, stdout, stderr) {
+    console.log(stdout);
+  });
 }
