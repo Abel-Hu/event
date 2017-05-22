@@ -15,7 +15,7 @@ encryptedData	|是				|string			|微信小程序登录返回的加密数据
 ### 响应数据
 ```json
 "data":{
-    "openId": "xxxxx",			// 微信小程序第三方id
+    "uid": "5921d4c6ea3",			// 用户id
     "nickName": "小丸子",		// 微信昵称
     "avatarUrl": "http://xx/0",		// 微信头像(地址是微信的)
     "isVip": true,			// 是否为大V用户

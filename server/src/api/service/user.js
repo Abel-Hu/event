@@ -16,15 +16,16 @@ module.exports = class extends Base {
    */
   async create(wxdata, ip) {
     // 如果数据库有就不要创建了
-    const user = await this.userModel.getUserByOpenId(wxdata.openId);
-    if (!think.isEmpty(user)) {
-      return user;
+    let user = await this.userModel.getUserByOpenId(wxdata.openId);
+    if (think.isEmpty(user)) {
+      let tmp = wxdata;
+      tmp.ip = ip;
+      tmp.isVip = vipConfig.indexOf(tmp.openId) > -1;
+      user = await this.userModel.create(tmp);
     }
-
-    const tmp = wxdata;
-    tmp.ip = ip;
-    tmp.isVip = vipConfig.indexOf(tmp.openId) > -1;
-    await this.userModel.create(tmp);
-    return tmp;
+    user = JSON.parse(JSON.stringify(user));
+    user.uid = user._id;
+    delete user._id;
+    return user;
   }
 };

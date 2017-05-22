@@ -9,7 +9,8 @@ module.exports = class extends Base {
    */
   async create(data) {
     this.beforeAdd(data);
-    await this._model.create(data);
+    const user = await this._model.create(data);
+    return user;
   }
 
   /**

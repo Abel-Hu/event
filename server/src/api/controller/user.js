@@ -22,7 +22,6 @@ module.exports = class extends Base {
     }
 
     let user = await this.userService.create(wxdata, ip);
-    user = JSON.parse(JSON.stringify(user));
     user = await this.encryptToken(user);
     return this.success(user);
   }
