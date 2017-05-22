@@ -18,10 +18,10 @@ module.exports = class extends Base {
     // 如果数据库有就不要创建了
     let user = await this.userModel.getUserByOpenId(wxdata.openId);
     if (think.isEmpty(user)) {
-      let tmp = wxdata;
-      tmp.ip = ip;
-      tmp.isVip = vipConfig.indexOf(tmp.openId) > -1;
-      user = await this.userModel.create(tmp);
+      user = wxdata;
+      user.ip = ip;
+      user.isVip = vipConfig.indexOf(user.openId) > -1;
+      user = await this.userModel.create(user);
     }
     user = JSON.parse(JSON.stringify(user));
     user.uid = user._id;
