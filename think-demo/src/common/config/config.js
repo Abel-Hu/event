@@ -1,7 +1,42 @@
+const log4js = {
+  customBaseDir: `${think.ROOT_PATH}/log/`,
+  appenders: [
+    // 控制台分级别输出日志
+    {
+      type: 'categoryFilter',
+      compress: true,
+      exclude: [],
+      appender: {
+        type: 'console',
+      },
+    },
+    // {type: 'console'}, //控制台输出所有日志
+  ],
+  replaceConsole: true,
+  // ALL TRACE DEBUG INFO WARN ERROR FATAL OFF
+  levels: {
+    log_file: 'ALL',
+    console: 'info',
+    log_date: 'ALL',
+  },
+};
+
+// 本地开发环境没必要写日志
+if (think.app.env !== 'development') {
+  log4js.appenders.push({// 写文件
+    type: 'dateFile',
+    compress: true,
+    filename: `${think.ROOT_PATH}/log/${think.app.env}/`,
+    alwaysIncludePattern: true,
+    pattern: 'yyyy-MM-dd.log',
+  });
+}
+
 module.exports = {
-  workers: process.env.NODE_APP_INSTANCE,
+  workers: process.env.NUMBER_OF_PROCESSORS,
   log_request: true,  // 是否打印请求的日志
   log_level: 'ALL',
+  log4js,
   // mongodb配置
   mongodb: {
     host: '127.0.0.1',

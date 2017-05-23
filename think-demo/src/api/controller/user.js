@@ -1,3 +1,5 @@
+console.log(global);
+process.exit(1)
 const Base = requireBaseController();
 const wechatSDK = requireThirdparty('wechat');
 module.exports = class extends Base {

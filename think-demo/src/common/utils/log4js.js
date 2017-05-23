@@ -5,16 +5,19 @@ const fs = require('fs');
 const log4js = require('log4js');
 
 const logconfig = think.config('log4js');
-console.log(think.config());
-if (!fs.existsSync(logconfig.customBaseDir)) {
-  think.mkdir(logconfig.customBaseDir);
-}
-logconfig.appenders.filter((v) => {
-  if (v.filename && !fs.existsSync(v.filename)) {
-    think.mkdir(v.filename);
+
+// 本地开发环境没必要写日志
+if (think.app.env !== 'development') {
+  if (!fs.existsSync(logconfig.customBaseDir)) {
+    think.mkdir(logconfig.customBaseDir);
   }
-  return true;
-});
+  logconfig.appenders.filter((v) => {
+    if (v.filename && !fs.existsSync(v.filename)) {
+      think.mkdir(v.filename);
+    }
+    return true;
+  });
+}
 log4js.configure(logconfig);
 log4js.loadAppender('categoryFilter');
 /** 切换日志频道 不影响写日志操作

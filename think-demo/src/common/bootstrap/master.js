@@ -100,5 +100,5 @@ global.getLogger = function (channel = 'console') {
 };
 
 // 自动加载init文件夹里面的文件
-const dependDir = path.resolve(`${think.APP_PATH}${path.sep}common${path.sep}init`);
-fs.readdirSync(dependDir).filter(v => require(`${dependDir}${path.sep}${v}`));
+// const dependDir = path.resolve(`${think.APP_PATH}${path.sep}common${path.sep}init`);
+// fs.readdirSync(dependDir).filter(v => require(`${dependDir}${path.sep}${v}`));
