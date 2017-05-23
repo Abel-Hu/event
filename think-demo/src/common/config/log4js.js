@@ -1,6 +1,7 @@
 /**
  * Created by ken on 16/8/8.
  */
+console.log(11);
 const config = think.config();
 const logconfig = {
   customBaseDir: `${think.RUNTIME_PATH}/log/`,
@@ -29,7 +30,6 @@ const logconfig = {
 if (think.env !== 'development') {
   logconfig.appenders.push({// 写文件
     type: 'dateFile',
-    compress: true,
     filename: `${think.RUNTIME_PATH}/log/${think.env}/`,
     alwaysIncludePattern: true,
     pattern: 'yyyy-MM-dd.log',

@@ -1,5 +1,5 @@
 module.exports = {
-  workers: 4,
+  workers: process.env.NODE_APP_INSTANCE,
   log_request: true,  // 是否打印请求的日志
   log_level: 'ALL',
   // mongodb配置
