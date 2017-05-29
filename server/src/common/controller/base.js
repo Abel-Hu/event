@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const privateCert = fs.readFileSync(`${think.ROOT_PATH}/cert/private.pem`, 'utf-8');
 const publicCert = fs.readFileSync(`${think.ROOT_PATH}/cert/public.pem`, 'utf-8');
 const timeUtil = requireCommon('time');
-const configHost = think.config('host');
 
 module.exports = class extends think.controller.base {
 
