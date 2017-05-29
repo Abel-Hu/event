@@ -12,6 +12,11 @@ module.exports = class extends Base {
     this.userModel = this.model('user');
   }
 
+  async t() {
+    const xxx = await this.userModel.create({ a: 1, b: 2 });
+    console.log(xxx);
+  }
+
   /**
    * 创建用户
    * @param wxdata 微信小程序登录数据

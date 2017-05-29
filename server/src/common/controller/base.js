@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const privateCert = fs.readFileSync(`${think.ROOT_PATH}/cert/private.pem`, 'utf-8');
 const publicCert = fs.readFileSync(`${think.ROOT_PATH}/cert/public.pem`, 'utf-8');
 const timeUtil = requireCommon('time');
+const configHost = think.config('host');
 
 module.exports = class extends think.controller.base {
 
@@ -31,6 +32,12 @@ module.exports = class extends think.controller.base {
     if (method === 'options') {
       this.end();
       return;
+    }
+
+    // 根据header的host，判断有没有访问错环境
+    if (configHost !== this.header('host')) {
+      this.LOG.error(`error request env, configHost: ${configHost}, header host: ${this.header('host')}`);
+      return this.showError(ERROR.SYSTEM.SYSTEM_NOT_FIND_RESPONSE_ERROR);
     }
 
     // 鉴权白名单

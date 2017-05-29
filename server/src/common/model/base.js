@@ -30,13 +30,6 @@ module.exports = class extends think.model.base {
   }
 
   /**
-   * 获取本表实例
-   */
-  getModel() {
-    return this._model;
-  }
-
-  /**
    * 添加前aop实现
    * @param data 待添加的数据
    */
