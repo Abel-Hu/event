@@ -37,7 +37,8 @@ module.exports = class extends think.controller.base {
     // 根据header的host，判断有没有访问错环境
     if (configHost !== this.header('host')) {
       this.LOG.error(`error request env, configHost: ${configHost}, header host: ${this.header('host')}`);
-      return this.showError(ERROR.SYSTEM.SYSTEM_NOT_FIND_RESPONSE_ERROR);
+      this.showError(ERROR.SYSTEM.SYSTEM_NOT_FIND_RESPONSE_ERROR);
+      return;
     }
 
     // 鉴权白名单
