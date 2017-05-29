@@ -34,36 +34,48 @@ module.exports = class extends think.controller.base {
     }
 
     // 会员对象初始化
-    this.member = {};
+    this.member = null;
 
     // 鉴权白名单初始化
     this.whiteList = [];
   }
 
+  // 最先执行
+  async __before() {
+    const ok = await this.auth();
+    if (ok !== true) {
+      return this.showError(ERROR.SYSTEM.SYSTEM_NOT_FIND_RESPONSE_ERROR);
+    }
+  }
+
   /**
    * 执行鉴权逻辑
    */
-  async _before() {
+  async auth() {
     // 白名单内不鉴权
     if (this.whiteList.indexOf(this.http.action) > -1) {
-      return;
+      return true;
     }
 
     // 解析token
-    const token = this.header('token').trim();
+    const token = this.header('token').trim() || '';
     this.member = await this.decryptToken(token);
     if (think.isEmpty(this.member)) {
-      this.showError(ERROR.SYSTEM.SYSTEM_NOT_FIND_RESPONSE_ERROR);
-      return;
+      return false;
     }
+
+    // 打印jwt解析出来的数据
+    this.LOG.trace(`decoded jwt data: ${JSON.stringify(this.member)}`);
 
     // 判断token环境
     const ip = this.ip();
     if (this.member.env !== think.env) {
       this.LOG.warn(`token env error, client token env: ${this.member.env}, server token env: ${think.env}, ip: ${ip}`);
       this.showError(ERROR.SYSTEM.SYSTEM_NOT_FIND_RESPONSE_ERROR);
-      return;
+      return false;
     }
+
+    return true;
   }
 
   /**
@@ -90,13 +102,17 @@ module.exports = class extends think.controller.base {
    * @param token 鉴权凭证
    */
   async decryptToken(token) {
+    if (think.isEmpty(token)) {
+      this.LOG.error(`token is empty, ip: ${this.ip()}`);
+      return null;
+    }
     try {
       const json = await jwt.verify(token, publicCert);
       delete json.iat;
       delete json.exp;
       return json;
     } catch (e) {
-      this.LOG.error(`token decrypt error, ip: ${this.ip()}`);
+      this.LOG.error(`token decrypt error, token: ${token}, ip: ${this.ip()}`);
       this.LOG.error(e);
       return null;
     }

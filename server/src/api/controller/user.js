@@ -1,5 +1,6 @@
 const Base = requireBaseController();
 const wechatSDK = requireThirdparty('wechat');
+
 module.exports = class extends Base {
   init(...args) {
     super.init(...args);
@@ -12,7 +13,7 @@ module.exports = class extends Base {
   }
 
   async tAction() {
-    await this.userService.t();
+    console.log(111);
     return this.success(1);
   }
 
@@ -23,7 +24,7 @@ module.exports = class extends Base {
     const ip = this.ip();
     const wxdata = await wechatSDK.wxLoginDataDataDecrypt(this.param());
     if (think.isEmpty(wxdata)) {
-      return this.showError(ERROR.USER.WXDATA_PARSE_ERROR);
+      //return this.showError(ERROR.USER.WXDATA_PARSE_ERROR);
     }
 
     const user = await this.userService.create(wxdata, ip);
