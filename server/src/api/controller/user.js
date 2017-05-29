@@ -1,5 +1,6 @@
 const Base = requireBaseController();
 const wechatSDK = requireThirdparty('wechat');
+const jwtConfig = think.config('jwt');
 
 module.exports = class extends Base {
   init(...args) {
@@ -24,11 +25,12 @@ module.exports = class extends Base {
     const ip = this.ip();
     const wxdata = await wechatSDK.wxLoginDataDataDecrypt(this.param());
     if (think.isEmpty(wxdata)) {
-      //return this.showError(ERROR.USER.WXDATA_PARSE_ERROR);
+      return this.showError(ERROR.USER.WXDATA_PARSE_ERROR);
     }
 
     const user = await this.userService.create(wxdata, ip);
-    const token = await this.encryptToken(user);
+    user.env = think.env;
+    const token = await think.jwt.encrypt(user, jwtConfig.expire);
     const member = {};
     ['_id', 'nickName', 'avatarUrl', 'isVip'].filter((k) => {
       member[k] = user[k];

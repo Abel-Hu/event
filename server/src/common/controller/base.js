@@ -1,8 +1,3 @@
-const fs = require('fs');
-const jwt = require('jsonwebtoken');
-
-const privateCert = fs.readFileSync(`${think.ROOT_PATH}/cert/private.pem`, 'utf-8');
-const publicCert = fs.readFileSync(`${think.ROOT_PATH}/cert/public.pem`, 'utf-8');
 const timeUtil = requireCommon('time');
 
 module.exports = class extends think.controller.base {
@@ -46,6 +41,7 @@ module.exports = class extends think.controller.base {
     if (ok !== true) {
       return this.showError(ERROR.SYSTEM.SYSTEM_NOT_FIND_RESPONSE_ERROR);
     }
+    return true;
   }
 
   /**
@@ -59,7 +55,7 @@ module.exports = class extends think.controller.base {
 
     // 解析token
     const token = this.header('token').trim() || '';
-    this.member = await this.decryptToken(token);
+    this.member = await think.jwt.decrypt(token);
     if (think.isEmpty(this.member)) {
       return false;
     }
@@ -84,38 +80,6 @@ module.exports = class extends think.controller.base {
   ip() {
     const ipArray = this.header('X-Forwarded-For').split(',') || [];
     return ipArray[ipArray.length - 1].trim() || '0.0.0.0';
-  }
-
-  /**
-   * 生成token
-   * @param data 要加密的数据
-   * @param expiresIn 过期时间(单位：秒)
-   */
-  async encryptToken(data, expiresIn = 86400) {
-    think.extend(data, { env: think.env });
-    const token = await jwt.sign(data, privateCert, { algorithm: 'RS256', expiresIn });
-    return token;
-  }
-
-  /**
-   * 解析token
-   * @param token 鉴权凭证
-   */
-  async decryptToken(token) {
-    if (think.isEmpty(token)) {
-      this.LOG.error(`token is empty, ip: ${this.ip()}`);
-      return null;
-    }
-    try {
-      const json = await jwt.verify(token, publicCert);
-      delete json.iat;
-      delete json.exp;
-      return json;
-    } catch (e) {
-      this.LOG.error(`token decrypt error, token: ${token}, ip: ${this.ip()}`);
-      this.LOG.error(e);
-      return null;
-    }
   }
 
   /**
