@@ -7,7 +7,7 @@ module.exports = {
     port: 27017,
     user: 'house',
     pass: 'house',
-    database: 'event',
+    database: 'event_dev',
   },
   // redis配置
   // ioredis: {

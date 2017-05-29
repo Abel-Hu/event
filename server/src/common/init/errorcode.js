@@ -2,7 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 
-global.E = {};
+global.ERROR = {};
 const basePath = path.resolve(`${__dirname}${path.sep}..${path.sep}errorcode`);
 fs.readdirSync(basePath).filter((lang) => {
   const object = {};
@@ -18,6 +18,6 @@ fs.readdirSync(basePath).filter((lang) => {
     });
     return true;
   });
-  global.E = object;
+  global.ERROR = object;
   return true;
 });

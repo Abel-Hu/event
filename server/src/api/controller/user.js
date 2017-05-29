@@ -18,7 +18,7 @@ module.exports = class extends Base {
     const ip = this.ip();
     const wxdata = await wechatSDK.wxLoginDataDataDecrypt(this.param());
     if (think.isEmpty(wxdata)) {
-      return this.showError(E.USER.WXDATA_PARSE_ERROR);
+      return this.showError(ERROR.USER.WXDATA_PARSE_ERROR);
     }
 
     const user = await this.userService.create(wxdata, ip);

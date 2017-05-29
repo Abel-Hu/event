@@ -17,7 +17,7 @@
     "mocha": true
   },
   "globals": {
-    "E": true,
+    "ERROR": true,
     "think": true,
     "redis": true,
     "mongoose": true,

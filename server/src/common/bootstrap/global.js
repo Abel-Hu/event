@@ -33,13 +33,6 @@ global.requireBaseController = function () {
 };
 
 /**
- * 全局获取commonService
- */
-global.requireCommonService = function () {
-  return require(`${commonpath}/service/common_service`) || null;
-};
-
-/**
  * 获取全局第三方sdk
  * @param plugins 第三方sdk库名
  * @param modules 厂商名
