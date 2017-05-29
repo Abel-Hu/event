@@ -5,6 +5,9 @@ module.exports = class extends Base {
   init(...args) {
     super.init(...args);
 
+    // 约定第一个参数是控制器对象
+    this.controller = args[0][0];
+
     // 注入model
     this.userModel = this.model('user');
   }

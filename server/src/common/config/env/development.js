@@ -30,5 +30,5 @@ module.exports = {
   vip: [
     'om0oZ0R0ESHEW_2_d-2nZTOy1AsM',
   ],
-  port: 9394,
+  port: 59394,
 };

@@ -43,10 +43,13 @@ global.requireThirdparty = function (plugins, modules) {
 
 /**
  * 全局获取srvice
+ * @param service service名
+ * @param module 所属模块名
+ * @param agrs service类初始化参数
  */
-global.requireService = function (service, module) {
+global.requireService = function (service, module, ...agrs) {
   const Service = think.service(service, module);
-  return new Service();
+  return new Service(agrs);
 };
 
 /**

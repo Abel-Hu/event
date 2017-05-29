@@ -17,9 +17,9 @@ module.exports = class extends think.model.base {
       const channel = `${arr[1]}.${arr[2]}.${think.camelCase(arr[3].replace('.js', ''))}`;
       this.LOG = getLogger(channel);
 
-      // 自动注册一个非严格的Schema，方便做爬虫
+      // 自动注册一个非严格的Schema
       if (think.isEmpty(mongoose.modelSchemas[this.name])) {
-        const schema = new mongoose.Schema({}, { strict: false, versionKey: false });
+        const schema = new mongoose.Schema({/** _id: mongoose.Types.Long **/}, { strict: false, versionKey: false });
         this._model = mongoose.model(this.name, schema, this.name);
       } else {
         this._model = mongoose.model(this.name);
@@ -42,6 +42,7 @@ module.exports = class extends think.model.base {
    */
   async beforeAdd(data) {
     const tmp = data;
+    //tmp._id = mongoose.Types.Long.fromNumber(timeUtil.nowMillisecond());
     tmp.createTime = mongoose.Types.Long.fromNumber(timeUtil.nowMillisecond());
     tmp.updateTime = mongoose.Types.Long.fromNumber(tmp.createTime);
     return tmp;

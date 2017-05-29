@@ -1,11 +1,12 @@
 const Base = requireBaseController();
 const wechatSDK = requireThirdparty('wechat');
+
 module.exports = class extends Base {
   init(...args) {
     super.init(...args);
 
     // 注入service
-    this.userService = requireService('user', 'api');
+    this.userService = requireService('user', 'api', this);
 
     // 白名单
     this.whiteList = ['login'];
