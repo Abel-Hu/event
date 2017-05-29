@@ -1,5 +1,4 @@
 module.exports = {
-  host: 'testevent.ruanzhijun.cn',
   log_request: true,  // 是否打印请求的日志
   log_level: 'ALL',
   // mongodb配置
