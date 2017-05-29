@@ -1,8 +1,8 @@
 {
   "apps": [
     {
-      "name": "HiBeetleEvent",
-      "script": "www/production.js",
+      "name": "HiBeetleEvent-test",
+      "script": "www/development.js",
       "cwd": "/srv/event/server",
       "exec_mode": "cluster",
       "instances": 1,
