@@ -55,7 +55,7 @@ module.exports = class extends think.controller.base {
 
     // 解析token
     const token = this.header('token').trim() || '';
-    this.member = await think.jwt.decrypt(token);
+    this.member = await jwt.decrypt(token);
     if (think.isEmpty(this.member)) {
       return false;
     }

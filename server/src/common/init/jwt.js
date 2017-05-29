@@ -1,3 +1,4 @@
+// 实例化jwt对象
 const Jwt = requireCommon('jwt');
 const config = think.config('jwt');
-think.jwt = new Jwt(config.publicCert, config.privateCert);
+global.jwt = new Jwt(config.publicCert, config.privateCert);

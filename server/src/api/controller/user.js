@@ -30,7 +30,7 @@ module.exports = class extends Base {
 
     const user = await this.userService.create(wxdata, ip);
     user.env = think.env;
-    const token = await think.jwt.encrypt(user, jwtConfig.expire);
+    const token = await jwt.encrypt(user, jwtConfig.expire);
     const member = {};
     ['_id', 'nickName', 'avatarUrl', 'isVip'].filter((k) => {
       member[k] = user[k];

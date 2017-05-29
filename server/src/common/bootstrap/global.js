@@ -11,19 +11,6 @@ const commonpath = think.getPath('common', '');
 global.requireCommon = function (plugins, dir = 'utils') {
   return require(`${commonpath}${dir}/${plugins}`) || null;
 };
-/**
- * 集群队列执行模式
- * 获取当前实例id 默认为0
- * @type {number}
- */
-process.env.NODE_APP_INSTANCE = parseInt(process.env.NODE_APP_INSTANCE, 10) || 0;
-global.ClusterQueue = function (cb) {
-  if (think.isFunction(cb) || process.env.NODE_APP_INSTANCE !== 0) {
-    return;
-  }
-
-  cb();
-};
 
 /**
  * 获取base controller
