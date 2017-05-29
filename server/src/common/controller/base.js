@@ -33,8 +33,37 @@ module.exports = class extends think.controller.base {
       return;
     }
 
-    // 鉴权白名单
+    // 会员对象初始化
+    this.member = {};
+
+    // 鉴权白名单初始化
     this.whiteList = [];
+  }
+
+  /**
+   * 执行鉴权逻辑
+   */
+  async _before() {
+    // 白名单内不鉴权
+    if (this.whiteList.indexOf(this.http.action) > -1) {
+      return;
+    }
+
+    // 解析token
+    const token = this.header('token').trim();
+    this.member = await this.decryptToken(token);
+    if (think.isEmpty(this.member)) {
+      this.showError(ERROR.SYSTEM.SYSTEM_NOT_FIND_RESPONSE_ERROR);
+      return;
+    }
+
+    // 判断token环境
+    const ip = this.ip();
+    if (this.member.env !== think.env) {
+      this.LOG.warn(`token env error, client token env: ${this.member.env}, server token env: ${think.env}, ip: ${ip}`);
+      this.showError(ERROR.SYSTEM.SYSTEM_NOT_FIND_RESPONSE_ERROR);
+      return;
+    }
   }
 
   /**
@@ -51,25 +80,25 @@ module.exports = class extends think.controller.base {
    * @param expiresIn 过期时间(单位：秒)
    */
   async encryptToken(data, expiresIn = 86400) {
-    const token = await jwt.sign(data || {}, privateCert, { algorithm: 'RS256', expiresIn });
+    think.extend(data, { env: think.env });
+    const token = await jwt.sign(data, privateCert, { algorithm: 'RS256', expiresIn });
     return token;
   }
 
   /**
-   * token解析
-   * @param token
+   * 解析token
+   * @param token 鉴权凭证
    */
   async decryptToken(token) {
     try {
       const json = await jwt.verify(token, publicCert);
-      delete json.env;
       delete json.iat;
       delete json.exp;
       return json;
     } catch (e) {
+      this.LOG.error(`token decrypt error, ip: ${this.ip()}`);
       this.LOG.error(e);
-      this.http.status(403);
-      return this.showError('SYSTEM_REQUEST_FAILE_ERROR', 80);
+      return null;
     }
   }
 
