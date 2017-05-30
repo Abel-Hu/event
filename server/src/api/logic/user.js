@@ -17,8 +17,7 @@ module.exports = class extends think.logic.base {
     this.allowMethods = 'post';
     this.rules = {
       nickName: 'string',
-      mobile: 'string',
-      avatarUrl: 'string',
+      mobile: 'string|mobile:zh-CN',
       birthday: 'string|before',
       sex: 'int|in:1,2',
     };

@@ -68,7 +68,7 @@ module.exports = {
   validate_minLength: '{name} need length is max than {args}',
   validate_maxLength: '{name} 长度不能超过 {args} 个字符',
   validate_lowercase: '{name} need is lowercase',
-  validate_mobile: '{name} need is a mobile phone number',
+  validate_mobile: '{name} 的格式不正确',
   validate_mongoId: '{name} need is a valid hex-encoded representation of a MongoDB ObjectId',
   validate_multibyte: '{name} need contains one or more multibyte chars',
   validate_url: '{name} need an URL',

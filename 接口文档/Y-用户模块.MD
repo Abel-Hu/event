@@ -53,7 +53,6 @@ encryptedData	|是				|string			|微信小程序登录返回的加密数据
 nickName 		|否				|string			|用户昵称
 mobile 			|否				|string			|用户手机
 birthday 		|否				|string			|用户生日(格式：1990-11-12)
-avatarUrl 		|否				|string			|用户头像
 sex		 		|否				|int			|用户性别(1-男 2-女)
 
 
