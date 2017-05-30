@@ -17,6 +17,8 @@ encryptedData	|是				|string			|微信小程序登录返回的加密数据
 "data":{
     "uid": "5921d4c6ea3",		// 用户id
     "nickName": "小丸子",		// 微信昵称
+	"mobile":"13800138000",		// 用户手机
+	"sex":2,		// 用户性别(1-男 2-女)
     "avatarUrl": "http://xx/0",		// 微信头像(地址是微信的)
     "isVip": true,			// 是否为大V用户
     "token": "xxxxxxxxxx"		// 登录成功后，服务器颁发的token，用于后续的请求
@@ -33,8 +35,9 @@ encryptedData	|是				|string			|微信小程序登录返回的加密数据
 "data":{
     "uid": "5921d4c6ea3",		// 用户id
     "nickName": "小丸子",		// 微信昵称
+	"mobile":"13800138000",		// 用户手机
+	"sex":2,		// 用户性别(1-男 2-女)
     "avatarUrl": "http://xx/0",		// 微信头像(地址是微信的)
-    "isVip": true,			// 是否为大V用户
-    "token": "xxxxxxxxxx"		// 登录成功后，服务器颁发的token，用于后续的请求
+    "isVip": true			// 是否为大V用户
 }
 ```

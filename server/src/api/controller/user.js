@@ -25,23 +25,16 @@ module.exports = class extends Base {
     }
 
     const user = await this.userService.create(wxdata, ip);
-    user.env = think.env;
-    const token = await jwt.encrypt(user, jwtConfig.expire);
-    const member = {};
-    ['_id', 'nickName', 'avatarUrl', 'isVip'].filter((k) => {
-      member[k] = user[k];
-      return true;
-    });
-    member.token = token;
-    member.uid = member._id;
-    delete member._id;
-    return this.success(member);
+    think.extend(user, { env: think.env });
+    think.extend(user, { token: await jwt.encrypt(user, jwtConfig.expire) });
+    delete user.env;
+    return this.success(user);
   }
 
   /**
    * 用户个人资料
    */
   async infoAction() {
-    return this.success(1);
+    return this.success(this.member);
   }
 };

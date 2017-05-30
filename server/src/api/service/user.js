@@ -23,17 +23,46 @@ module.exports = class extends Base {
     if (think.isEmpty(user)) {
       user = wxdata;
       user.ip = ip;
+      user.sex = wxdata.gender;
       user.isVip = vipConfig.indexOf(user.openId) > -1;
       user = await this.userModel.create(user);
     }
-    return JSON.parse(JSON.stringify(user));
+    return this.makeUserInfo(user);
   }
 
   /**
-   * 根据用户个人资料
+   * 根据uid获取用户个人资料
    * @param uid 用户id
    */
-  async info(uid) {
+  async getUserInfoByUid(uid) {
+    const user = await this.userModel.getUserByUid(uid);
+    return this.makeUserInfo(user);
+  }
 
+  /**
+   * 根据openId获取用户个人资料
+   * @param openId 微信小程序第三方id
+   */
+  async getUserInfoByOpenId(openId) {
+    const user = await this.userModel.getUserByOpenId(openId);
+    return this.makeUserInfo(user);
+  }
+
+  /**
+   * 生成用户个人资料
+   * @param user 用户对象
+   */
+  makeUserInfo(user) {
+    if (think.isEmpty(user)) {
+      return null;
+    }
+    let member = {};
+    ['_id', 'nickName', 'avatarUrl', 'isVip', 'sex', 'mobile'].filter((k) => {
+      member[k] = user[k];
+      return true;
+    });
+    member.uid = member._id;
+    delete member._id;
+    return member;
   }
 };

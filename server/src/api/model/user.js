@@ -10,7 +10,7 @@ module.exports = class extends Base {
   async create(data) {
     this.beforeAdd(data);
     const user = await this._model.create(data);
-    return user;
+    return JSON.parse(JSON.stringify(user));
   }
 
   /**
@@ -19,7 +19,7 @@ module.exports = class extends Base {
    */
   async getUserByUid(uid) {
     const user = await this._model.findOne({ _id: uid });
-    return user;
+    return JSON.parse(JSON.stringify(user));
   }
 
   /**
@@ -28,6 +28,6 @@ module.exports = class extends Base {
    */
   async getUserByOpenId(openId) {
     const user = await this._model.findOne({ openId });
-    return user;
+    return JSON.parse(JSON.stringify(user));
   }
 };
