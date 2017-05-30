@@ -25,5 +25,7 @@ module.exports = class extends Base {
       this.LOG.warn(`startTime can not less then endTime, startTime: ${startTime}, endTime: ${endTime}`);
       return this.fail('活动的开始时间不能小于等于结束时间');
     }
+
+    return true;
   }
 };

@@ -33,6 +33,14 @@ module.exports = {
    */
   mobile: { type: String, default: '' },
   /**
+   * 发布的活动数
+   */
+  eventPublishs: { type: Number, default: 0 },
+  /**
+   * 参加的活动数
+   */
+  eventJoins: { type: Number, default: 0 },
+  /**
    * 用户注册时的ip
    */
   ip: { type: String, default: '' },
