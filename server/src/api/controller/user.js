@@ -34,7 +34,9 @@ module.exports = class extends Base {
    * 用户个人资料
    */
   async infoAction() {
-    return this.success(this.member);
+    const uid = this.param('uid') || this.member.uid;
+    const user = await this.userService.getUserInfoByUid(uid);
+    return this.success(user);
   }
 
   /**

@@ -60,9 +60,7 @@ module.exports = class extends Base {
    * @param uid 一堆uid
    */
   async makeUserBase(...uid) {
-    const promiseArray = uid.map((v) => {
-      return this.getUserInfoByUid(v);
-    });
+    const promiseArray = uid.map(v => this.getUserInfoByUid(v));
 
     const matcher = ['uid', 'nickName', 'sex', 'avatarUrl', 'isVip'];
     const promiseResult = await Promise.all(promiseArray);
