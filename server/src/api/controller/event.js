@@ -14,12 +14,12 @@ module.exports = class extends Base {
   async publishAction() {
     const title = this.param('title');
     const description = this.param('description');
-    const images = this.param('images');
+    const images = JSON.stringify(this.param('images'));
     const longitude = this.param('longitude');
     const latitude = this.param('latitude');
     const startTime = this.param('startTime');
     const endTime = this.param('endTime');
-    const joinLimit = this.param('peoples');
+    const joinLimit = this.param('joinLimit');
     const deadline = this.param('deadline');
     const event = await this.eventService.publish(this.member.uid, title, description, images, longitude, latitude, startTime, endTime, joinLimit, deadline);
     return this.success(event.eventId);

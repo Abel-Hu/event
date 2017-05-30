@@ -34,8 +34,10 @@ module.exports = class extends Base {
       startTime: timeUtil.str2time(startTime),
       endTime: timeUtil.str2time(endTime),
       joinLimit,
-      deadline,
+      deadline: timeUtil.str2time(deadline),
     });
+    event.eventId = event._id;
+    delete event._id;
     return event;
   }
 };
