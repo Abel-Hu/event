@@ -23,7 +23,7 @@ module.exports = class extends Base {
     const et = timeUtil.str2time(endTime);
     if (st >= et) {
       this.LOG.warn(`startTime can not less then endTime, startTime: ${startTime}, endTime: ${endTime}`);
-      return this.fail('活动的开始时间不能小于等于结束时间');
+      return this.showError(ERROR.EVENT.TIME_ERROR);
     }
 
     return true;

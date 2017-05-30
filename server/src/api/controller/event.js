@@ -12,6 +12,11 @@ module.exports = class extends Base {
    * 用户发布活动
    */
   async publishAction() {
+    // 只有大V才可以发布活动
+    if (!this.member.isVip) {
+      return this.showError(ERROR.EVENT.ONLY_VIP_CAN_PUBLISH);
+    }
+
     const title = this.param('title');
     const description = this.param('description');
     const images = JSON.stringify(this.param('images'));
