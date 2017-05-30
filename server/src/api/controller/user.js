@@ -41,7 +41,18 @@ module.exports = class extends Base {
    * 修改用户个人资料
    */
   async updateAction() {
-    const user = await this.userService.updateUserInfo(this.member.uid, this.param());
+    const nickName = this.param('nickName');
+    const mobile = this.param('mobile');
+    const birthday = this.param('birthday');
+    const sex = this.param('sex');
+    const description = this.param('description');
+    const user = await this.userService.updateUserInfo(this.member.uid, {
+      nickName,
+      mobile,
+      birthday,
+      sex,
+      description,
+    });
     think.extend(user, { env: think.env });
     think.extend(user, { token: await jwt.encrypt(user, jwtConfig.expire) });
     delete user.env;

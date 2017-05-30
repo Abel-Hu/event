@@ -23,6 +23,7 @@ encryptedData	|是				|string			|微信小程序登录返回的加密数据
 	"sex":2,		// 用户性别(1-男 2-女)
     "avatarUrl": "http://xx/0",		// 微信头像(地址是微信的)
     "isVip": true,			// 是否为大V用户
+	"description":"哈哈哈",	// 个性签名
     "token": "xxxxxxxxxx"		// 登录成功后，服务器颁发的token，用于后续的请求
 }
 ```
@@ -41,7 +42,8 @@ encryptedData	|是				|string			|微信小程序登录返回的加密数据
 	"birthday":"1990-11-12",	// 用户生日
 	"sex":2,		// 用户性别(1-男 2-女)
     "avatarUrl": "http://xx/0",		// 微信头像(地址是微信的)
-    "isVip": true			// 是否为大V用户
+    "isVip": true,			// 是否为大V用户
+	"description":"哈哈哈"	// 个性签名
 }
 ```
 
@@ -54,6 +56,7 @@ nickName 		|否				|string			|用户昵称
 mobile 			|否				|string			|用户手机
 birthday 		|否				|date			|用户生日(格式：1990-11-12)
 sex		 		|否				|int			|用户性别(1-男 2-女)
+description		|否				|string			|个性签名
 
 
 ### 响应数据
@@ -66,6 +69,7 @@ sex		 		|否				|int			|用户性别(1-男 2-女)
 	"sex":2,		// 用户性别(1-男 2-女)
     "avatarUrl": "http://xx/0",		// 微信头像(地址是微信的)
     "isVip": true,			// 是否为大V用户
+	"description":"哈哈哈",	// 个性签名
     "token": "xxxxxxxxxx"		// 用户个人资料修改成功后，服务器更新token，请覆盖本地的token
 }
 ```

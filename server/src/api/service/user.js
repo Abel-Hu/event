@@ -64,7 +64,7 @@ module.exports = class extends Base {
       return null;
     }
     const member = {};
-    ['_id', 'nickName', 'avatarUrl', 'isVip', 'sex', 'mobile', 'birthday'].filter((k) => {
+    ['_id', 'nickName', 'avatarUrl', 'isVip', 'sex', 'mobile', 'birthday', 'description'].filter((k) => {
       member[k] = user[k];
       return true;
     });

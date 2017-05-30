@@ -5,13 +5,23 @@ module.exports = class extends Base {
     super.init(...args);
 
     // 注入service
-    this.userService = requireService('user', 'api', this);
+    this.eventService = requireService('event', 'api', this);
   }
 
   /**
    * 用户发布活动
    */
   async publishAction() {
-    return this.success(1);
+    const title = this.param('title');
+    const description = this.param('description');
+    const images = this.param('images');
+    const longitude = this.param('longitude');
+    const latitude = this.param('latitude');
+    const startTime = this.param('startTime');
+    const endTime = this.param('endTime');
+    const peoples = this.param('peoples');
+    const deadline = this.param('deadline');
+    const event = await this.eventService.publish(this.member.uid, title, description, images, longitude, latitude, startTime, endTime, peoples, deadline);
+    return this.success(event.eventId);
   }
 };

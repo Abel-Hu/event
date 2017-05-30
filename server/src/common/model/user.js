@@ -13,6 +13,10 @@ module.exports = {
    */
   avatarUrl: { type: String, default: '' },
   /**
+   * 个性签名
+   */
+  description: { type: String, default: '' },
+  /**
    * 用户性别(1-男 2-女)
    */
   sex: { type: Number, default: 2 },

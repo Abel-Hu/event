@@ -11,6 +11,10 @@ module.exports = {
    */
   title: { type: String, default: '' },
   /**
+   * 活动详情
+   */
+  description: { type: String, default: '' },
+  /**
    * 活动图片
    */
   images: { type: String, default: '[]' },
@@ -26,6 +30,10 @@ module.exports = {
    * 活动开始时间
    */
   startTime: { type: mongoose.Types.Long, default: 0 },
+  /**
+   * 活动结束时间
+   */
+  endTime: { type: mongoose.Types.Long, default: 0 },
   /**
    * 报名人数上限
    */

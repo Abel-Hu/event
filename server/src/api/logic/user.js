@@ -20,6 +20,7 @@ module.exports = class extends think.logic.base {
       mobile: 'string|mobile:zh-CN',
       birthday: 'string|before',
       sex: 'int|in:1,2',
+      description: 'string',
     };
   }
 };
