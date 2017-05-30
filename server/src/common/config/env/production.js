@@ -26,5 +26,9 @@ module.exports = {
     // 微信小程序appSecret
     wxAppSecret: '87b22656dabe2731c02d1b9a854e9bc0',
   },
+  // 建站初期，大V的openId
+  vip: [
+    'om0oZ0R0ESHEW_2_d-2nZTOy1AsM',
+  ],
   port: 9394,
 };

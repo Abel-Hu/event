@@ -1,12 +1,7 @@
 const path = require('path');
 const fs = require('fs');
-const { toInteger } = require('lodash');
 global.Promise = require('bluebird');
-global.moment = require('moment');
-/**
- *全局moment 暴露
- * http://momentjs.cn/
- */
+
 const commonpath = think.getPath('common', '');
 /**
  * 获取全局工具
@@ -16,53 +11,12 @@ const commonpath = think.getPath('common', '');
 global.requireCommon = function (plugins, dir = 'utils') {
   return require(`${commonpath}${dir}/${plugins}`) || null;
 };
-/**
- * 集群队列执行模式
- * 获取当前实例id 默认为0
- * @type {number}
- */
-process.env.NODE_APP_INSTANCE = toInteger(process.env.NODE_APP_INSTANCE) || 0;
-global.ClusterQueue = function (cb) {
-  if (think.isFunction(cb) || process.env.NODE_APP_INSTANCE !== 0) {
-    return;
-  }
-
-  cb();
-};
-
-/**
- * 全局获取当前时间
- */
-global.getCurrentTime = function (format) {
-  return moment().format(format || 'YYYY-MM-DD HH:mm:ss');
-};
-
-/**
- * 全局秒转数据库Datetime时间格式
- */
-global.secondsToDatetime = function (seconds) {
-  return moment.unix(seconds).format('YYYY-MM-DD HH:mm:ss');
-};
-
-/**
- * 全局获取当前时间戳
- */
-global.getCurrentTimestamp = function () {
-  return moment.now();
-};
 
 /**
  * 获取base controller
  */
 global.requireBaseController = function () {
   return require(`${commonpath}controller/base`) || null;
-};
-
-/**
- * 全局获取commonService
- */
-global.requireCommonService = function () {
-  return require(`${commonpath}/service/common_service`) || null;
 };
 
 /**
@@ -76,10 +30,13 @@ global.requireThirdparty = function (plugins, modules) {
 
 /**
  * 全局获取srvice
+ * @param service service名
+ * @param module 所属模块名
+ * @param agrs service类初始化参数
  */
-global.requireService = function (service, module) {
+global.requireService = function (service, module, ...agrs) {
   const Service = think.service(service, module);
-  return new Service();
+  return new Service(agrs);
 };
 
 /**
@@ -99,6 +56,20 @@ global.requireModel = function (plugins, dir) {
 };
 
 /**
+ * 全局错误码模板
+ * @param code 错误码
+ * @param message 错误提示语句
+ */
+global.ErrorCode = function (code, message) {
+  this.getCode = function () {
+    return code;
+  };
+  this.getMessage = function () {
+    return message;
+  };
+};
+
+/**
  * 全局切换日志频道
  * @param channel 日志频道(建议传当前文件名)
  */
@@ -111,6 +82,6 @@ global.getLogger = function (channel = 'console') {
   return logger;
 };
 
-// 自动加载depend文件夹里面的文件
-const dependDir = path.resolve(`${think.APP_PATH}${path.sep}common${path.sep}depend`);
+// 自动加载init文件夹里面的文件
+const dependDir = path.resolve(`${think.APP_PATH}${path.sep}common${path.sep}init`);
 fs.readdirSync(dependDir).filter(v => require(`${dependDir}${path.sep}${v}`));

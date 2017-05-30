@@ -17,10 +17,11 @@
     "mocha": true
   },
   "globals": {
+    "ERROR": true,
     "think": true,
     "redis": true,
-    "mongodb": true,
-    "moment": true,
+    "mongoose": true,
+    "ErrorCode": true,
     "requireService": true,
     "requireCommon": true,
     "requireCommonModel": true,

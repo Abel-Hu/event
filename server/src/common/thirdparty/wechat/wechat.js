@@ -65,14 +65,19 @@ module.exports = {
 
       // 验证userinfo是否正确
       const rawData = JSON.parse(data.rawData);
+      let checkRawData = true;
       Object.keys(rawData).filter((key) => {
         if (rawData[key] !== decoded[key]) {
-          decoded = {};
-          this.LOG.error(`check rawData error, rawData: ${JSON.stringify(rawData)}, wxdata: ${decoded}`);
+          checkRawData = false;
+          LOG.error(`check rawData error, rawData: ${JSON.stringify(rawData)}, wxdata: ${JSON.stringify(decoded)}`);
           return true;
         }
         return true;
       });
+
+      if (!checkRawData) {
+        return {};
+      }
 
       delete decoded.watermark;
       return decoded;

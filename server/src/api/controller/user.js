@@ -1,29 +1,44 @@
 const Base = requireBaseController();
-// const wechatSDK = requireThirdparty('wechat');
+const wechatSDK = requireThirdparty('wechat');
+const jwtConfig = think.config('jwt');
+
 module.exports = class extends Base {
   init(...args) {
     super.init(...args);
 
-    /*
+    // 注入service
+    this.userService = requireService('user', 'api', this);
 
-     // 小程序解到的userinfo
-     { nickName: '小丸子',
-     gender: 1,
-     language: 'zh_CN',
-     city: 'Guangzhou',
-     province: 'Guangdong',
-     country: 'CN',
-     avatarUrl: 'http://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqSf82W4I6bFLIr40ko7VzNrPwicicVKpO0Vq9vscgfzuzeSxZ4Uic8Nu2Zzib1hnRJWLVfP6Y4GbdD4g/0'
-     }
-
-     */
+    // 白名单
+    this.whiteList = ['login'];
   }
 
+  async tAction() {
+    console.log(111);
+    return this.success(1);
+  }
+
+  /**
+   * 用户登录
+   */
   async loginAction() {
-    const wxdata = { a: 1 };
-    // const wxdata = await wechatSDK.wxLoginDataDataDecrypt(this.param());
-    const token = await this.encryptToken(wxdata);
-    wxdata.token = token;
-    return this.success(wxdata);
+    const ip = this.ip();
+    const wxdata = await wechatSDK.wxLoginDataDataDecrypt(this.param());
+    if (think.isEmpty(wxdata)) {
+      return this.showError(ERROR.USER.WXDATA_PARSE_ERROR);
+    }
+
+    const user = await this.userService.create(wxdata, ip);
+    user.env = think.env;
+    const token = await jwt.encrypt(user, jwtConfig.expire);
+    const member = {};
+    ['_id', 'nickName', 'avatarUrl', 'isVip'].filter((k) => {
+      member[k] = user[k];
+      return true;
+    });
+    member.token = token;
+    member.uid = member._id;
+    delete member._id;
+    return this.success(member);
   }
 };

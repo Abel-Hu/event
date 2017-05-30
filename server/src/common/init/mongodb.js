@@ -1,6 +1,7 @@
-global.mongodb = require('mongoose');
+// 初始化mongodb
+global.mongoose = require('mongoose');
 
-mongodb.Promise = global.Promise;
+mongoose.Promise = global.Promise;
 const config = think.config('mongodb');
 const LOG = getLogger(__filename);
 
@@ -21,17 +22,17 @@ if (!think.isEmpty(config)) {
     },
   };
 
-  mongodb.connect(uri, options);
+  mongoose.connect(uri, options);
 
-  mongodb.connection.on('connected', () => {
+  mongoose.connection.on('connected', () => {
     LOG.warn(`Connect to mongodb://${config.host}:${config.port}/${config.database} success`);
   });
-  mongodb.connection.on('error', (err) => {
+  mongoose.connection.on('error', (err) => {
     LOG.warn(`Connect to mongodb://${config.host}:${config.port}/${config.database} failed`);
     LOG.warn(err);
     process.exit(1);
   });
-  mongodb.connection.on('disconnected', () => {
+  mongoose.connection.on('disconnected', () => {
     LOG.warn(`Disconnected mongodb://${config.host}:${config.port}/${config.database}`);
   });
 }

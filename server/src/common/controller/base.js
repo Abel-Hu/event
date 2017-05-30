@@ -1,9 +1,4 @@
-const fs = require('fs');
-const jwt = require('jsonwebtoken');
-const { toNumber, toInteger, toString } = require('lodash');
-
-const privateCert = fs.readFileSync(`${think.ROOT_PATH}/cert/private.pem`, 'utf-8');
-const publicCert = fs.readFileSync(`${think.ROOT_PATH}/cert/public.pem`, 'utf-8');
+const timeUtil = requireCommon('time');
 
 module.exports = class extends think.controller.base {
 
@@ -15,6 +10,9 @@ module.exports = class extends think.controller.base {
 
     // 不让服务器信息暴露出去
     this.http.res.removeHeader('x-powered-by');
+
+    // 自动获取语言
+    this.lang(this.header('lang').trim() || think.config('locale').default);
 
     const method = this.http.method.toLowerCase();
     this.LOG.debug(`method: ${method}, url: ${this.http.url}`);
@@ -30,44 +28,67 @@ module.exports = class extends think.controller.base {
       return;
     }
 
-    // 鉴权白名单
+    // 会员对象初始化
+    this.member = null;
+
+    // 鉴权白名单初始化
     this.whiteList = [];
+  }
+
+  // 最先执行
+  async __before() {
+    const ok = await this.auth();
+    if (ok !== true) {
+      return this.showError(ERROR.SYSTEM.SYSTEM_NOT_FIND_RESPONSE_ERROR);
+    }
+    return true;
+  }
+
+  /**
+   * 执行鉴权逻辑
+   */
+  async auth() {
+    // 白名单内不鉴权
+    if (this.whiteList.indexOf(this.http.action) > -1) {
+      return true;
+    }
+
+    // 解析token
+    const token = this.header('token').trim() || '';
+    this.member = await jwt.decrypt(token);
+    if (think.isEmpty(this.member)) {
+      return false;
+    }
+
+    // 打印jwt解析出来的数据
+    this.LOG.trace(`decoded jwt data: ${JSON.stringify(this.member)}`);
+
+    // 判断token环境
+    const ip = this.ip();
+    if (this.member.env !== think.env) {
+      this.LOG.warn(`token env error, client token env: ${this.member.env}, server token env: ${think.env}, ip: ${ip}`);
+      this.showError(ERROR.SYSTEM.SYSTEM_NOT_FIND_RESPONSE_ERROR);
+      return false;
+    }
+
+    return true;
   }
 
   /**
    * 获取客户端ip(覆盖thinkjs的，它的获取有问题)
    */
   ip() {
-    const ipArray = this.header('X-Forwarded-For').split(',');
-    return toString(ipArray[ipArray.length - 1]).trim();
+    const ipArray = this.header('X-Forwarded-For').split(',') || [];
+    return ipArray[ipArray.length - 1].trim() || '0.0.0.0';
   }
 
   /**
-   * 生成token
-   * @param data 要加密的数据
-   * @param expiresIn 过期时间(单位：秒)
+   * 获取当前页面大小
    */
-  async encryptToken(data, expiresIn = 86400) {
-    const sign = await jwt.sign(data, privateCert, { algorithm: 'RS256', expiresIn });
-    return sign;
-  }
-
-  /**
-   * token解析
-   * @param token
-   */
-  async decryptToken(token) {
-    try {
-      const json = await jwt.verify(token, publicCert);
-      delete json.env;
-      delete json.iat;
-      delete json.exp;
-      return json;
-    } catch (e) {
-      this.LOG.error(e);
-      this.http.status(403);
-      return this.showError('SYSTEM_REQUEST_FAILE_ERROR', 80);
-    }
+  pageSize() {
+    const maxPageSize = 30;
+    const pageSize = parseInt(this.param('pageSize'), 10) || maxPageSize;
+    return pageSize > maxPageSize ? maxPageSize : pageSize;
   }
 
   /**
@@ -88,7 +109,7 @@ module.exports = class extends think.controller.base {
       if (think.isEmpty(obj[sequenceField])) {
         throw new Error(`missing 'sequence' field, sequenceField :${sequenceField}`);
       }
-      _lastSequence = toNumber(obj[sequenceField]) || 0;
+      _lastSequence = parseInt(obj[sequenceField], 10) || 0;
     }
 
     const format = { _lastSequence, pageSize: _list.length, _list };
@@ -102,9 +123,10 @@ module.exports = class extends think.controller.base {
    */
   showError(error) {
     const data = {};
-    data.code = error.getCode();
-    data.message = error.getMessage();
-    data.time = moment.now();
+    const lang = this.lang();
+    data.code = error[lang].getCode();
+    data.message = error[lang].getMessage();
+    data.time = timeUtil.nowMillisecond();
     this.type(this.config('json_content_type'));
 
     // 返回数据打log
@@ -122,7 +144,7 @@ module.exports = class extends think.controller.base {
     const data = {};
     data.code = 1;
     data.data = object;
-    data.time = moment.now();
+    data.time = timeUtil.nowMillisecond();
     this.type(this.config('json_content_type'));
 
     // 返回数据打log
@@ -138,7 +160,7 @@ module.exports = class extends think.controller.base {
    */
   getSize(size) {
     const sizes = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-    const i = toInteger(Math.floor(Math.log(size) / Math.log(1024)));
+    const i = parseInt(Math.floor(Math.log(size) / Math.log(1024)), 10);
     return `${Math.floor(size / (1024 ** i))} ${sizes[i]}`;
   }
 };
