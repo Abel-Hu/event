@@ -66,7 +66,7 @@ module.exports = class extends Base {
     if (think.isEmpty(user)) {
       return null;
     }
-    let member = {};
+    const member = {};
     ['_id', 'nickName', 'avatarUrl', 'isVip', 'sex', 'mobile', 'birthday'].filter((k) => {
       member[k] = user[k];
       return true;

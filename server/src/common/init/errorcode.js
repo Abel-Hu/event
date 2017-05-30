@@ -22,4 +22,4 @@ fs.readdirSync(basePath).filter((lang) => {
   global.ERROR = object;
   return true;
 });
-LOG.warn(`init errorcode ...`);
+LOG.warn('init errorcode ...');

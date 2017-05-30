@@ -43,7 +43,6 @@ module.exports = class extends Base {
     this.beforeUpdate(data);
     const user = await this._model.findByIdAndUpdate(uid, { $set: data });
     think.extend(user, data);
-    console.log(user);
     return JSON.parse(JSON.stringify(user));
   }
 };
