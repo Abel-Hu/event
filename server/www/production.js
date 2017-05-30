@@ -10,4 +10,5 @@ const instance = new Thinkjs({
   RESOURCE_PATH: __dirname,
   env: __filename.replace(`${__dirname}${path.sep}`, '').replace('.js', ''),
 });
+require('../src/common/bootstrap/global');
 instance.run(true);

@@ -37,4 +37,15 @@ module.exports = class extends Base {
   async infoAction() {
     return this.success(this.member);
   }
+
+  /**
+   * 修改用户个人资料
+   */
+  async updateAction() {
+    const user = await this.userService.updateUserInfo(this.member.uid, this.param());
+    think.extend(user, { env: think.env });
+    think.extend(user, { token: await jwt.encrypt(user, jwtConfig.expire) });
+    delete user.env;
+    return this.success(user);
+  }
 };

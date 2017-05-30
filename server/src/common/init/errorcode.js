@@ -1,4 +1,5 @@
 // 自动加载错误码
+const LOG = getLogger(__filename);
 const path = require('path');
 const fs = require('fs');
 
@@ -21,3 +22,4 @@ fs.readdirSync(basePath).filter((lang) => {
   global.ERROR = object;
   return true;
 });
+LOG.warn(`init errorcode ...`);

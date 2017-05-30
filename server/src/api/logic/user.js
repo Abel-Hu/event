@@ -12,4 +12,15 @@ module.exports = class extends think.logic.base {
   infoAction() {
     this.allowMethods = 'get';
   }
+
+  updateAction() {
+    this.allowMethods = 'post';
+    this.rules = {
+      nickName: 'string',
+      mobile: 'string',
+      avatarUrl: 'string',
+      birthday: 'string|before',
+      sex: 'int|in:1,2',
+    };
+  }
 };

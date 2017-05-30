@@ -49,6 +49,16 @@ module.exports = class extends Base {
   }
 
   /**
+   * 修改用户个人资料
+   * @param uid 用户id
+   * @param data 要修改的数据
+   */
+  async updateUserInfo(uid, data) {
+    const user = await this.userModel.updateUserInfo(uid, data);
+    return this.makeUserInfo(user);
+  }
+
+  /**
    * 生成用户个人资料
    * @param user 用户对象
    */
@@ -57,7 +67,7 @@ module.exports = class extends Base {
       return null;
     }
     let member = {};
-    ['_id', 'nickName', 'avatarUrl', 'isVip', 'sex', 'mobile'].filter((k) => {
+    ['_id', 'nickName', 'avatarUrl', 'isVip', 'sex', 'mobile', 'birthday'].filter((k) => {
       member[k] = user[k];
       return true;
     });
