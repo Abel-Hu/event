@@ -4,19 +4,19 @@
     "pages/discover/index"
   ],
   "tabBar": {
-    "color":"#888",
+    "color":"#666",
     "selectedColor":"#000",
     "borderStyle": "white",
-    "backgroundColor": "#f7f7f7",
+    "backgroundColor": "#fff",
     "list": [{
       "pagePath": "pages/discover/index",
-      "iconPath":"/img/icon/plane.png",
-      "selectedIconPath":"/img/icon/plane.png",
+      "iconPath":"/img/icon/compass_tab.png",
+      "selectedIconPath":"/img/icon/compass_tab_on.png",
       "text": "发现"
     }, {
       "pagePath":  "pages/me/index",
-      "iconPath":"/img/icon/me.png",
-      "selectedIconPath":"/img/icon/me.png",
+      "iconPath":"/img/icon/account_tab.png",
+      "selectedIconPath":"/img/icon/account_tab_on.png",
 
       "text": "我"
     }]

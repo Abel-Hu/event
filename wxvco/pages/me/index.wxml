@@ -1,5 +1,5 @@
-<view class="container">
-    <view  bindtap="bindViewTap" class="userinfo">
+<view>
+    <view bindtap="bindViewTap" class="userinfo">
         <image class="userinfo-avatar" src="{{props.member.member.avatarUrl}}" background-size="cover"></image>
         <text class="userinfo-nickname">{{props.member.member.nickName}}</text>
     </view>
@@ -9,8 +9,9 @@
             {{props.todo.todoText}}
         </view>
     </view>
-    <navigator url="/pages/b">to b</navigator>
     <view>
         {{props.member.ns}}
     </view>
+
+
 </view>
