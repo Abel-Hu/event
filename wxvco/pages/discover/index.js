@@ -1,3 +1,6 @@
+/**
+ * Created by ken on 2017/5/31.
+ */
 const {page} = wx.vco
 const o = {
   onShow() {
