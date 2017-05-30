@@ -35,9 +35,25 @@ module.exports = {
    */
   endTime: { type: mongoose.Types.Long, default: 0 },
   /**
+   * 活动状态(1-正常，0-下架)
+   */
+  status: { type: Number, default: 1 },
+  /**
+   * 看过的人数
+   */
+  uv: { type: Number, default: 0 },
+  /**
+   * 分享的人数
+   */
+  share: { type: Number, default: 0 },
+  /**
+   * 实际报名人数
+   */
+  join: { type: Number, default: 0 },
+  /**
    * 报名人数上限
    */
-  peoples: { type: Number, default: 0 },
+  joinLimit: { type: Number, default: 0 },
   /**
    * 报名截至时间
    */

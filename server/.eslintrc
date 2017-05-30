@@ -50,6 +50,10 @@
     "no-underscore-dangle": [
       "off"
     ],
+    // 一行代码最大长度
+    "max-len": [
+      "off"
+    ],
     // 不允许动态require
     "import/no-dynamic-require": [
       "off"

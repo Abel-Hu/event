@@ -4,12 +4,12 @@ module.exports = class extends think.logic.base {
     this.rules = {
       title: 'required|string',
       description: 'required|string',
-      images: 'required|array|default:[]',
+      images: 'required|array',
       longitude: 'required|float|min:-180|max:180',
       latitude: 'required|float|min:-90|max:90',
       startTime: 'required|string|after',
       endTime: 'required|string|after',
-      peoples: 'required|int|min:0',
+      joinLimit: 'required|int|min:0',
       deadline: 'required|string|after',
     };
   }

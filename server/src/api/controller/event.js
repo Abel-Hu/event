@@ -19,9 +19,9 @@ module.exports = class extends Base {
     const latitude = this.param('latitude');
     const startTime = this.param('startTime');
     const endTime = this.param('endTime');
-    const peoples = this.param('peoples');
+    const joinLimit = this.param('peoples');
     const deadline = this.param('deadline');
-    const event = await this.eventService.publish(this.member.uid, title, description, images, longitude, latitude, startTime, endTime, peoples, deadline);
+    const event = await this.eventService.publish(this.member.uid, title, description, images, longitude, latitude, startTime, endTime, joinLimit, deadline);
     return this.success(event.eventId);
   }
 };

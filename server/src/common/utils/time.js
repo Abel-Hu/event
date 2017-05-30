@@ -42,4 +42,11 @@ module.exports = {
     });
     return _format;
   },
+  /**
+   * 日期格式转时间戳
+   * @param str 日期字符串(必须是：yyyy-MM-dd hh:mm:ss，否则结果有偏差)
+   */
+  str2time(str) {
+    return Date.parse(new Date(str));
+  },
 };
