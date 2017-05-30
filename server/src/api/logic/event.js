@@ -1,4 +1,7 @@
-module.exports = class extends think.logic.base {
+const timeUtil = requireCommon('time');
+const Base = requireBaseLogic();
+
+module.exports = class extends Base {
   publishAction() {
     this.allowMethods = 'post';
     this.rules = {
@@ -12,5 +15,15 @@ module.exports = class extends think.logic.base {
       joinLimit: 'required|int|min:0',
       deadline: 'required|string|after',
     };
+
+    // 开始时间不能小于等于结束时间
+    const startTime = this.param('startTime');
+    const endTime = this.param('endTime');
+    const st = timeUtil.str2time(startTime);
+    const et = timeUtil.str2time(endTime);
+    if (st >= et) {
+      this.LOG.warn(`startTime can not less then endTime, startTime: ${startTime}, endTime: ${endTime}`);
+      return this.fail('活动的开始时间不能小于等于结束时间');
+    }
   }
 };

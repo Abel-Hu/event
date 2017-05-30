@@ -31,6 +31,7 @@
     "getCurrentTime": true,
     "getCurrentTimestamp": true,
     "requireBaseModel": true,
+    "requireBaseLogic": true,
     "requireBaseController": true,
     "requireThirdparty": true,
     "getLogger": true

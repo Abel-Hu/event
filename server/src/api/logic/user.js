@@ -1,4 +1,6 @@
-module.exports = class extends think.logic.base {
+const Base = requireBaseLogic();
+
+module.exports = class extends Base {
   loginAction() {
     this.allowMethods = 'post';
     this.rules = {
