@@ -85,4 +85,19 @@ module.exports = class extends think.model.base {
     think.extend(tmp, data);
     return JSON.parse(JSON.stringify(tmp));
   }
+
+  /**
+   * 自增
+   * @param condition 查询条件
+   * @param data 要自增的字段以及它的步长(例如：{seq: 1})
+   */
+  async incr(condition, data) {
+    const tmp = await this._model.findOneAndUpdate(condition, { $inc: data }, { multi: false, new: true });
+    const result = {};
+    Object.keys(data).filter((k) => {
+      think.extend(result, { [k]: tmp[k] });
+      return true;
+    });
+    return result;
+  }
 };

@@ -21,6 +21,9 @@ deadline		|是				|date			|报名截至时间(格式：2017-02-14)
 
 ### 响应数据
 ```json
-"data": "5cdre463dw3fdf2ffdf"  // 成功返回活动id，错误返回错误码
+"data": {
+	"eventId":"592dafe8518d2924f022a70d",	// 活动id
+	"userEventPublishs":20		// 当前用户发布过的总活动数
+}
 ```
 

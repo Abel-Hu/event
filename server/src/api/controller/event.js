@@ -22,6 +22,6 @@ module.exports = class extends Base {
     const joinLimit = this.param('joinLimit');
     const deadline = this.param('deadline');
     const event = await this.eventService.publish(this.member.uid, title, description, images, longitude, latitude, startTime, endTime, joinLimit, deadline);
-    return this.success(event.eventId);
+    return this.success({ eventId: event.eventId, userEventPublishs: event.userEventPublishs });
   }
 };

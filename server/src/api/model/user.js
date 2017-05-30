@@ -42,4 +42,22 @@ module.exports = class extends Base {
     const user = await this.update({ _id: uid }, { $set: data });
     return user;
   }
+
+  /**
+   * 给用户的活动发布数量增加1
+   * @param uid 用户id
+   */
+  async incrEventPublishs(uid) {
+    const result = await this.incr(uid, { eventPublishs: 1 });
+    return result.eventPublishs || 0;
+  }
+
+  /**
+   * 给用户的活动参与数量增加1
+   * @param uid 用户id
+   */
+  async incrEventPublishs(uid) {
+    const result = await this.incr(uid, { eventJoins: 1 });
+    return result.eventJoins || 0;
+  }
 };

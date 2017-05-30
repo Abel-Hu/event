@@ -8,6 +8,7 @@ module.exports = class extends Base {
 
     // 注入model
     this.eventModel = this.model('event');
+    this.userModel = this.model('user');
   }
 
   /**
@@ -38,6 +39,10 @@ module.exports = class extends Base {
     });
     event.eventId = event._id;
     delete event._id;
+
+    // 发布成功，用户发布活动数+1
+    const userEventPublishs = await this.userModel.incrEventPublishs(uid);
+    event.userEventPublishs = userEventPublishs;
     return event;
   }
 };
