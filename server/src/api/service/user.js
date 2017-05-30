@@ -56,6 +56,28 @@ module.exports = class extends Base {
   }
 
   /**
+   * 根据uid，获取userBase
+   * @param uid 一堆uid
+   */
+  async makeUserBase(...uid) {
+    const promiseArray = uid.map((v) => {
+      return this.getUserInfoByUid(v);
+    });
+
+    const matcher = ['uid', 'nickName', 'sex', 'avatarUrl', 'isVip'];
+    const promiseResult = await Promise.all(promiseArray);
+    const list = promiseResult.map((user) => {
+      const tmp = {};
+      matcher.filter((k) => {
+        think.extend(tmp, { [k]: user[k] });
+        return true;
+      });
+      return tmp;
+    });
+    return uid.length === 1 ? list[0] : list;
+  }
+
+  /**
    * 生成用户个人资料
    * @param user 用户对象
    */

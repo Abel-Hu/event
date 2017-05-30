@@ -87,7 +87,7 @@ module.exports = class extends think.model.base {
   }
 
   /**
-   * 自增
+   * 自增(或者自减)
    * @param condition 查询条件
    * @param data 要自增的字段以及它的步长(例如：{seq: 1})
    */

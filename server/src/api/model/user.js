@@ -56,7 +56,7 @@ module.exports = class extends Base {
    * 给用户的活动参与数量增加1
    * @param uid 用户id
    */
-  async incrEventPublishs(uid) {
+  async incrEventJoins(uid) {
     const result = await this.incr(uid, { eventJoins: 1 });
     return result.eventJoins || 0;
   }
