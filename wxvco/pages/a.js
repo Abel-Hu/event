@@ -1,6 +1,5 @@
-const {page,co} = wx.vco
-const o = page({
-
+const {page} = wx.vco
+const o = {
   onShow() {
     this.props.todo.utxt()
   },
@@ -8,10 +7,7 @@ const o = page({
     this.props.todo.ut()
   },
   onLoad () {
-    console.log('onload')
-   co.call(this,function*(){
-     yield this.props.member.getMember()
-   })
+    this.props.member.getMember()
   }
-}, {todo: 'todo', member: 'wechat/member'})
-Page(o)
+}
+Page(page(o, {todo: 'todo', member: 'wechat/member'}))
