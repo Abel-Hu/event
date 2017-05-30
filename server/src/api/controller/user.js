@@ -13,17 +13,13 @@ module.exports = class extends Base {
     this.whiteList = ['login'];
   }
 
-  async tAction() {
-    console.log(111);
-    return this.success(1);
-  }
-
   /**
    * 用户登录
    */
   async loginAction() {
     const ip = this.ip();
-    const wxdata = await wechatSDK.wxLoginDataDataDecrypt(this.param());
+    //const wxdata = await wechatSDK.wxLoginDataDataDecrypt(this.param());
+    const wxdata = (this.param());
     if (think.isEmpty(wxdata)) {
       return this.showError(ERROR.USER.WXDATA_PARSE_ERROR);
     }
@@ -40,5 +36,12 @@ module.exports = class extends Base {
     member.uid = member._id;
     delete member._id;
     return this.success(member);
+  }
+
+  /**
+   * 用户个人资料
+   */
+  async infoAction() {
+    return this.success(1);
   }
 };

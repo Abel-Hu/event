@@ -18,6 +18,7 @@
   },
   "globals": {
     "ERROR": true,
+    "jwt": true,
     "think": true,
     "redis": true,
     "mongoose": true,

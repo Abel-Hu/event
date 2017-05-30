@@ -19,7 +19,11 @@ module.exports = class extends think.model.base {
 
       // 自动注册一个非严格的Schema
       if (think.isEmpty(mongoose.modelSchemas[this.name])) {
-        const schema = new mongoose.Schema({ strict: false, versionKey: false });
+        // 自动获取表结构(不需要定义createTime、updateTime自动补上)
+        const pojo = require(`./${this.name}`) || {};
+        think.extend(pojo, { createTime: { type: mongoose.Types.Long, default: 0 } });
+        think.extend(pojo, { updateTime: { type: mongoose.Types.Long, default: 0 } });
+        const schema = new mongoose.Schema(pojo, { strict: true, versionKey: false });
         this._model = mongoose.model(this.name, schema, this.name);
       } else {
         this._model = mongoose.model(this.name);

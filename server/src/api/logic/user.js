@@ -8,4 +8,8 @@ module.exports = class extends think.logic.base {
       encryptedData: 'required|string',
     };
   }
+
+  infoAction() {
+    this.allowMethods = 'get';
+  }
 };
