@@ -32,7 +32,7 @@ module.exports = {
   validate_contains: '{name} need contains {args}',
   validate_equals: '{name} 必须等于 {args}',
   validate_different: '{name} nedd not match {args}',
-  validate_after: '{name} need a date that\'s after the {args} (defaults to now)',
+  validate_after: `{name} 字段的值必须在 ${timeUtil.format('yyyy-MM-dd')} 之后`,
   validate_alpha: '{name} need contains only letters (a-zA-Z)',
   validate_alphaDash: '{name} need contains only letters and dashes(a-zA-Z_)',
   validate_alphaNumeric: '{name} need contains only letters and numeric(a-zA-Z0-9)',

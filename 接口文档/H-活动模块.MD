@@ -8,13 +8,17 @@
 #####参数列表
 参数			|是否必要		|类型			|说明
 --				|--				|--				|--
-code			|是				|string			|微信小程序登录返回的code
-iv 				|是				|string			|解密偏移量
-rawData			|是				|string			|微信小程序登录返回的源数据
-encryptedData	|是				|string			|微信小程序登录返回的加密数据
+title			|是				|string			|活动标题
+images			|是				|array			|活动图片
+longitude		|是				|float			|活动所在地点的经度
+latitude		|是				|float			|活动所在地点的纬度
+startTime		|是				|date			|报名开始时间(格式：2017-02-14)
+peoples			|是				|int			|报名人数上限
+deadline		|是				|date			|报名截至时间(格式：2017-02-14)
+
 
 ### 响应数据
 ```json
-"data": 1  // 成功返回1，错误返回错误码
+"data": "5cdre463dw3fdf2ffdf"  // 成功返回活动id，错误返回错误码
 ```
 
