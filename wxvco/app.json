@@ -4,7 +4,7 @@
     "pages/discover/index"
   ],
   "tabBar": {
-    "color":"#666",
+    "color":"#a6a6a6",
     "selectedColor":"#000",
     "borderStyle": "white",
     "backgroundColor": "#fff",
