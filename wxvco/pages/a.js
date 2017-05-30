@@ -1,4 +1,4 @@
-const {page, regeneratorRuntime} = wx.vco
+const {page,co} = wx.vco
 const o = page({
 
   onShow() {
@@ -7,8 +7,11 @@ const o = page({
   onHide() {
     this.props.todo.ut()
   },
-  * onLoad () {
-    yield this.props.member.getMember()
+  onLoad () {
+    console.log('onload')
+   co.call(this,function*(){
+     yield this.props.member.getMember()
+   })
   }
 }, {todo: 'todo', member: 'wechat/member'})
 Page(o)

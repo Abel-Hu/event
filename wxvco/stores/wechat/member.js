@@ -1,7 +1,7 @@
 /**
  * Created by ken on 2017/5/21.
  */
-const {regeneratorRuntime, Store} = wx.vco
+const {Store} = wx.vco
 const LoginTimeOut = 604700 //  登陆过期时间 秒为单位 默认为 7天 ：604700
 const MzMemberKey = 'member' // 登陆缓存key
 const Api = {

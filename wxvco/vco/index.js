@@ -1,7 +1,7 @@
 const mobx = require('./mobx')
 const {observer} = require('./observer')
 const wxToPromise = require('./wx')
-const regeneratorRuntime = require('./regenerator-runtime')
+//const regeneratorRuntime = require('./regenerator-runtime')
 const co = require('./co')
 const Store = require('./Store')
 //
@@ -44,7 +44,7 @@ module.exports = {
   page,
   observer,
   co,
-  regeneratorRuntime,
+  //regeneratorRuntime,
   Store,
   app
 }
