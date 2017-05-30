@@ -8,9 +8,8 @@ module.exports = class extends Base {
    * @param data 用户数据
    */
   async create(data) {
-    this.beforeAdd(data);
-    const user = await this._model.create(data);
-    return JSON.parse(JSON.stringify(user));
+    const user = await this.add(data);
+    return user;
   }
 
   /**
@@ -18,8 +17,8 @@ module.exports = class extends Base {
    * @param uid 用户id
    */
   async getUserByUid(uid) {
-    const user = await this._model.findOne({ _id: uid });
-    return JSON.parse(JSON.stringify(user));
+    const user = await this.findOne({ _id: uid });
+    return user;
   }
 
   /**
@@ -27,8 +26,8 @@ module.exports = class extends Base {
    * @param openId 微信小程序第三方id
    */
   async getUserByOpenId(openId) {
-    const user = await this._model.findOne({ openId });
-    return JSON.parse(JSON.stringify(user));
+    const user = await this.findOne({ openId });
+    return user;
   }
 
   /**
@@ -40,9 +39,7 @@ module.exports = class extends Base {
     if (think.isEmpty(data)) {
       return null;
     }
-    this.beforeUpdate(data);
-    const user = await this._model.findByIdAndUpdate(uid, { $set: data });
-    think.extend(user, data);
-    return JSON.parse(JSON.stringify(user));
+    const user = await this.update({ _id: uid }, { $set: data });
+    return user;
   }
 };

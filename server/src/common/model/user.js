@@ -28,4 +28,8 @@ module.exports = {
    * 用户手机
    */
   mobile: { type: String, default: '' },
+  /**
+   * 用户注册时的ip
+   */
+  ip: { type: String, default: '' },
 };

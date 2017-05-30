@@ -12,8 +12,8 @@ title			|是				|string			|活动标题
 images			|是				|array			|活动图片
 longitude		|是				|float			|活动所在地点的经度
 latitude		|是				|float			|活动所在地点的纬度
-startTime		|是				|date			|报名开始时间(格式：2017-02-14)
-peoples			|是				|int			|报名人数上限
+startTime		|是				|date			|活动开始时间(格式：2017-02-14)
+peoples			|是				|int			|报名人数上限(0为不限制)
 deadline		|是				|date			|报名截至时间(格式：2017-02-14)
 
 

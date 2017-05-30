@@ -29,6 +29,7 @@ module.exports = class extends think.model.base {
         this._model = mongoose.model(this.name);
       }
     } catch (e) {
+      this._model = null;
       this.LOG.error(e);
     }
   }
@@ -52,5 +53,36 @@ module.exports = class extends think.model.base {
     const tmp = data;
     tmp.updateTime = mongoose.Types.Long.fromNumber(timeUtil.nowMillisecond());
     return tmp;
+  }
+
+  /**
+   * 添加数据
+   * @param data 待添加的数据
+   */
+  async add(data) {
+    this.beforeAdd(data);
+    const user = await this._model.create(data);
+    return JSON.parse(JSON.stringify(user));
+  }
+
+  /**
+   * 查询一条数据
+   * @param condition 查询条件
+   */
+  async findOne(condition) {
+    const one = await this._model.findOne(condition);
+    return JSON.parse(JSON.stringify(one));
+  }
+
+  /**
+   * 修改数据
+   * @param condition 查询条件
+   * @param data 要修改的数据
+   */
+  async update(condition, data) {
+    this.beforeUpdate(data);
+    const tmp = await this._model.update(condition, { $set: data });
+    think.extend(tmp, data);
+    return JSON.parse(JSON.stringify(tmp));
   }
 };

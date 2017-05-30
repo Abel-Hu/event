@@ -7,7 +7,7 @@ module.exports = class extends think.logic.base {
       longitude: 'required|float|min:-180|max:180',
       latitude: 'required|float|min:-90|max:90',
       startTime: 'required|string|after',
-      peoples: 'required|int|min:1',
+      peoples: 'required|int|min:0',
       deadline: 'required|string|after',
     };
   }
