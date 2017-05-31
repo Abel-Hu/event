@@ -5,7 +5,6 @@
 
 ### 用户发布活动  POST   /api/event/publish
 
-#####参数列表
 参数			|是否必要		|类型			|说明
 --				|--				|--				|--
 title			|是				|string			|活动标题
@@ -23,13 +22,12 @@ deadline		|是				|date			|报名截至时间(格式：2017-02-14 18:00:00)
 ```json
 "data": {
 	"eventId":"592dafe8518d2924f022a70d",	// 活动id
-	"userEventPublishs":20		// 当前用户发布过的总活动数
+	"userEventPublishs":20			// 当前用户发布过的总活动数
 }
 ```
 
 ### 用户修改活动  POST   /api/event/update
 
-#####参数列表
 参数			|是否必要		|类型			|说明
 --				|--				|--				|--
 eventId			|是				|string			|活动id
@@ -51,7 +49,6 @@ deadline		|否				|date			|报名截至时间(格式：2017-02-14)
 
 ### 活动详情  GET   /api/event/info
 
-#####参数列表
 参数			|是否必要		|类型			|说明
 --				|--				|--				|--
 eventId			|是				|string			|活动id
@@ -59,14 +56,14 @@ eventId			|是				|string			|活动id
 ### 响应数据
 ```json
 "data": {
-	"title":"耍牛满免费试吃活动",	// 活动标题
-	"description":"有颜值的牛肉火锅",// 当前用户发布过的总活动数
-	"images":[						// 活动图片(无限张)
+	"title":"耍牛满免费试吃活动",		// 活动标题
+	"description":"有颜值的牛肉火锅",	// 当前用户发布过的总活动数
+	"images":[			// 活动图片(无限张)
 		"https://xxxx.com/xxx.png",
 		"https://xxxx.com/xxx.png",
 		...
 	],
-	"userBase":{				// 发布者用户信息
+	"userBase":{					// 发布者用户信息
 		"uid": "5921d4c6ea3",		// 用户id
 		"nickName": "小丸子",		// 微信昵称
 		"description":"刷锅一枚",	// 个性签名
