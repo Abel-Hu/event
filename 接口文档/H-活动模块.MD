@@ -86,7 +86,7 @@ eventId			|是				|string			|活动id
 	"joinList":[{					// 报名人列表(取前10个)
 		"uid": "5921d4c6ea3",			// 用户id
 		"nickName": "小丸子",			// 微信昵称
-		"description":"刷锅一枚",	// 个性签名
+		"description":"刷锅一枚",		// 个性签名
 		"sex":2,				// 用户性别(1-男 2-女)
 		"avatarUrl": "http://xx/0",		// 微信头像(地址是微信的)
 		"isVip": true				// 是否为大V用户
