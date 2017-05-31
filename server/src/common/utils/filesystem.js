@@ -31,7 +31,7 @@ module.exports = {
         if (!think.isEmpty(pathtmp)) {
           pathtmp = path.join(pathtmp, dirname);
         } else {
-          pathtmp = isWindows ? dirname : `/${dirname}`;
+          pathtmp = isWindows ? dirname : `${path.sep}${dirname}`;
         }
         if (!fs.existsSync(pathtmp)) {
           fs.mkdirSync(pathtmp);

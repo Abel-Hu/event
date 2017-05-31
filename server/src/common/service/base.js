@@ -5,6 +5,9 @@ module.exports = class extends think.service.base {
   init(...args) {
     super.init(...args);
 
+    // 约定第一个参数是控制器对象
+    this.controller = args[0][0];
+
     // 根据业务模块自动切换日志频道
     const filename = (this.__filename || __filename).replace(think.APP_PATH, '');
     const arr = filename.split(path.sep);

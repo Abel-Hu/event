@@ -5,16 +5,8 @@ module.exports = class extends Base {
   init(...args) {
     super.init(...args);
 
-    // 约定第一个参数是控制器对象
-    this.controller = args[0][0];
-
     // 注入model
     this.userModel = this.model('user');
-  }
-
-  async t() {
-    const xxx = await this.userModel.create({ a: 1, b: 2 });
-    console.log(xxx);
   }
 
   /**
@@ -28,9 +20,76 @@ module.exports = class extends Base {
     if (think.isEmpty(user)) {
       user = wxdata;
       user.ip = ip;
+      user.sex = wxdata.gender;
       user.isVip = vipConfig.indexOf(user.openId) > -1;
       user = await this.userModel.create(user);
     }
-    return JSON.parse(JSON.stringify(user));
+    return this.makeUserInfo(user);
+  }
+
+  /**
+   * 根据uid获取用户个人资料
+   * @param uid 用户id
+   */
+  async getUserInfoByUid(uid) {
+    const user = await this.userModel.getUserByUid(uid);
+    return this.makeUserInfo(user);
+  }
+
+  /**
+   * 根据openId获取用户个人资料
+   * @param openId 微信小程序第三方id
+   */
+  async getUserInfoByOpenId(openId) {
+    const user = await this.userModel.getUserByOpenId(openId);
+    return this.makeUserInfo(user);
+  }
+
+  /**
+   * 修改用户个人资料
+   * @param uid 用户id
+   * @param data 要修改的数据
+   */
+  async updateUserInfo(uid, data) {
+    const user = await this.userModel.updateUserInfo(uid, data);
+    return this.makeUserInfo(user);
+  }
+
+  /**
+   * 根据uid，获取userBase
+   * @param uid 一堆uid
+   */
+  async makeUserBase(...uid) {
+    const promiseArray = uid.map(v => this.getUserInfoByUid(v));
+
+    const matcher = ['uid', 'nickName', 'sex', 'avatarUrl', 'isVip', 'description'];
+    const promiseResult = await Promise.all(promiseArray);
+    const list = promiseResult.map((user) => {
+      const tmp = {};
+      matcher.filter((k) => {
+        think.extend(tmp, { [k]: user[k] });
+        return true;
+      });
+      return tmp;
+    });
+    return uid.length === 1 ? list[0] : list;
+  }
+
+  /**
+   * 生成用户个人资料
+   * @param user 用户对象
+   */
+  makeUserInfo(user) {
+    if (think.isEmpty(user)) {
+      return {};
+    }
+    const member = {};
+    ['_id', 'nickName', 'avatarUrl', 'isVip', 'sex', 'mobile', 'birthday', 'description', 'eventPublishs', 'eventJoins'].filter((k) => {
+      member[k] = user[k];
+      return true;
+    });
+    member.uid = member._id;
+    delete member._id;
+    return member;
   }
 };

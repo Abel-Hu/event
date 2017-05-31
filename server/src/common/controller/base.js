@@ -60,9 +60,6 @@ module.exports = class extends think.controller.base {
       return false;
     }
 
-    // 打印jwt解析出来的数据
-    this.LOG.trace(`decoded jwt data: ${JSON.stringify(this.member)}`);
-
     // 判断token环境
     const ip = this.ip();
     if (this.member.env !== think.env) {
@@ -71,6 +68,10 @@ module.exports = class extends think.controller.base {
       return false;
     }
 
+    delete this.member.env;
+
+    // 打印jwt解析出来的数据
+    this.LOG.trace(`decoded jwt data: ${JSON.stringify(this.member)}`);
     return true;
   }
 

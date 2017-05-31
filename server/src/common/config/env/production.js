@@ -9,6 +9,11 @@ module.exports = {
     pass: 'house',
     database: 'event',
   },
+  jwt: {
+    privateCert: `${think.ROOT_PATH}/cert/private.pem`,
+    publicCert: `${think.ROOT_PATH}/cert/public.pem`,
+    expire: 86400 * 30,     // 过期时间
+  },
   // redis配置
   // ioredis: {
   //   // 运行模式：single-单点模式；cluster-集群模式
