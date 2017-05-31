@@ -3,7 +3,7 @@ wx.vco = vco
 const {app} = vco
 const o = {
   onLaunch(){
-    console.log('onLaunch')
+    console.log('onLaunch',this.props)
   }
 }
-App(app(o))
+App(app(o, {system: 'system', member: 'wechat/member'}))

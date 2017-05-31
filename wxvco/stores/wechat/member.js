@@ -17,7 +17,7 @@ module.exports = class extends Store {
     }
   }
 
-  getMember () {
+  getMember (cb) {
     let member = wx.getStorageSync(MzMemberKey) || {}
     if (Object.keys(member).length === 0) {
       Promise.all([
@@ -25,16 +25,25 @@ module.exports = class extends Store {
         wx.getUserInfo()
       ]).then(([{code}, user]) => {
         const {userInfo, iv, signature, encryptedData, encryptData, rawData} = user
-        const params = {code, iv, rawData,encryptedData}
+        const params = {code, iv, rawData, encryptedData}
         http.post(Api.login, params).then(({data, code, message}) => {
           member = Object.assign(userInfo, data)
           wx.setStorageSync(MzMemberKey, member)
           this.member = member
-
+          cb && cb(member)
         })
       })
       return
     }
     this.member = member
+    cb && cb(member)
+  }
+
+  updateToken (token, cb) {
+    let member = wx.getStorageSync(MzMemberKey) || {}
+    member.token = token
+    this.member.token = token
+    wx.setStorageSync(MzMemberKey, member)
+    cb && cb()
   }
 }
