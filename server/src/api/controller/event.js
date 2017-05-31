@@ -89,4 +89,10 @@ module.exports = class extends Base {
     }
     return this.success(1);
   }
+
+  /**
+   * 首页活动列表
+   */
+  async listAction() {
+  }
 };

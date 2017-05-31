@@ -96,24 +96,10 @@ module.exports = class extends think.controller.base {
    * 游标分页面列表规范
    * @param list 返回数据(list类型)
    * @param moreItem 额外字段(json格式)
-   * @param sequenceField 游标使用的对象字段
-   * @param lastSequence 自定义游标值,默认0
-   * @returns {{lastSequence: number, pageSize: number, list: array}}
+   * @param lastSequence 自定义游标值, 默认空
    */
-  cursorPage(list = [], moreItem = {}, sequenceField, lastSequence = 0) {
-    const pageSize = this.pageSize();
-    const _list = list;
-    let _lastSequence = lastSequence;
-    if (_lastSequence === 0 && _list.length >= pageSize) {
-      _list.length -= 1;
-      const obj = _list[_list.length - 1];
-      if (think.isEmpty(obj[sequenceField])) {
-        throw new Error(`missing 'sequence' field, sequenceField :${sequenceField}`);
-      }
-      _lastSequence = parseInt(obj[sequenceField], 10) || 0;
-    }
-
-    const format = { _lastSequence, pageSize: _list.length, _list };
+  cursorPage(list = [], moreItem = {}, lastSequence = '') {
+    const format = { lastSequence, pageSize: list.length, list };
     think.extend(format, moreItem);
     return this.success(format);
   }
