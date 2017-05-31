@@ -1,10 +1,53 @@
-/**app.wxss**/
-.container {
+/* 配色方案 */
+.primary{
+  color:#000
+}
+.heighline{
+  color:#3d98ff
+}
+.light{
+  color :#a6a6a6
+}
+.bg{
+  color :#F4F4F4
+}
+.bgH{
+  color :#BDBDBD
+}
+/*reset*/
+page {
+  background-color: #F4F4F4;
   height: 100%;
+  font-size: 32rpx;
+  line-height: 1.6;
+  font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+}
+
+checkbox, radio{
+  margin-right: 10rpx;
+}
+button{
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+form{
+  width: 100%;
+}
+
+/* lib */
+.strong{
+  font-weight: bold;
+}
+.tc{
+  text-align: center;
+}
+
+/* page */
+.container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  min-height: 100%;
   justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
-} 
+  font-size: 32rpx;
+  font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+}
