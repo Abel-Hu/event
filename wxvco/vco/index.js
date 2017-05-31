@@ -2,6 +2,7 @@ const mobx = require('./mobx')
 const {observer} = require('./observer')
 const wxToPromise = require('./wx')
 const Store = require('./Store')
+const http = require('./http')
 //
 const page = function (o, inject) {
   injectStore(o, inject)
@@ -32,5 +33,6 @@ module.exports = {
   page,
   observer,
   Store,
-  app
+  app,
+  http
 }
