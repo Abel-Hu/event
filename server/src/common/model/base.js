@@ -112,14 +112,18 @@ module.exports = class extends think.model.base {
     const where = {};
     // 如果有上拉刷新的需求，则优先查询上拉刷新
     if (!think.isEmpty(headSequence)) {
-      think.extend(where, { _id: { $gt: lastSequence } });
-    } else {
+      think.extend(where, { _id: { $gt: headSequence } });
+    } else if (!think.isEmpty(lastSequence)) {
       // 否则才查询下拉刷新的
       think.extend(where, { _id: { $lt: lastSequence } });
     }
 
+    // 合并其他查询条件
+    think.extend(where, condition);
+
+    // 查询
     const list = await this._model.find(where, {}, { sort: { _id: -1 }, limit: pageSize });
-    const _headSequence = think.isEmpty(lastSequence) ? list[0]._id : '';
+    const _headSequence = (think.isEmpty(lastSequence) || !think.isEmpty(list)) ? list[0]._id : '';
     let _lastSequence = '';
     if (list.length >= pageSize) {
       list.length -= 1;
