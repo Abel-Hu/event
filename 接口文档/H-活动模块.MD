@@ -126,7 +126,7 @@ eventId			|是				|string			|活动id
 
 参数			|是否必要		|类型			|说明
 --				|--				|--				|--
-lastSequence	|否				|string			|上一页游标
+lastSequence	|否				|string			|上一页游标(第一页不传)
 pageSize		|否				|int			|页面大小(默认、最大：30)
 headSequence	|否				|string			|顶部游标(上拉刷新)
 

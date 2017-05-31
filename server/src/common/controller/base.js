@@ -89,7 +89,8 @@ module.exports = class extends think.controller.base {
   pageSize() {
     const maxPageSize = 30;
     const pageSize = parseInt(this.param('pageSize'), 10) || maxPageSize;
-    return pageSize > maxPageSize ? maxPageSize : pageSize;
+    // 统一页面大小+1，用于计算lastSequence
+    return (pageSize > maxPageSize ? maxPageSize : pageSize) + 1;
   }
 
   /**
@@ -108,18 +109,14 @@ module.exports = class extends think.controller.base {
 
   /**
    * 游标分页面列表规范
-   * @param list 返回数据(list类型)
-   * @param moreItem 额外字段(json格式)
-   * @param lastSequence 自定义游标值, 默认空
-   * @param headSequence 自定义游标值, 默认空
+   * @param pageData 分页数据
    */
-  cursorPage(list = [], moreItem = {}, lastSequence = '', headSequence = '') {
+  cursorPage(pageData = {}) {
     const format = {};
-    think.extend(format, { pageSize: list.length });
-    think.extend(format, { list });
-    think.extend(format, { headSequence });
-    think.extend(format, { lastSequence });
-    think.extend(format, moreItem);
+    think.extend(format, { pageSize: pageData.list.length });
+    think.extend(format, { headSequence: pageData.headSequence });
+    think.extend(format, { lastSequence: pageData.lastSequence });
+    think.extend(format, { list: pageData.list });
     return this.success(format);
   }
 

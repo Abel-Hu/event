@@ -95,5 +95,7 @@ module.exports = class extends Base {
    */
   async listAction() {
     const [lastSequence, headSequence, pageSize] = [this.lastSequence(), this.headSequence(), this.pageSize()];
+    const pageData = await this.eventService.eventList(lastSequence, headSequence, pageSize);
+    return this.cursorPage(pageData);
   }
 };

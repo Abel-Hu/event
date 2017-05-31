@@ -100,4 +100,31 @@ module.exports = class extends think.model.base {
     });
     return result;
   }
+
+  /**
+   * 游标分页mongodb查询封装
+   * @param condition 查询条件
+   * @param lastSequence 上一页游标
+   * @param headSequence 顶部游标
+   * @param pageSize 页面大小
+   */
+  async cursorPage(condition = {}, lastSequence = '', headSequence = '', pageSize = 30) {
+    const where = {};
+    // 如果有上拉刷新的需求，则优先查询上拉刷新
+    if (!think.isEmpty(headSequence)) {
+      think.extend(where, { _id: { $gt: lastSequence } });
+    } else {
+      // 否则才查询下拉刷新的
+      think.extend(where, { _id: { $lt: lastSequence } });
+    }
+
+    const list = await this._model.find(where, {}, { sort: { _id: -1 }, limit: pageSize });
+    const _headSequence = think.isEmpty(lastSequence) ? list[0]._id : '';
+    let _lastSequence = '';
+    if (list.length >= pageSize) {
+      list.length -= 1;
+      _lastSequence = list[list.length - 1]._id;
+    }
+    return { list, lastSequence: _lastSequence, headSequence: _headSequence };
+  }
 };
