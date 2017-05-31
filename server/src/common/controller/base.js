@@ -39,7 +39,7 @@ module.exports = class extends think.controller.base {
   async __before() {
     const ok = await this.auth();
     if (ok !== true) {
-      return this.showError(ERROR.SYSTEM.SYSTEM_NOT_FIND_RESPONSE_ERROR);
+      return this.showError(ERROR.USER.TOKEN_EXPIRE);
     }
     return true;
   }
@@ -64,7 +64,7 @@ module.exports = class extends think.controller.base {
     const ip = this.ip();
     if (this.member.env !== think.env) {
       this.LOG.warn(`token env error, client token env: ${this.member.env}, server token env: ${think.env}, ip: ${ip}`);
-      this.showError(ERROR.SYSTEM.SYSTEM_NOT_FIND_RESPONSE_ERROR);
+      this.showError(ERROR.USER.TOKEN_EXPIRE);
       return false;
     }
 
