@@ -133,7 +133,7 @@ headSequence	|否				|string			|顶部游标(上拉刷新)
 ### 响应数据
 ```json
 "list": [{
-	"eventId":"b45h98og6f",					// 活动id
+	"eventId":"b45h98og6f",				// 活动id
 	"title":"耍牛满免费试吃活动",			// 活动标题
 	"image":"http://xxxx.com/xx.jpg",		// 活动图片
 	"isFav":true,					// 我是否有收藏这个活动
