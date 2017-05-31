@@ -100,10 +100,10 @@ module.exports = class extends think.controller.base {
   }
 
   /**
-   * 获取游标
+   * 获取上一页的游标
    */
-  sequence() {
-    return this.param('sequence') || '';
+  lastSequence() {
+    return this.param('lastSequence') || '';
   }
 
   /**
@@ -111,9 +111,14 @@ module.exports = class extends think.controller.base {
    * @param list 返回数据(list类型)
    * @param moreItem 额外字段(json格式)
    * @param lastSequence 自定义游标值, 默认空
+   * @param headSequence 自定义游标值, 默认空
    */
-  cursorPage(list = [], moreItem = {}, lastSequence = '') {
-    const format = { lastSequence, pageSize: list.length, list };
+  cursorPage(list = [], moreItem = {}, lastSequence = '', headSequence = '') {
+    const format = {};
+    think.extend(format, { pageSize: list.length });
+    think.extend(format, { list });
+    think.extend(format, { headSequence });
+    think.extend(format, { lastSequence });
     think.extend(format, moreItem);
     return this.success(format);
   }

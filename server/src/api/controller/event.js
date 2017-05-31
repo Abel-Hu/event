@@ -94,5 +94,6 @@ module.exports = class extends Base {
    * 首页活动列表
    */
   async listAction() {
+    const [lastSequence, headSequence, pageSize] = [this.lastSequence(), this.headSequence(), this.pageSize()];
   }
 };
