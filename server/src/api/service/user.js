@@ -81,7 +81,7 @@ module.exports = class extends Base {
    */
   makeUserInfo(user) {
     if (think.isEmpty(user)) {
-      return null;
+      return {};
     }
     const member = {};
     ['_id', 'nickName', 'avatarUrl', 'isVip', 'sex', 'mobile', 'birthday', 'description', 'eventPublishs', 'eventJoins'].filter((k) => {

@@ -45,4 +45,23 @@ module.exports = class extends Base {
     event.userEventPublishs = userEventPublishs;
     return event;
   }
+
+  /**
+   * 修改一个活动
+   * @param eventId 活动id
+   * @param data 要修改的数据
+   */
+  async update(eventId, data) {
+    const event = this.eventModel.update(eventId, data);
+    return event;
+  }
+
+  /**
+   * 获取一个活动
+   * @param eventId 活动id
+   */
+  async getEvent(eventId) {
+    const event = this.eventModel.getEvent(eventId);
+    return event;
+  }
 };

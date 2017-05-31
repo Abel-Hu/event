@@ -77,7 +77,6 @@ description		|否				|string			|个性签名
     "isVip": true,			// 是否为大V用户
 	"description":"哈哈哈",	// 个性签名
 	"eventPublishs":123,	// 发布的活动数
-	"eventJoins":123,		// 参与的活动数
-    "token": "xxxxxxxxxx"		// 用户个人资料修改成功后，服务器更新token，请覆盖本地的token
+	"eventJoins":123		// 参与的活动数
 }
 ```

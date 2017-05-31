@@ -48,7 +48,7 @@ module.exports = class extends Base {
    * @param uid 用户id
    */
   async incrEventPublishs(uid) {
-    const result = await this.incr(uid, { eventPublishs: 1 });
+    const result = await this.incr({ _id: uid }, { eventPublishs: 1 });
     return result.eventPublishs || 0;
   }
 
@@ -57,7 +57,7 @@ module.exports = class extends Base {
    * @param uid 用户id
    */
   async incrEventJoins(uid) {
-    const result = await this.incr(uid, { eventJoins: 1 });
+    const result = await this.incr({ _id: uid }, { eventJoins: 1 });
     return result.eventJoins || 0;
   }
 };

@@ -24,9 +24,8 @@ module.exports = class extends Base {
     }
 
     const user = await this.userService.create(wxdata, ip);
-    think.extend(user, { env: think.env });
-    think.extend(user, { token: await jwt.encrypt(user, jwtConfig.expire) });
-    delete user.env;
+    const token = await jwt.encrypt({ uid: user.uid, env: think.env }, jwtConfig.expire);
+    think.extend(user, { token });
     return this.success(user);
   }
 
@@ -55,9 +54,6 @@ module.exports = class extends Base {
       sex,
       description,
     });
-    think.extend(user, { env: think.env });
-    think.extend(user, { token: await jwt.encrypt(user, jwtConfig.expire) });
-    delete user.env;
     return this.success(user);
   }
 };

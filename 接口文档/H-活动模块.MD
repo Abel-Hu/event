@@ -16,7 +16,7 @@ latitude		|是				|float			|活动所在地点的纬度(-90 ~ 90)
 startTime		|是				|date			|活动开始时间(格式：2017-02-14 18:00:00)
 endTime			|是				|date			|活动结束时间(格式：2017-02-15 18:00:00)
 joinLimit		|是				|int			|报名人数上限(0为不限制)
-deadline		|是				|date			|报名截至时间(格式：2017-02-14)
+deadline		|是				|date			|报名截至时间(格式：2017-02-14 18:00:00)
 
 
 ### 响应数据
@@ -27,3 +27,24 @@ deadline		|是				|date			|报名截至时间(格式：2017-02-14)
 }
 ```
 
+### 用户修改活动  POST   /api/event/update
+
+#####参数列表
+参数			|是否必要		|类型			|说明
+--				|--				|--				|--
+eventId			|是				|string			|活动id
+title			|否				|string			|活动标题
+description		|否				|string			|活动详情
+images			|否				|array			|活动图片
+longitude		|否				|float			|活动所在地点的经度(-180 ~ 180)
+latitude		|否				|float			|活动所在地点的纬度(-90 ~ 90)
+startTime		|否				|date			|活动开始时间(格式：2017-02-14 18:00:00)
+endTime			|否				|date			|活动结束时间(格式：2017-02-15 18:00:00)
+joinLimit		|否				|int			|报名人数上限(0为不限制，只可增多，不可减少)
+deadline		|否				|date			|报名截至时间(格式：2017-02-14)
+
+
+### 响应数据
+```json
+"data": 1	// 修改成功返回1，错误返回错误码
+```
