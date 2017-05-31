@@ -61,7 +61,7 @@ eventId			|是				|string			|活动id
 	"images":[				// 活动图片(无限张)
 		"https://xxxx.com/xxx.png",
 		"https://xxxx.com/xxx.png",
-		...
+		"..."
 	],
 	"userBase":{				// 发布者用户信息
 		"uid": "5921d4c6ea3",		// 用户id
