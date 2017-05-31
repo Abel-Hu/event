@@ -20,7 +20,7 @@ encryptedData	|是				|string			|微信小程序登录返回的加密数据
 	"mobile":"13800138000",		// 用户手机
 	"birthday":"1990-11-12",	// 用户生日
 	"sex":2,			// 用户性别(1-男 2-女)
-	"avatarUrl": "http://xx/0",		// 微信头像(地址是微信的)
+	"avatarUrl": "http://xx/0",	// 微信头像(地址是微信的)
 	"isVip": true,			// 是否为大V用户
 	"description":"哈哈哈",		// 个性签名
 	"eventPublishs":123,		// 发布的活动数
@@ -43,7 +43,7 @@ uid		 		|否				|string			|要查看的用户uid(如果不传或者传自己的u
 	"mobile":"13800138000",		// 用户手机
 	"birthday":"1990-11-12",	// 用户生日
 	"sex":2,			// 用户性别(1-男 2-女)
-	"avatarUrl": "http://xx/0",		// 微信头像(地址是微信的)
+	"avatarUrl": "http://xx/0",	// 微信头像(地址是微信的)
 	"isVip": true,			// 是否为大V用户
 	"description":"哈哈哈",		// 个性签名
 	"eventPublishs":123,		// 发布的活动数
@@ -70,7 +70,7 @@ description		|否				|string			|个性签名
 	"mobile":"13800138000",		// 用户手机
 	"birthday":"1990-11-12",	// 用户生日
 	"sex":2,			// 用户性别(1-男 2-女)
-	"avatarUrl": "http://xx/0",		// 微信头像(地址是微信的)
+	"avatarUrl": "http://xx/0",	// 微信头像(地址是微信的)
 	"isVip": true,			// 是否为大V用户
 	"description":"哈哈哈",		// 个性签名
 	"eventPublishs":123,		// 发布的活动数
