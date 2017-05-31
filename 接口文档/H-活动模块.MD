@@ -76,9 +76,11 @@ eventId			|是				|string			|活动id
 	"createTime":1477423423456,		// 活动发布时间
 	"startTime":1478423423456,		// 活动开始时间
 	"endTime":1498423423456,		// 活动结束时间
+	"isFav":true,				// 我是否有收藏这个活动
 	"fav":432443,				// 收藏人数
 	"uv":139804,				// 看过的人数
 	"share":235435,				// 分享的人数
+	"comment":6345455,			// 评论数
 	"join":75445,				// 已报名的人数
 	"joinLimit":100000,			// 报名人数限制
 	"joinList":[{				// 报名人列表(取前10个)
@@ -97,5 +99,25 @@ eventId			|是				|string			|活动id
 		"avatarUrl": "http://xx/0",	// 微信头像(地址是微信的)
 		"isVip": true			// 是否为大V用户
 	},{...}],
+	"commentList":[{				// 评论列表(取前10个)
+		"userBase":{				// 发布评论的用户信息
+			"uid": "5921d4c6ea3",		// 用户id
+			"nickName": "小丸子",		// 微信昵称
+			"description":"刷锅一枚",	// 个性签名
+			"sex":2,			// 用户性别(1-男 2-女)
+			"avatarUrl": "http://xx/0",	// 微信头像(地址是微信的)
+			"isVip": true			// 是否为大V用户
+		},
+		"replyUserBase":{				// 被回复的用户信息(可能没有)
+			"uid": "5921d4c6ea3",		// 用户id
+			"nickName": "小丸子",		// 微信昵称
+			"description":"刷锅一枚",	// 个性签名
+			"sex":2,			// 用户性别(1-男 2-女)
+			"avatarUrl": "http://xx/0",	// 微信头像(地址是微信的)
+			"isVip": true			// 是否为大V用户
+		},
+		"content":"这个好玩！",			// 评论内容
+		"createTime":1477423423456,		// 评论发表时间
+	},{...}]
 }
 ```
