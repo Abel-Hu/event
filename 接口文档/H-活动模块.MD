@@ -108,7 +108,7 @@ eventId			|是				|string			|活动id
 			"avatarUrl": "http://xx/0",	// 微信头像(地址是微信的)
 			"isVip": true			// 是否为大V用户
 		},
-		"replyUserBase":{				// 被回复的用户信息(可能没有)
+		"replyUserBase":{			// 被回复的用户信息(可能没有)
 			"uid": "5921d4c6ea3",		// 用户id
 			"nickName": "小丸子",		// 微信昵称
 			"description":"刷锅一枚",	// 个性签名
