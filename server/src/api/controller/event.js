@@ -73,4 +73,16 @@ module.exports = class extends Base {
     await this.eventService.update(eventId, { title, description, images, longitude, latitude, startTime, endTime, joinLimit, deadline });
     return this.success(1);
   }
+
+  /**
+   * 活动详情
+   */
+  async infoAction() {
+    // 判断活动是否存在
+    const eventId = this.param('eventId');
+    const event = await this.eventService.getEvent(eventId);
+    if (think.isEmpty(event)) {
+      return this.showError(ERROR.EVENT.NOT_EXISTS);
+    }
+  }
 };

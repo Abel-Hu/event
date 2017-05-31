@@ -56,4 +56,11 @@ module.exports = class extends Base {
 
     return true;
   }
+
+  infoAction() {
+    this.allowMethods = 'get';
+    this.rules = {
+      eventId: 'required|string',
+    }
+  }
 };

@@ -62,7 +62,7 @@ module.exports = class extends Base {
   async makeUserBase(...uid) {
     const promiseArray = uid.map(v => this.getUserInfoByUid(v));
 
-    const matcher = ['uid', 'nickName', 'sex', 'avatarUrl', 'isVip'];
+    const matcher = ['uid', 'nickName', 'sex', 'avatarUrl', 'isVip', 'description'];
     const promiseResult = await Promise.all(promiseArray);
     const list = promiseResult.map((user) => {
       const tmp = {};
