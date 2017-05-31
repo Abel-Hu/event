@@ -66,7 +66,10 @@ module.exports = class extends Base {
     }
 
     // 报名人数限制，只可增多，不可减少
-    if (event.joinLimit === 0 && joinLimit > 0 || event.joinLimit > 0 && joinLimit < event.joinLimit) {
+    let b = false;
+    b = b || (event.joinLimit === 0 && joinLimit > 0);
+    b = b || (event.joinLimit > 0 && joinLimit < event.joinLimit);
+    if (b) {
       return this.showError(ERROR.EVENT.JOIN_LIMIT_ONLY_CAN_INCREMENT);
     }
 
@@ -84,5 +87,6 @@ module.exports = class extends Base {
     if (think.isEmpty(event)) {
       return this.showError(ERROR.EVENT.NOT_EXISTS);
     }
+    return this.success(1);
   }
 };
