@@ -121,3 +121,29 @@ eventId			|是				|string			|活动id
 	},{...}]
 }
 ```
+
+### 活动列表  GET   /api/event/list
+
+参数			|是否必要		|类型			|说明
+--				|--				|--				|--
+sequence		|否				|string			|游标
+pageSize		|否				|int			|页面大小(默认、最大：30)
+headSequence	|否				|string			|顶部游标(上拉刷新)
+
+### 响应数据
+```json
+"list": [{
+	"eventId":"b45h98og6f",					// 活动id
+	"title":"耍牛满免费试吃活动",			// 活动标题
+	"image":"http://xxxx.com/xx.jpg",		// 活动图片
+	"isFav":true,					// 我是否有收藏这个活动
+	"join":75445,					// 已报名的人数
+	"joinList":[{					// 报名人列表(取前10个)
+		"uid": "5921d4c6ea3",			// 用户id
+		"nickName": "小丸子",			// 微信昵称
+		"description":"刷锅一枚",		// 个性签名
+		"sex":2,				// 用户性别(1-男 2-女)
+		"avatarUrl": "http://xx/0",		// 微信头像(地址是微信的)
+		"isVip": true				// 是否为大V用户
+	},{...}]
+},{...}]

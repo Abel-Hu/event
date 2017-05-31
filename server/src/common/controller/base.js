@@ -93,6 +93,20 @@ module.exports = class extends think.controller.base {
   }
 
   /**
+   * 获取顶部游标
+   */
+  headSequence() {
+    return this.param('headSequence') || '';
+  }
+
+  /**
+   * 获取游标
+   */
+  sequence() {
+    return this.param('sequence') || '';
+  }
+
+  /**
    * 游标分页面列表规范
    * @param list 返回数据(list类型)
    * @param moreItem 额外字段(json格式)
