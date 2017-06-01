@@ -43,6 +43,10 @@ module.exports = {
    */
   uv: { type: Number, default: 0 },
   /**
+   * 收藏人数
+   */
+  fav: { type: Number, default: 0 },
+  /**
    * 分享的人数
    */
   share: { type: Number, default: 0 },

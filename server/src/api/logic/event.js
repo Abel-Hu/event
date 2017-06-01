@@ -81,4 +81,11 @@ module.exports = class extends Base {
       eventId: 'required|string',
     };
   }
+
+  joinAction() {
+    this.allowMethods = 'post';
+    this.rules = {
+      eventId: 'required|string',
+    };
+  }
 };

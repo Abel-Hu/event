@@ -97,6 +97,80 @@ module.exports = class extends Base {
   }
 
   /**
+   * 给活动的收藏数量增加1
+   * @param eventId 活动id
+   */
+  async incrFavs(eventId) {
+    const result = await this.eventModel.incr({ _id: eventId }, { fav: 1 });
+    return result.fav || 0;
+  }
+
+  /**
+   * 给活动的收藏数量减少1
+   * @param eventId 活动id
+   */
+  async decrFavs(eventId) {
+    const result = await this.eventModel.incr({ _id: eventId }, { fav: -1 });
+    return result.fav || 0;
+  }
+
+  /**
+   * 给活动的uv数量增加1
+   * @param eventId 活动id
+   */
+  async incrUvs(eventId) {
+    const result = await this.eventModel.incr({ _id: eventId }, { uv: 1 });
+    return result.uv || 0;
+  }
+
+  /**
+   * 给活动的uv数量减少1
+   * @param eventId 活动id
+   */
+  async decrUvs(eventId) {
+    const result = await this.eventModel.incr({ _id: eventId }, { uv: -1 });
+    return result.uv || 0;
+  }
+
+
+  /**
+   * 给活动的分享数量增加1
+   * @param eventId 活动id
+   */
+  async incrShares(eventId) {
+    const result = await this.eventModel.incr({ _id: eventId }, { share: 1 });
+    return result.share || 0;
+  }
+
+  /**
+   * 给活动的分享数量减少1
+   * @param eventId 活动id
+   */
+  async decrShares(eventId) {
+    const result = await this.eventModel.incr({ _id: eventId }, { share: -1 });
+    return result.share || 0;
+  }
+
+
+  /**
+   * 给活动的报名数量增加1
+   * @param eventId 活动id
+   */
+  async incrJoins(eventId) {
+    const result = await this.eventModel.incr({ _id: eventId }, { join: 1 });
+    return result.join || 0;
+  }
+
+  /**
+   * 给活动的报名数量减少1
+   * @param eventId 活动id
+   */
+  async decrJoins(eventId) {
+    const result = await this.eventModel.incr({ _id: eventId }, { join: -1 });
+    return result.join || 0;
+  }
+
+  /**
    * 活动列表
    * @param uid 用户id
    * @param lastSequence 上一页游标

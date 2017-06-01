@@ -171,3 +171,15 @@ eventId			|是				|string			|活动id
 ```json
 "data": 1	// 修改成功返回1，错误返回错误码
 ```
+
+
+### 报名参加活动  POST   /api/event/join
+
+参数			|是否必要		|类型			|说明
+--				|--				|--				|--
+eventId			|是				|string			|活动id
+
+### 响应数据
+```json
+"data": 1	// 修改成功返回1，错误返回错误码
+```
