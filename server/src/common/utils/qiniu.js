@@ -5,13 +5,14 @@ const random = requireCommon('random');
 const timeUtil = requireCommon('time');
 const config = think.config('qiniu');
 const qiniu = require('qiniu');
+const path = require('path');
 
 // 七牛配置
 qiniu.conf.ACCESS_KEY = config.accesskey;
 qiniu.conf.SECRET_KEY = config.secretkey;
 
 // 名空间配置
-const bucketConfig = ['image'];
+const bucket = 'image';
 
 module.exports = {
   /**
@@ -23,31 +24,21 @@ module.exports = {
     return new qiniu.rs.PutPolicy(filename ? (`${bucket}:${filename}`) : bucket).token();
   },
   /**
-   * 上传文件
-   * @param bucket 名空间(file：文件, image：图片, report：报告)
-   * @param filepath 文件路径
+   * 上传文件(自动生成文件名)
+   * @param sourceFilePath 源文件路径
+   * @param targetFilePath 目标文件夹路径
    * @return 文件地址
    */
-  upload(bucket, filepath) {
-    if (bucketConfig.indexOf(bucket) <= -1) {
-      throw new Error(`error bucket, ${bucket}`);
-    }
+  upload(sourceFilePath, targetFilePath = '') {
     const uploadToken = this.uptoken;
     return new Promise((resolve, reject) => {
       const extra = new qiniu.io.PutExtra();
-      let filename = timeUtil.nowMillisecond();
-      filename += '_';
-      filename += random.rand(1000000000, 2147483647);
-      filename += '_';
-      filename += random.rand(1000000000, 2147483647);
-      filename += '.';
-      filename += filepath.substring(filepath.lastIndexOf('.') + 1).toLowerCase();
+      const surfix = sourceFilePath.substring(sourceFilePath.lastIndexOf('.') + 1).toLowerCase();
+      const filename = `${targetFilePath}${timeUtil.format('yyyyMMdd')}/${think.uuid(40)}.${surfix}`;
       const uptoken = uploadToken(bucket, filename);
-      qiniu.io.putFile(uptoken, filename, filepath, extra, (err, ret) => {
+      qiniu.io.putFile(uptoken, filename, sourceFilePath, extra, (err, ret) => {
         if (!err) {
-          let link = 'http://image.ruanzhijun.cn/';
-          link += ret.key;
-          resolve(link);
+          resolve(`http://image.ruanzhijun.cn/${ret.key}`);
         } else {
           // 上传失败， 处理返回代码
           LOG.error(err);
