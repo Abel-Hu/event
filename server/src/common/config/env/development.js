@@ -9,10 +9,16 @@ module.exports = {
     pass: 'house',
     database: 'event_dev',
   },
+  // jwt配置
   jwt: {
     privateCert: `${think.ROOT_PATH}/cert/private.pem`,
     publicCert: `${think.ROOT_PATH}/cert/public.pem`,
     expire: 86400 * 30,     // 过期时间
+  },
+  // 七牛配置
+  qiniu: {
+    accesskey: 'AhNmT-lEx8DYq9NwJ1OXwvUZEZMZvR7l5Td_Dovt',
+    secretkey: 'Nm6mjo3wxKmiVXf8M8BlELxva5_rESTNVSd96Vzj',
   },
   // redis配置
   // ioredis: {

@@ -7,12 +7,18 @@ module.exports = {
     port: 27017,
     user: 'house',
     pass: 'house',
-    database: 'event',
+    database: 'event_dev',
   },
+  // jwt配置
   jwt: {
     privateCert: `${think.ROOT_PATH}/cert/private.pem`,
     publicCert: `${think.ROOT_PATH}/cert/public.pem`,
     expire: 86400 * 30,     // 过期时间
+  },
+  // 七牛配置
+  qiniu: {
+    accesskey: 'AhNmT-lEx8DYq9NwJ1OXwvUZEZMZvR7l5Td_Dovt',
+    secretkey: 'Nm6mjo3wxKmiVXf8M8BlELxva5_rESTNVSd96Vzj',
   },
   // redis配置
   // ioredis: {
@@ -35,5 +41,5 @@ module.exports = {
   vip: [
     'om0oZ0R0ESHEW_2_d-2nZTOy1AsM',
   ],
-  port: 9394,
+  port: 59394,
 };
