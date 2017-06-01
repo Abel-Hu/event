@@ -1,22 +1,26 @@
 <view>
     <view class="userinfo v-section">
-       <view class="v-item">
-           <image class="avatar" src="{{props.member.member.avatarUrl}}" background-size="cover"></image>
-           <text class="nickname">{{props.member.member.nickName||'点击登录'}}</text>
-       </view>
+        <view class="v-cell">
+            <image class="avatar" src="{{props.member.member.avatarUrl}}" background-size="cover"></image>
+            <text class="nickname">{{props.member.member.nickName||'点击登录'}}</text>
+        </view>
     </view>
     <view class="v-line"/>
     <!--start 会员管理-->
     <view class="v-section user">
-        <view class="v-item nav icon">活动参与</view>
-        <view class="v-item nav icon">活动收藏</view>
-        <view class="v-item nav icon">个人设置</view>
+        <view class="v-cell nav icon">活动参与</view>
+        <view class="v-cell nav icon">活动收藏</view>
+        <navigator url="/pages/me/setting/index">
+            <view class="v-cell nav icon">
+                个人设置
+            </view>
+        </navigator>
     </view>
     <!--end 会员管理-->
-    <view class="v-line" />
+    <view class="v-line"/>
     <!--start 特权管理-->
     <view class="v-section manage">
-        <view class="v-item nav icon">我发布的活动</view>
+        <view class="v-cell nav icon">我发布的活动</view>
     </view>
     <!--end 特权管理-->
 

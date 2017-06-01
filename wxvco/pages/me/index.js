@@ -13,7 +13,7 @@ const o = class {
 
   onLoad () {
     this.props.member.getMember()
-    wx.chooseImage({
+/*    wx.chooseImage({
       fail: function(res) {
         console.log(res);
       },
@@ -34,7 +34,7 @@ const o = class {
         //   }
         // })
       }
-    })
+    })*/
   }
 }
 page(o, {todo: 'todo', member: 'wechat/member'})

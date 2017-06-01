@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/me/index",
+    "pages/me/setting/index",
     "pages/discover/index"
   ],
   "tabBar": {
