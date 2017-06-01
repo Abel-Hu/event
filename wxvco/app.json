@@ -27,7 +27,7 @@
     "backgroundColor": "#eeeeee",
     "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTitleText": "HiBeetleEvent",
-    "navigationBarTextStyle": "dark",
+    "navigationBarTextStyle": "black",
     "enablePullDownRefresh": false,
     "disableScroll": true
   }
