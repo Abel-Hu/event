@@ -21,6 +21,8 @@ const o = {
         name: 'file'
       }).then((uploadData) => {
         console.log(uploadData)
+      }).catch((e) => {
+        console.error(e)
       })
     })
   },
