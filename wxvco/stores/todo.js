@@ -1,38 +1,19 @@
 const {Store} = wx.vco
 module.exports = class extends Store {
-  state() {
+  state () {
     return {
-      // observable data
-      todos: [],
-      todoText: 0,
-      userInfo: {},
-      // computed data
-      get count() {
-        return this.todos.length
-      }
+      todoText: 0
     }
   }
 
-  addTodo(title) {
-    this.todos.push({title: title})
-    this.t
-  }
-
-  removeTodo() {
-    this.todos.pop()
-  }
-
-  utxt() {
+  utxt () {
     this.t = setInterval(() => {
       this.todoText += 1
     }, 1000)
   }
 
-  ut() {
+  ut () {
     clearInterval(this.t)
   }
 
-  setUser(o) {
-    this.userInfo = o
-  }
 }

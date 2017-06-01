@@ -20,6 +20,13 @@ global.requireBaseController = function () {
 };
 
 /**
+ * 获取base logic
+ */
+global.requireBaseLogic = function () {
+  return require(`${commonpath}logic/base`) || null;
+};
+
+/**
  * 获取全局第三方sdk
  * @param plugins 第三方sdk库名
  * @param modules 厂商名

@@ -39,7 +39,7 @@ module.exports = class extends think.controller.base {
   async __before() {
     const ok = await this.auth();
     if (ok !== true) {
-      return this.showError(ERROR.SYSTEM.SYSTEM_NOT_FIND_RESPONSE_ERROR);
+      return this.showError(ERROR.USER.TOKEN_EXPIRE);
     }
     return true;
   }
@@ -60,17 +60,18 @@ module.exports = class extends think.controller.base {
       return false;
     }
 
-    // 打印jwt解析出来的数据
-    this.LOG.trace(`decoded jwt data: ${JSON.stringify(this.member)}`);
-
     // 判断token环境
     const ip = this.ip();
     if (this.member.env !== think.env) {
       this.LOG.warn(`token env error, client token env: ${this.member.env}, server token env: ${think.env}, ip: ${ip}`);
-      this.showError(ERROR.SYSTEM.SYSTEM_NOT_FIND_RESPONSE_ERROR);
+      this.showError(ERROR.USER.TOKEN_EXPIRE);
       return false;
     }
 
+    delete this.member.env;
+
+    // 打印jwt解析出来的数据
+    this.LOG.trace(`decoded jwt data: ${JSON.stringify(this.member)}`);
     return true;
   }
 
@@ -88,32 +89,34 @@ module.exports = class extends think.controller.base {
   pageSize() {
     const maxPageSize = 30;
     const pageSize = parseInt(this.param('pageSize'), 10) || maxPageSize;
-    return pageSize > maxPageSize ? maxPageSize : pageSize;
+    // 统一页面大小+1，用于计算lastSequence
+    return (pageSize > maxPageSize ? maxPageSize : pageSize) + 1;
+  }
+
+  /**
+   * 获取顶部游标
+   */
+  headSequence() {
+    return this.param('headSequence') || '';
+  }
+
+  /**
+   * 获取上一页的游标
+   */
+  lastSequence() {
+    return this.param('lastSequence') || '';
   }
 
   /**
    * 游标分页面列表规范
-   * @param list 返回数据(list类型)
-   * @param moreItem 额外字段(json格式)
-   * @param sequenceField 游标使用的对象字段
-   * @param lastSequence 自定义游标值,默认0
-   * @returns {{lastSequence: number, pageSize: number, list: array}}
+   * @param pageData 分页数据
    */
-  cursorPage(list = [], moreItem = {}, sequenceField, lastSequence = 0) {
-    const pageSize = this.pageSize();
-    const _list = list;
-    let _lastSequence = lastSequence;
-    if (_lastSequence === 0 && _list.length >= pageSize) {
-      _list.length -= 1;
-      const obj = _list[_list.length - 1];
-      if (think.isEmpty(obj[sequenceField])) {
-        throw new Error(`missing 'sequence' field, sequenceField :${sequenceField}`);
-      }
-      _lastSequence = parseInt(obj[sequenceField], 10) || 0;
-    }
-
-    const format = { _lastSequence, pageSize: _list.length, _list };
-    think.extend(format, moreItem);
+  cursorPage(pageData = {}) {
+    const format = {};
+    think.extend(format, { pageSize: pageData.list.length });
+    think.extend(format, { headSequence: pageData.headSequence });
+    think.extend(format, { lastSequence: pageData.lastSequence });
+    think.extend(format, { list: pageData.list });
     return this.success(format);
   }
 

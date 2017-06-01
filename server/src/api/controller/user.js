@@ -13,11 +13,6 @@ module.exports = class extends Base {
     this.whiteList = ['login'];
   }
 
-  async tAction() {
-    console.log(111);
-    return this.success(1);
-  }
-
   /**
    * 用户登录
    */
@@ -29,16 +24,36 @@ module.exports = class extends Base {
     }
 
     const user = await this.userService.create(wxdata, ip);
-    user.env = think.env;
-    const token = await jwt.encrypt(user, jwtConfig.expire);
-    const member = {};
-    ['_id', 'nickName', 'avatarUrl', 'isVip'].filter((k) => {
-      member[k] = user[k];
-      return true;
+    const token = await jwt.encrypt({ uid: user.uid, env: think.env }, jwtConfig.expire);
+    think.extend(user, { token });
+    return this.success(user);
+  }
+
+  /**
+   * 用户个人资料
+   */
+  async infoAction() {
+    const uid = this.param('uid') || this.member.uid;
+    const user = await this.userService.getUserInfoByUid(uid);
+    return this.success(user);
+  }
+
+  /**
+   * 修改用户个人资料
+   */
+  async updateAction() {
+    const nickName = this.param('nickName');
+    const mobile = this.param('mobile');
+    const birthday = this.param('birthday');
+    const sex = this.param('sex');
+    const description = this.param('description');
+    const user = await this.userService.updateUserInfo(this.member.uid, {
+      nickName,
+      mobile,
+      birthday,
+      sex,
+      description,
     });
-    member.token = token;
-    member.uid = member._id;
-    delete member._id;
-    return this.success(member);
+    return this.success(user);
   }
 };
