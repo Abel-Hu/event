@@ -23,7 +23,7 @@ module.exports = class extends Base {
   async uploadAction() {
     const file = this.file('file');
     console.log(file);
-    const filename = await qiniu.upload(file.path,'event/');
+    const filename = await qiniu.upload(file.path, 'event/');
     return this.success(filename);
   }
 };
