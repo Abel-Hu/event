@@ -12,6 +12,9 @@ const o = class {
   }
 
   onLoad () {
+    wx.setNavigationBarTitle({
+      title: '我'
+    })
     this.props.member.getMember()
 /*    wx.chooseImage({
       fail: function(res) {
