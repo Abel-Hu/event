@@ -43,5 +43,6 @@ runtime/
 
 *.lock
 
+src/cert/*.*
 src/common/config/env/development.js
 src/common/config/env/production.js
