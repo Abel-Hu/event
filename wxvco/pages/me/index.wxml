@@ -24,7 +24,7 @@
     <view class="v-line"/>
     <!--start 特权管理-->
     <view class="v-section manage">
-        <navigator class="v-nav" url="/pages/me/event/index">
+        <navigator class="v-nav" url="/pages/me/event/create/index">
         <view class="v-cell">我发布的活动</view>
         </navigator>
     </view>
