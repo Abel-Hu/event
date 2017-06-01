@@ -1,18 +1,13 @@
 // 七牛
 
 const LOG = getLogger(__filename);
-const random = requireCommon('random');
 const timeUtil = requireCommon('time');
 const config = think.config('qiniu');
 const qiniu = require('qiniu');
-const path = require('path');
 
 // 七牛配置
 qiniu.conf.ACCESS_KEY = config.accesskey;
 qiniu.conf.SECRET_KEY = config.secretkey;
-
-// 名空间配置
-const bucket = 'image';
 
 module.exports = {
   /**
@@ -35,7 +30,7 @@ module.exports = {
       const extra = new qiniu.io.PutExtra();
       const surfix = sourceFilePath.substring(sourceFilePath.lastIndexOf('.') + 1).toLowerCase();
       const filename = `${targetFilePath}${timeUtil.format('yyyyMMdd')}/${think.uuid(40)}.${surfix}`;
-      const uptoken = uploadToken(bucket, filename);
+      const uptoken = uploadToken(config.bucket, filename);
       qiniu.io.putFile(uptoken, filename, sourceFilePath, extra, (err, ret) => {
         if (!err) {
           resolve(`http://image.ruanzhijun.cn/${ret.key}`);
