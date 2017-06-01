@@ -1,2 +1,6 @@
-<!--index.wxml-->
-<text>index.wxml</text>
+
+<view class="v-section">
+<navigator class="v-nav" url="/pages/me/event/create/index">
+    <view class="v-cell">创建活动</view>
+</navigator>
+</view>
