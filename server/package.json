@@ -16,6 +16,7 @@
     "bluebird": "^3.5.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
+    "fs-sync": "^1.0.4",
     "ioredis": "^3.1.1",
     "jsonwebtoken": "^7.3.0",
     "log4js": "^1.1.1",

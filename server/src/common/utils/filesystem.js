@@ -1,12 +1,23 @@
 /**
  * 文件工具集
  */
+const fsSync = require('fs-sync');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
 const isWindows = os.platform() === 'win32';
 module.exports = {
+  /**
+   * 复制文件
+   * @param source 源文件
+   * @param target 目标文件
+   */
+  copy(source, target) {
+    const filePath = path.dirname(target);
+    this.mkdirsSync(filePath);
+    fsSync.copy(source, target);
+  },
   /**
    * 创建文件夹(多层)
    * @param dirpath 文件夹路径
