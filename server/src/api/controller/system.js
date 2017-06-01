@@ -5,8 +5,6 @@ const jwtConfig = think.config('jwt');
 module.exports = class extends Base {
   init(...args) {
     super.init(...args);
-
-    this.whiteList = ['upload'];
   }
 
   /**
@@ -22,7 +20,6 @@ module.exports = class extends Base {
    */
   async uploadAction() {
     const file = this.file('file');
-    console.log(file);
     const filename = await qiniu.upload(file.path, 'event/');
     return this.success(filename);
   }
