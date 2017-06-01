@@ -10,7 +10,7 @@
     <view class="v-section user">
         <view class="v-cell nav icon">活动参与</view>
         <view class="v-cell nav icon">活动收藏</view>
-        <navigator url="/pages/me/setting/index">
+        <navigator class="v-nav" url="/pages/me/setting/index">
             <view class="v-cell nav icon">
                 个人设置
             </view>
