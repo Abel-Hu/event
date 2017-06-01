@@ -1,7 +1,7 @@
 .v-section{
   background:#fff;
-  border:1px solid #eee;
-  border-width :1px 0;
+  border:1rpx solid #eee;
+  border-width :1rpx 0;
 }
 .v-line{
   height :20rpx;
@@ -10,7 +10,7 @@
   padding:28rpx; position :relative
 }
 .v-cell:after{
-  height :1px;
+  height :1rpx;
   background :#eee;
   position :absolute;
   right :0;
