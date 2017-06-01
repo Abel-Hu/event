@@ -8,10 +8,10 @@
     <view class="v-line"/>
     <!--start 会员管理-->
     <view class="v-section user">
-        <view class="v-cell nav icon">活动参与</view>
-        <view class="v-cell nav icon">活动收藏</view>
+        <view class="v-cell">活动参与</view>
+        <view class="v-cell">活动收藏</view>
         <navigator class="v-nav" url="/pages/me/setting/index">
-            <view class="v-cell nav icon">
+            <view class="v-cell">
                 个人设置
             </view>
         </navigator>
@@ -20,7 +20,9 @@
     <view class="v-line"/>
     <!--start 特权管理-->
     <view class="v-section manage">
-        <view class="v-cell nav icon">我发布的活动</view>
+        <navigator class="v-nav" url="/pages/me/event/index">
+        <view class="v-cell">我发布的活动</view>
+        </navigator>
     </view>
     <!--end 特权管理-->
 

@@ -14,3 +14,6 @@
 .bgH{
   color :#BDBDBD
 }
+.border-color{
+  color:#eeeeee
+}

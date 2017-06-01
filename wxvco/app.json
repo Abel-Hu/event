@@ -2,6 +2,7 @@
   "pages": [
     "pages/me/index",
     "pages/me/setting/index",
+    "pages/me/event/index",
     "pages/discover/index"
   ],
   "tabBar": {
