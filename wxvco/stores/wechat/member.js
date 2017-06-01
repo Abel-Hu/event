@@ -9,11 +9,7 @@ const Api = {
 module.exports = class extends Store {
   state () {
     return {
-      member: {},
-      ns: 'wechat/member',
-      get toMember () {
-        return JSON.stringify(this.member)
-      }
+      member: {}
     }
   }
 
