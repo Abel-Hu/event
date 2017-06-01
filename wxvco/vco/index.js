@@ -5,12 +5,13 @@ const Store = require('./Store')
 const http = require('./http')
 //
 const page = function (o, inject) {
-  o = new (o)
+  o = observer(o)
+  //o = new o()
   injectStore(o, inject)
-  return Page(observer(o))
+  return Page(o)
 }
 const app = function (o, inject) {
-  o = new (o)
+  //o = new o()
   injectStore(o, inject)
   return App(o)
 }
@@ -21,7 +22,7 @@ const injectStore = function (o, inject) {
     Object.keys(inject).map((key) => {
       if (!propsCache[inject[key]]) {
         const cls = require(`../stores/${inject[key]}`)
-        propsCache[inject[key]] = new cls
+        propsCache[inject[key]] = new cls()
       }
       o.props[key] = propsCache[inject[key]]
     })
