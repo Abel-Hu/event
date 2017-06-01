@@ -43,5 +43,5 @@ runtime/
 
 *.lock
 
-src/cert/*.*
+cert/*.*
 src/common/config/env/*.*
