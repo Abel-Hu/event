@@ -22,8 +22,8 @@ module.exports = class extends Base {
    */
   async uploadAction() {
     const file = this.file('file');
+    console.log(file);
     const filename = await qiniu.upload(file,'event/');
-    console.log(filename);
-    return this.success(1);
+    return this.success(filename);
   }
 };
