@@ -17,3 +17,36 @@
 .usermotto {
 
 }
+
+
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.box .item {
+  flex: 1;
+  padding: 10rpx;
+  min-width: 20%;
+  display: inline-block;
+
+  border: 1rpx solid #eee;
+  margin: -1rpx -1rpx 0 0;
+  background-color: #fff;
+}
+.box .info {
+  font-size: 20rpx;
+  margin: 15rpx;
+}
+.box .img {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.setting {
+  position: absolute;
+  top: 20rpx;
+  right: 25rpx;
+  width: 64rpx;
+  height: 64rpx;
+}

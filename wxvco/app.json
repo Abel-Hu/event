@@ -1,32 +1,37 @@
 {
   "pages": [
     "pages/me/index",
-    "pages/discover/index"
+    "pages/discover/index",
+    "pages/setting/index",
+    "pages/event/create/index",
+    "pages/event/index"
   ],
   "tabBar": {
-    "color":"#a6a6a6",
-    "selectedColor":"#000",
+    "color": "#a6a6a6",
+    "selectedColor": "#000",
     "borderStyle": "white",
     "backgroundColor": "#fff",
-    "list": [{
-      "pagePath": "pages/discover/index",
-      "iconPath":"/img/icon/compass_tab.png",
-      "selectedIconPath":"/img/icon/compass_tab_on.png",
-      "text": "发现"
-    }, {
-      "pagePath":  "pages/me/index",
-      "iconPath":"/img/icon/account_tab.png",
-      "selectedIconPath":"/img/icon/account_tab_on.png",
-
-      "text": "我"
-    }]
+    "list": [
+      {
+        "pagePath": "pages/discover/index",
+        "iconPath": "/img/icon/compass_tab.png",
+        "selectedIconPath": "/img/icon/compass_tab_on.png",
+        "text": "发现"
+      },
+      {
+        "pagePath": "pages/me/index",
+        "iconPath": "/img/icon/account_tab.png",
+        "selectedIconPath": "/img/icon/account_tab_on.png",
+        "text": "我"
+      }
+    ]
   },
   "window": {
     "backgroundTextStyle": "dark",
     "backgroundColor": "#eeeeee",
     "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTitleText": "HiBeetleEvent",
-    "navigationBarTextStyle": "dark",
+    "navigationBarTextStyle": "black",
     "enablePullDownRefresh": false,
     "disableScroll": true
   }

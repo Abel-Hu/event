@@ -1,0 +1,11 @@
+<!--index.wxml-->
+<form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="cell" wx:for="{{item}}" wx:key="{{index}}">
+        <text class="title">{{item.title}}</text>
+        <input class="input" value="{{item.value}}" placeholder="{{item.placeholder}}"/>
+    </view>
+    <view class="btn-area">
+        <button formType="submit">Submit</button>
+        <button formType="reset">Reset</button>
+    </view>
+</form>
