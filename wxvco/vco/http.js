@@ -11,12 +11,10 @@ const WxHttp = function (method = 'GET') {
    * @header:{'content-type': 'application/x-www-form-urlencoded'||'application/json'}
    * @token=String
    */
-  return function (url = '', data = {}, catchErrorCode, header, token) {
+  return function (url = '', data = {}, catchErrorCode, header, token = false) {
     url = (url.indexOf('http') > -1) ? url : `${host}${url}`
-    const {member} = getApp()
-    if (token === '') {
-      token = (member && member.token) ? member.token : ''
-    }
+
+    token = token || wx.vco.data.token
     header = header || {'content-type': 'application/json'}
     if (token) {
       header.token = token

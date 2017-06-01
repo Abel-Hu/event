@@ -5,7 +5,6 @@ const {page} = wx.vco
 const o =  {
 
   onLoad () {
-    this.props.member.getMember()
     wx.setNavigationBarTitle({
       title: '发现'
     })

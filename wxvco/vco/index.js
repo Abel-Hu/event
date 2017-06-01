@@ -5,13 +5,10 @@ const Store = require('./Store')
 const http = require('./http')
 //
 const page = function (o, inject) {
-  o = observer(o)
-  //o = new o()
   injectStore(o, inject)
-  return Page(o)
+  return Page(observer(o))
 }
 const app = function (o, inject) {
-  //o = new o()
   injectStore(o, inject)
   return App(o)
 }
@@ -30,12 +27,18 @@ const injectStore = function (o, inject) {
 }
 // init
 wxToPromise()
-//
-module.exports = {
+const vco = {
   mobx,
   page,
   observer,
   Store,
   app,
-  http
+  http,
+  data: {
+    token: ''
+  }
 }
+//全局赋值
+wx.vco = vco
+//
+module.exports = vco

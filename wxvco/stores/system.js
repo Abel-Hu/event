@@ -6,14 +6,11 @@ const Api = {
   token: '/api/system/token'
 }
 module.exports = class extends Store {
-  state () {
-    return {
-      token: ''
-    }
-  }
 
   checkToken (cb) {
-    http.post(Api.token).then((data) => {
+    http.post(Api.token, {}, (d) => {
+      cb && cb(d)
+    }).then((data) => {
       cb && cb(data)
     })
   }

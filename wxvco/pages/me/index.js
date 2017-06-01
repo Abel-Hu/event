@@ -31,7 +31,7 @@ const o = {
     wx.setNavigationBarTitle({
       title: '我'
     })
-    this.props.member.getMember()
+
   }
 }
 page(o, {todo: 'todo', member: 'wechat/member'})

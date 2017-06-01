@@ -18,6 +18,14 @@ module.exports = class extends Store {
   }
 
   getMember (cb) {
+    if (cb === true) {
+      wx.removeStorageSync(MzMemberKey)
+    }
+    const returnMember = (member) => {
+      this.member = member
+      wx.vco.data.token = member.token
+      typeof cb === 'function' && cb(member)
+    }
     let member = wx.getStorageSync(MzMemberKey) || {}
     if (Object.keys(member).length === 0) {
       Promise.all([
@@ -26,24 +34,20 @@ module.exports = class extends Store {
       ]).then(([{code}, user]) => {
         const {userInfo, iv, signature, encryptedData, encryptData, rawData} = user
         const params = {code, iv, rawData, encryptedData}
-        http.post(Api.login, params).then(({data, code, message}) => {
+        http.post(Api.login, params).then((data) => {
           member = Object.assign(userInfo, data)
           wx.setStorageSync(MzMemberKey, member)
-          this.member = member
-          cb && cb(member)
+          returnMember(member)
         })
       })
-      return
+    } else {
+      returnMember(member)
     }
-    this.member = member
-    cb && cb(member)
   }
 
-  updateToken (token, cb) {
-    let member = wx.getStorageSync(MzMemberKey) || {}
-    member.token = token
+  updateToken (token) {
     this.member.token = token
-    wx.setStorageSync(MzMemberKey, member)
-    cb && cb()
+    wx.vco.data.token = token
+    wx.setStorageSync(MzMemberKey, JSON.parse(JSON.stringify(this.member)))
   }
 }
