@@ -147,7 +147,7 @@ headSequence	|否				|string			|顶部游标(上拉刷新)
 		"isVip": true				// 是否为大V用户
 	},{...}]
 },{...}]
-
+```
 
 
 ### 收藏活动  POST   /api/event/fav
