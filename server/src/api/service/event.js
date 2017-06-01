@@ -74,7 +74,10 @@ module.exports = class extends Base {
    * @param eventId 活动id
    */
   async eventFav(uid, eventId) {
-    await this.eventModel.add({ uid, eventId });
+    const fav = await this.eventModel.add({ uid, eventId });
+    if (!think.isEmpty(fav)) {
+      await this.incrFavs(eventId);
+    }
   }
 
   /**
@@ -83,7 +86,10 @@ module.exports = class extends Base {
    * @param eventId 活动id
    */
   async eventUnfav(uid, eventId) {
-    await this.eventModel.remove({ uid, eventId });
+    const result = await this.eventModel.remove({ uid, eventId });
+    if (result) {
+      await this.decrFavs(eventId);
+    }
   }
 
   /**
@@ -203,6 +209,18 @@ module.exports = class extends Base {
       }];
       return event;
     });
+    return pageData;
+  }
+
+  /**
+   * 活动收藏列表
+   * @param eventId 活动id
+   * @param lastSequence 上一页游标
+   * @param headSequence 顶部游标
+   * @param pageSize 页面大小
+   */
+  async eventFavList(eventId, lastSequence = '', headSequence = '', pageSize = 30) {
+    const pageData = await this.eventModel.cursorPage({ _id: eventId }, lastSequence, headSequence, pageSize);
     return pageData;
   }
 };
