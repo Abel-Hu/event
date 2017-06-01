@@ -5,12 +5,14 @@ const Store = require('./Store')
 const http = require('./http')
 //
 const page = function (o, inject) {
+  o = new (o)
   injectStore(o, inject)
-  return observer(o)
+  return Page(observer(o))
 }
 const app = function (o, inject) {
+  o = new (o)
   injectStore(o, inject)
-  return o
+  return App(o)
 }
 const propsCache = {}
 const injectStore = function (o, inject) {

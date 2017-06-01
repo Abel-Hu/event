@@ -1,0 +1,16 @@
+/* 配色方案 */
+.primary{
+  color:#000
+}
+.heighline{
+  color:#3d98ff
+}
+.light{
+  color :#a6a6a6
+}
+.bg{
+  color :#F4F4F4
+}
+.bgH{
+  color :#BDBDBD
+}

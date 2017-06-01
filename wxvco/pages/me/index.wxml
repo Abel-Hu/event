@@ -1,31 +1,23 @@
 <view>
-    <view bindtap="bindViewTap" class="userinfo">
-        <image class="userinfo-avatar" src="{{props.member.member.avatarUrl}}" background-size="cover"></image>
-        <text class="userinfo-nickname">{{props.member.member.nickName}}</text>
+    <view class="userinfo v-section">
+       <view class="v-item">
+           <image class="avatar" src="{{props.member.member.avatarUrl}}" background-size="cover"></image>
+           <text class="nickname">{{props.member.member.nickName||'点击登录'}}</text>
+       </view>
     </view>
-    <navigator url="/pages/setting/index">
-        <image class="setting" src="/src/img/me/set.png"/>
-    </navigator>
-    <view class="box">
-        <view class="item">
-            <navigator url="/pages/event/index">我的参与</navigator>
-        </view>
-        <view class="item">
-            <navigator url="/pages/event/index">我的收藏</navigator>
-        </view>
+    <view class="v-line"/>
+    <!--start 会员管理-->
+    <view class="v-section user">
+        <view class="v-item nav icon">活动参与</view>
+        <view class="v-item nav icon">活动收藏</view>
+        <view class="v-item nav icon">个人设置</view>
     </view>
-    <view class="box">
-        <view class="item">
-            <navigator url="/pages/event/create/index">发布活动</navigator>
-        </view>
+    <!--end 会员管理-->
+    <view class="v-line" />
+    <!--start 特权管理-->
+    <view class="v-section manage">
+        <view class="v-item nav icon">我发布的活动</view>
     </view>
-    <view class="usermotto">
-        <text class="user-motto">{{motto}}</text>
-        <view>
-            {{props.todo.todoText}}
-        </view>
-    </view>
-    <view>
-        {{props.member.ns}}
-    </view>
+    <!--end 特权管理-->
+
 </view>

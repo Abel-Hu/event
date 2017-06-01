@@ -1,9 +1,9 @@
 const vco = require('./vco/index')
 wx.vco = vco
 const {app} = vco
-const o = {
+const o = class {
   onLaunch(){
     console.log('onLaunch',this.props)
   }
 }
-App(app(o, {system: 'system', member: 'wechat/member'}))
+app(o, {system: 'system', member: 'wechat/member'})

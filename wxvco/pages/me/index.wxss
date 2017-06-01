@@ -1,52 +1,21 @@
 .userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+   border-top :1rpx solid #F4F4F4;
+
 }
 
-.userinfo-avatar {
+.avatar {
   width: 128rpx;
   height: 128rpx;
   border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
+  margin-right :20rpx;
+  background :#F4F4F4;
 
 }
 
+.nickname {
 
-.box {
-  display: flex;
-  flex-wrap: wrap;
-  text-align: center;
 }
-.box .item {
-  flex: 1;
-  padding: 10rpx;
-  min-width: 20%;
-  display: inline-block;
-
-  border: 1rpx solid #eee;
-  margin: -1rpx -1rpx 0 0;
-  background-color: #fff;
-}
-.box .info {
-  font-size: 20rpx;
-  margin: 15rpx;
-}
-.box .img {
-  width: 50rpx;
-  height: 50rpx;
-}
-
-.setting {
-  position: absolute;
-  top: 20rpx;
-  right: 25rpx;
-  width: 64rpx;
-  height: 64rpx;
+.avatar,.nickname{
+  vertical-align:middle;
+  display:inline-block;
 }

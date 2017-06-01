@@ -2,13 +2,15 @@
  * Created by ken on 2017/5/31.
  */
 const {page} = wx.vco
-const o = {
-  onShow() {
+const o = class {
+  onShow () {
     this.props.todo.utxt()
-  },
-  onHide() {
+  }
+
+  onHide () {
     this.props.todo.ut()
-  },
+  }
+
   onLoad () {
     this.props.member.getMember()
     wx.chooseImage({
@@ -35,4 +37,4 @@ const o = {
     })
   }
 }
-Page(page(o, {todo: 'todo', member: 'wechat/member'}))
+page(o, {todo: 'todo', member: 'wechat/member'})

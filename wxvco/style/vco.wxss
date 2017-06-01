@@ -1,0 +1,19 @@
+.v-section{
+  background:#fff;
+}
+.v-line{
+  height :20rpx;
+}
+.v-item{
+  border-bottom :1rpx solid #F4F4F4;
+  padding:28rpx;
+}
+
+.v-item.nav:before{
+  font-family:"iconfont";
+  content: "\e6a7";
+  right :28rpx; position :absolute;
+}
+.v-item.icon{
+
+}
