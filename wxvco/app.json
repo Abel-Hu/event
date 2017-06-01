@@ -3,7 +3,8 @@
     "pages/me/index",
     "pages/me/setting/index",
     "pages/me/event/index",
-    "pages/discover/index"
+    "pages/discover/index",
+    "pages/me/event/create/index"
   ],
   "tabBar": {
     "color":"#a6a6a6",
