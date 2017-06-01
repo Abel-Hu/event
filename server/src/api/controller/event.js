@@ -94,8 +94,53 @@ module.exports = class extends Base {
    * 首页活动列表
    */
   async listAction() {
-    const [lastSequence, headSequence, pageSize] = [this.lastSequence(), this.headSequence(), this.pageSize()];
-    const pageData = await this.eventService.eventList(lastSequence, headSequence, pageSize);
+    const lastSequence = this.lastSequence();
+    const headSequence = this.headSequence();
+    const pageSize = this.pageSize();
+
+    const pageData = await this.eventService.eventList(this.member.uid, lastSequence, headSequence, pageSize);
     return this.cursorPage(pageData);
+  }
+
+  /**
+   * 收藏活动
+   */
+  async favAction() {
+    // 判断活动是否存在
+    const eventId = this.param('eventId');
+    const event = await this.eventService.getEvent(eventId);
+    if (think.isEmpty(event)) {
+      return this.showError(ERROR.EVENT.NOT_EXISTS);
+    }
+
+    // 判断是否收藏这个活动
+    const b = await this.eventService.eventHasFav(this.member.uid, eventId);
+    if (b) {
+      return this.showError(ERROR.EVENT.HAS_FAV);
+    }
+
+    await this.eventService.eventFav(this.member.uid, eventId);
+    return this.success(1);
+  }
+
+  /**
+   * 取消收藏活动
+   */
+  async unfavAction() {
+    // 判断活动是否存在
+    const eventId = this.param('eventId');
+    const event = await this.eventService.getEvent(eventId);
+    if (think.isEmpty(event)) {
+      return this.showError(ERROR.EVENT.NOT_EXISTS);
+    }
+
+    // 判断是否收藏这个活动
+    const b = await this.eventService.eventHasFav(this.member.uid, eventId);
+    if (!b) {
+      return this.showError(ERROR.EVENT.HAS_NOT_FAV);
+    }
+
+    await this.eventService.eventUnfav(this.member.uid, eventId);
+    return this.success(1);
   }
 };

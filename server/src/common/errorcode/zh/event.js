@@ -18,4 +18,12 @@ module.exports = {
    * 活动不存在(300004)
    */
   NOT_EXISTS: new ErrorCode(300004, '活动不存在'),
+  /**
+   * 活动已收藏(300005)
+   */
+  HAS_FAV: new ErrorCode(300005, '活动已收藏'),
+  /**
+   * 活动未收藏(300006)
+   */
+  HAS_NOT_FAV: new ErrorCode(300006, '活动未收藏'),
 };

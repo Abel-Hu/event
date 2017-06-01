@@ -67,4 +67,18 @@ module.exports = class extends Base {
   listAction() {
     this.allowMethods = 'get';
   }
+
+  favAction() {
+    this.allowMethods = 'post';
+    this.rules = {
+      eventId: 'required|string',
+    };
+  }
+
+  unfavAction() {
+    this.allowMethods = 'post';
+    this.rules = {
+      eventId: 'required|string',
+    };
+  }
 };

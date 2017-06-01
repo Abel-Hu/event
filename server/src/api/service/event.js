@@ -11,6 +11,7 @@ module.exports = class extends Base {
 
     // 注入model
     this.eventModel = this.model('event');
+    this.eventFavModel = this.model('event_fav');
   }
 
   /**
@@ -68,19 +69,48 @@ module.exports = class extends Base {
   }
 
   /**
+   * 收藏活动
+   * @param uid 用户id
+   * @param eventId 活动id
+   */
+  async eventFav(uid, eventId) {
+    await this.eventModel.add({ uid, eventId });
+  }
+
+  /**
+   * 取消收藏活动
+   * @param uid 用户id
+   * @param eventId 活动id
+   */
+  async eventUnfav(uid, eventId) {
+    await this.eventModel.remove({ uid, eventId });
+  }
+
+  /**
+   * 判断是否有收藏此活动
+   * @param uid 用户id
+   * @param eventId 活动id
+   */
+  async eventHasFav(uid, eventId) {
+    const fav = await this.eventModel.findOne({ uid, eventId });
+    return !think.isEmpty(fav);
+  }
+
+  /**
    * 活动列表
+   * @param uid 用户id
    * @param lastSequence 上一页游标
    * @param headSequence 顶部游标
    * @param pageSize 页面大小
    */
-  async eventList(lastSequence = '', headSequence = '', pageSize = 30) {
+  async eventList(uid, lastSequence = '', headSequence = '', pageSize = 30) {
     const pageData = await this.eventModel.cursorPage({}, lastSequence, headSequence, pageSize);
-    pageData.list = pageData.list.map((e) => {
+    pageData.list = pageData.list.map(async (e) => {
       const event = {};
       event.eventId = e._id;
       event.title = e.title;
       event.image = JSON.parse(e.images)[0];
-      event.isFav = true;
+      event.isFav = await this.eventHasFav(uid, event.eventId);
       event.join = e.join;
       event.joinList = [{
         uid: '5921d4c6ea3',
