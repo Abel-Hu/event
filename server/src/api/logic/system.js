@@ -6,6 +6,6 @@ module.exports = class extends Base {
   }
 
   uploadAction() {
-    this.allowMethods = 'put';
+    this.allowMethods = 'post';
   }
 };
