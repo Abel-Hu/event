@@ -123,7 +123,12 @@ module.exports = class extends think.model.base {
 
     // 查询
     const list = await this._model.find(where, {}, { sort: { _id: -1 }, limit: pageSize });
-    const _headSequence = (think.isEmpty(lastSequence) || !think.isEmpty(list)) ? list[0]._id : '';
+
+    // 顶部游标：只有"第一页的时候"或者"上拉刷新的时候"才返回
+    let b = true;
+    b = b && (think.isEmpty(lastSequence) || !think.isEmpty(headSequence));
+    b = b && !think.isEmpty(list);
+    const _headSequence = b ? list[0]._id : '';
     let _lastSequence = '';
     if (list.length >= pageSize) {
       list.length -= 1;
