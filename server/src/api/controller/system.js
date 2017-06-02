@@ -1,12 +1,10 @@
 const Base = requireBaseController();
-// const qiniu = requireCommon('qiniu');
+const qiniu = requireCommon('qiniu');
 const jwtConfig = think.config('jwt');
 
 module.exports = class extends Base {
   init(...args) {
     super.init(...args);
-
-    this.whiteList = ['upload'];
   }
 
   /**
@@ -21,8 +19,8 @@ module.exports = class extends Base {
    * 上传文件
    */
   async uploadAction() {
-    console.log(this.file());
-    // const filename = await qiniu.upload('E:\\1.jpg','event/');
-    return this.success(1);
+    const file = this.file('file');
+    const filename = await qiniu.upload(file.path, 'event/');
+    return this.success(filename);
   }
 };

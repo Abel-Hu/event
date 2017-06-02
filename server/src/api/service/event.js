@@ -12,6 +12,9 @@ module.exports = class extends Base {
     // 注入model
     this.eventModel = this.model('event');
     this.eventFavModel = this.model('event_fav');
+    this.eventJoinModel = this.model('event_join');
+    this.eventUvModel = this.model('event_uv');
+    this.eventShareModel = this.model('event_share');
   }
 
   /**
@@ -22,12 +25,13 @@ module.exports = class extends Base {
    * @param images 活动图片
    * @param longitude 活动所在地点的经度
    * @param latitude 活动所在地点的纬度
+   * @param address 活动所在地址
    * @param startTime 活动开始时间
    * @param endTime 活动结束时间
    * @param joinLimit 报名人数上限
    * @param deadline 报名截至时间
    */
-  async publish(uid, title, description, images, longitude, latitude, startTime, endTime, joinLimit, deadline) {
+  async publish(uid, title, description, images, longitude, latitude, address, startTime, endTime, joinLimit, deadline) {
     const event = await this.eventModel.add({
       uid,
       title,
@@ -35,6 +39,7 @@ module.exports = class extends Base {
       images,
       longitude,
       latitude,
+      address,
       startTime: timeUtil.str2time(startTime),
       endTime: timeUtil.str2time(endTime),
       joinLimit,
@@ -74,7 +79,7 @@ module.exports = class extends Base {
    * @param eventId 活动id
    */
   async eventFav(uid, eventId) {
-    const fav = await this.eventModel.add({ uid, eventId });
+    const fav = await this.eventFavModel.add({ uid, eventId });
     if (!think.isEmpty(fav)) {
       await this.incrFavs(eventId);
     }
@@ -86,8 +91,8 @@ module.exports = class extends Base {
    * @param eventId 活动id
    */
   async eventUnfav(uid, eventId) {
-    const result = await this.eventModel.remove({ uid, eventId });
-    if (result) {
+    const result = await this.eventFavModel.remove({ uid, eventId });
+    if (result.ok === 1) {
       await this.decrFavs(eventId);
     }
   }
@@ -98,81 +103,127 @@ module.exports = class extends Base {
    * @param eventId 活动id
    */
   async eventHasFav(uid, eventId) {
-    const fav = await this.eventModel.findOne({ uid, eventId });
+    const fav = await this.eventFavModel.findOne({ uid, eventId });
     return !think.isEmpty(fav);
   }
 
   /**
-   * 给活动的收藏数量增加1
+   * 报名活动
+   * @param uid 用户id
    * @param eventId 活动id
    */
-  async incrFavs(eventId) {
-    const result = await this.eventModel.incr({ _id: eventId }, { fav: 1 });
+  async eventJoin(uid, eventId) {
+    await this.eventJoinModel.add({ uid, eventId });
+  }
+
+  /**
+   * 判断是否有报名此活动
+   * @param uid 用户id
+   * @param eventId 活动id
+   */
+  async eventHasJoin(uid, eventId) {
+    const join = await this.eventJoinModel.findOne({ uid, eventId });
+    return !think.isEmpty(join);
+  }
+
+  /**
+   * 增加活动的收藏数量
+   * @param eventId 活动id
+   * @param fav 增加的收藏数量
+   */
+  async incrFavs(eventId, fav = 1) {
+    const result = await this.eventModel.incr({ _id: eventId }, { fav });
     return result.fav || 0;
   }
 
   /**
-   * 给活动的收藏数量减少1
+   * 减少活动的收藏数量
    * @param eventId 活动id
+   * @param fav 减少的收藏数量
    */
-  async decrFavs(eventId) {
-    const result = await this.eventModel.incr({ _id: eventId }, { fav: -1 });
+  async decrFavs(eventId, fav = -1) {
+    const result = await this.eventModel.incr({ _id: eventId }, { fav });
     return result.fav || 0;
   }
 
   /**
-   * 给活动的uv数量增加1
+   * 增加活动的uv数量
    * @param eventId 活动id
+   * @param uv 增加的uv数量
    */
-  async incrUvs(eventId) {
-    const result = await this.eventModel.incr({ _id: eventId }, { uv: 1 });
+  async incrUvs(eventId, uv = 1) {
+    const result = await this.eventModel.incr({ _id: eventId }, { uv });
     return result.uv || 0;
   }
 
   /**
-   * 给活动的uv数量减少1
+   * 减少活动的uv数量
    * @param eventId 活动id
+   * @param uv 减少的uv数量
    */
-  async decrUvs(eventId) {
-    const result = await this.eventModel.incr({ _id: eventId }, { uv: -1 });
+  async decrUvs(eventId, uv = -1) {
+    const result = await this.eventModel.incr({ _id: eventId }, { uv });
     return result.uv || 0;
   }
 
 
   /**
-   * 给活动的分享数量增加1
+   * 判断是否看过此活动
+   * @param uid 用户id
    * @param eventId 活动id
    */
-  async incrShares(eventId) {
-    const result = await this.eventModel.incr({ _id: eventId }, { share: 1 });
+  async eventHasView(uid, eventId) {
+    const view = await this.eventUvModel.findOne({ uid, eventId });
+    return !think.isEmpty(view);
+  }
+
+  /**
+   * 增加活动的分享数量
+   * @param eventId 活动id
+   * @param share 增加的分享数量
+   */
+  async incrShares(eventId, share = 1) {
+    const result = await this.eventModel.incr({ _id: eventId }, { share });
     return result.share || 0;
   }
 
   /**
-   * 给活动的分享数量减少1
+   * 减少活动的分享数量
    * @param eventId 活动id
+   * @param share 减少的分享数量
    */
-  async decrShares(eventId) {
-    const result = await this.eventModel.incr({ _id: eventId }, { share: -1 });
+  async decrShares(eventId, share = -1) {
+    const result = await this.eventModel.incr({ _id: eventId }, { share });
     return result.share || 0;
   }
 
-
   /**
-   * 给活动的报名数量增加1
+   * 判断是否分享过此活动
+   * @param uid 用户id
    * @param eventId 活动id
    */
-  async incrJoins(eventId) {
-    const result = await this.eventModel.incr({ _id: eventId }, { join: 1 });
+  async eventHasShare(uid, eventId) {
+    const share = await this.eventShareModel.findOne({ uid, eventId });
+    return !think.isEmpty(share);
+  }
+
+  /**
+   * 增加活动的报名数量
+   * @param eventId 活动id
+   * @param join 增加的报名数量
+   */
+  async incrJoins(eventId, join = 1) {
+    const result = await this.eventModel.incr({ _id: eventId }, { join });
     return result.join || 0;
   }
 
   /**
-   * 给活动的报名数量减少1
+   * 减少活动的报名数量
    * @param eventId 活动id
+   * @param join 减少的报名数量
    */
-  async decrJoins(eventId) {
-    const result = await this.eventModel.incr({ _id: eventId }, { join: -1 });
+  async decrJoins(eventId, join = -1) {
+    const result = await this.eventModel.incr({ _id: eventId }, { join });
     return result.join || 0;
   }
 

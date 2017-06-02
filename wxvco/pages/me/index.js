@@ -22,6 +22,12 @@ const o = {
   },
 
   onLoad () {
+    wx.chooseLocation().then((uploadData) => {
+      console.log(uploadData)
+    }).catch((e) => {
+      console.error(e)
+    })
+
     wx.setNavigationBarTitle({
       title: '我'
     })

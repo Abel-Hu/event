@@ -12,6 +12,7 @@ description		|是				|string			|活动详情
 images			|是				|array			|活动图片
 longitude		|是				|float			|活动所在地点的经度(-180 ~ 180)
 latitude		|是				|float			|活动所在地点的纬度(-90 ~ 90)
+address			|是				|string			|活动所在地址
 startTime		|是				|date			|活动开始时间(格式：2017-02-14 18:00:00)
 endTime			|是				|date			|活动结束时间(格式：2017-02-15 18:00:00)
 joinLimit		|是				|int			|报名人数上限(0为不限制)
@@ -36,6 +37,7 @@ description		|否				|string			|活动详情
 images			|否				|array			|活动图片
 longitude		|否				|float			|活动所在地点的经度(-180 ~ 180)
 latitude		|否				|float			|活动所在地点的纬度(-90 ~ 90)
+address			|否				|string			|活动所在地址
 startTime		|否				|date			|活动开始时间(格式：2017-02-14 18:00:00)
 endTime			|否				|date			|活动结束时间(格式：2017-02-15 18:00:00)
 joinLimit		|否				|int			|报名人数上限(0为不限制，只可增多，不可减少)

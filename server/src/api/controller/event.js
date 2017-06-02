@@ -36,11 +36,12 @@ module.exports = class extends Base {
     const images = JSON.stringify(this.param('images'));
     const longitude = this.param('longitude');
     const latitude = this.param('latitude');
+    const address = this.param('address');
     const startTime = this.param('startTime');
     const endTime = this.param('endTime');
     const joinLimit = this.param('joinLimit');// 0为不限制
     const deadline = this.param('deadline');
-    const event = await this.eventService.publish(this.member.uid, title, description, images, longitude, latitude, startTime, endTime, joinLimit, deadline);
+    const event = await this.eventService.publish(this.member.uid, title, description, images, longitude, latitude, address, startTime, endTime, joinLimit, deadline);
     return this.success({ eventId: event.eventId, userEventPublishs: event.userEventPublishs });
   }
 
@@ -54,6 +55,7 @@ module.exports = class extends Base {
     const images = JSON.stringify(this.param('images'));
     const longitude = this.param('longitude');
     const latitude = this.param('latitude');
+    const address = this.param('address');
     const startTime = this.param('startTime');
     const endTime = this.param('endTime');
     const joinLimit = this.param('joinLimit');// 0为不限制，只可增多，不可减少
@@ -73,7 +75,7 @@ module.exports = class extends Base {
       return this.showError(ERROR.EVENT.JOIN_LIMIT_ONLY_CAN_INCREMENT);
     }
 
-    await this.eventService.update(eventId, { title, description, images, longitude, latitude, startTime, endTime, joinLimit, deadline });
+    await this.eventService.update(eventId, { title, description, images, longitude, latitude, address, startTime, endTime, joinLimit, deadline });
     return this.success(1);
   }
 
@@ -155,6 +157,22 @@ module.exports = class extends Base {
       return this.showError(ERROR.EVENT.NOT_EXISTS);
     }
 
+    // 判断报名人数是否已满
+    // 先加1，如果加了没超过上限，证明是可以报名的
+    const joins = await this.eventService.incrJoins(eventId);
+    if (event.joinLimit > 0 && joins > event.joinLimit) {
+      return this.showError(ERROR.EVENT.IS_FULL_OF_PEOPLE);
+    }
+
+    // 是否已报名
+    const b = await this.eventService.eventHasJoin(this.member.uid, eventId);
+    if (b) {
+      // 由于是先加的，所以要减回来
+      await this.eventService.decrJoins(eventId);
+      return this.showError(ERROR.EVENT.HAS_JOIN);
+    }
+
+    await this.eventService.eventJoin(this.member.uid, eventId);
     return this.success(1);
   }
 };
