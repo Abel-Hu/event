@@ -316,7 +316,7 @@ module.exports = class extends Base {
       event.isFav = promiseResult[i];
       event.join = e.join;
       i += 1;
-      event.joinList = promiseResult[i];
+      event.joinList = promiseResult[i].list;
       return event;
     });
     return pageData;
