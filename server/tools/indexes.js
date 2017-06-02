@@ -7,7 +7,7 @@ const path = require('path');
 // 读取上次保存的索引
 const runtimeFile = path.resolve(`${__dirname}${path.sep}..${path.sep}runtime${path.sep}index.json`);
 const lastIndexes = JSON.parse(fs.existsSync(runtimeFile) ? fs.readFileSync(runtimeFile).toString().trim() : '{}');
-
+console.log(lastIndexes);
 function ensureIndex() {
   const basePath = `${__dirname}${path.sep}collection`;
   fs.readdirSync(basePath).filter((file) => {
