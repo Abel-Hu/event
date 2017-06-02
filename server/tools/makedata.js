@@ -10,11 +10,18 @@ const httpClient = axios.create({
   headers: { token },
 });
 
+// 活动详情
+function eventInfo() {
+  httpClient.get('/api/event/info?eventId=593177746a54be1b0d91e288').then((response) => {
+    console.log(JSON.stringify(response.data.data));
+  });
+}
+
 
 // 活动列表
 function eventList() {
   httpClient.get('/api/event/list').then((response) => {
-    console.log(response.data);
+    console.log(JSON.stringify(response.data.data));
   });
 }
 
@@ -33,12 +40,12 @@ function eventPublish() {
       joinLimit: 3,
       deadline: '2017-06-10 18:00:00',
     }).then((response) => {
-      console.log(response.data);
+      console.log(JSON.stringify(response.data.data));
     });
   }
 }
 
 
 ///////////////////////////////////////////////////////////////////
-eventList();
+eventInfo();
 ///////////////////////////////////////////////////////////////////

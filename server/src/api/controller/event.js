@@ -6,6 +6,7 @@ module.exports = class extends Base {
 
     // 注入service
     this.userService = requireService('user', 'api', this);
+    this.pojoService = requireService('pojo', 'api', this);
     this.eventService = requireService('event', 'api', this);
   }
 
@@ -104,7 +105,7 @@ module.exports = class extends Base {
       favList,
       commentList,
     ] = await Promise.all([
-      this.userService.makeUserBase(event.uid),
+      this.pojoService.makeUserBase(event.uid),
       this.eventService.eventHasFav(this.member.uid, eventId),
       this.eventService.eventJoinList(eventId, '', '', 10),
       this.eventService.eventFavList(eventId, '', '', 10),
@@ -237,7 +238,7 @@ module.exports = class extends Base {
       userBases,
     ] = await Promise.all([
       this.eventService.addComment(this.member.uid, eventId, replyUid, content),
-      this.userService.makeUserBase(this.member.uid, replyUid),
+      this.pojoService.makeUserBase(this.member.uid, replyUid),
     ]);
 
     think.extend(comment, { userBase: userBases[0] });
