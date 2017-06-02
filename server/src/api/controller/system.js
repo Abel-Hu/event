@@ -11,8 +11,9 @@ module.exports = class extends Base {
    * 验证token
    */
   async tokenAction() {
-    const token = await jwt.encrypt({ uid: this.member.uid, env: think.env }, jwtConfig.expire);
-    return this.success(token);
+    // const token = await jwt.encrypt({ uid: this.member.uid, env: think.env }, jwtConfig.expire);
+    // return this.success(token);
+    return this.showError(ERROR.USER.TOKEN_EXPIRE);
   }
 
   /**

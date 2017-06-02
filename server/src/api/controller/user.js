@@ -60,7 +60,7 @@ module.exports = class extends Base {
   /**
    * 我参与过的活动列表
    */
-  async joinAction() {
+  async joinlistAction() {
     const lastSequence = this.lastSequence();
     const headSequence = this.headSequence();
     const pageSize = this.pageSize();

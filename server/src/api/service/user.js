@@ -1,12 +1,19 @@
 const Base = think.service('base', 'common');
 const vipConfig = think.config('vip') || [];
+const stringUtil = requireCommon('string');
+
 module.exports = class extends Base {
   // 最先执行
   init(...args) {
     super.init(...args);
 
+    // 注入service
+    this.pojoService = requireService('pojo', 'api', this.controller);
+
     // 注入model
     this.userModel = this.model('user');
+    this.eventModel = this.model('event');
+    this.eventJoinModel = this.model('event_join');
   }
 
   /**
@@ -35,25 +42,6 @@ module.exports = class extends Base {
   async updateUserInfo(uid, data = {}) {
     const user = await this.userModel.update({ _id: uid }, { $set: data });
     return this.makeUserInfo(user);
-  }
-
-  /**
-   * 根据uid，获取userBase
-   * @param uid 一堆uid
-   */
-  async makeUserBase(...uid) {
-    const promiseArray = uid.filter(v => !think.isEmpty(v)).map(v => this.getUserByUid(v));
-    const matcher = ['uid', 'nickName', 'sex', 'avatarUrl', 'isVip', 'description'];
-    const promiseResult = await Promise.all(promiseArray);
-    const list = promiseResult.map((user) => {
-      const tmp = {};
-      matcher.filter((k) => {
-        think.extend(tmp, { [k]: user[k] });
-        return true;
-      });
-      return tmp;
-    });
-    return uid.length === 1 ? list[0] : list;
   }
 
   /**
@@ -119,8 +107,8 @@ module.exports = class extends Base {
    */
   async joinList(uid, lastSequence = '', headSequence = '', pageSize = 30) {
     const pageData = await this.eventJoinModel.cursorPage({ uid }, lastSequence, headSequence, pageSize);
-    const uidList = pageData.list.map(e => e.uid);
-    pageData.list = await this.userService.makeUserBase(uidList);
+    const eventIdList = pageData.list.map(e => e.eventId);
+    pageData.list = await  this.pojoService.makeEventBase(eventIdList);
     return pageData;
   }
 };

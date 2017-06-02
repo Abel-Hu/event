@@ -1,5 +1,6 @@
 const Base = think.service('base', 'common');
 const timeUtil = requireCommon('time');
+const stringUtil = requireCommon('string');
 
 module.exports = class extends Base {
   // 最先执行
@@ -8,6 +9,7 @@ module.exports = class extends Base {
 
     // 注入service
     this.userService = requireService('user', 'api', this.controller);
+    this.pojoService = requireService('pojo', 'api', this.controller);
 
     // 注入model
     this.eventModel = this.model('event');
@@ -71,6 +73,8 @@ module.exports = class extends Base {
    */
   async getEvent(eventId) {
     const event = this.eventModel.findOne({ _id: eventId });
+    event.eventId = event._id;
+    delete event._id;
     return event;
   }
 
@@ -318,7 +322,7 @@ module.exports = class extends Base {
   async eventFavList(eventId, lastSequence = '', headSequence = '', pageSize = 30) {
     const pageData = await this.eventFavModel.cursorPage({ eventId }, lastSequence, headSequence, pageSize);
     const uidList = pageData.list.map(e => e.uid);
-    pageData.list = await this.userService.makeUserBase(uidList);
+    pageData.list = await this.pojoService.makeUserBase(uidList);
     return pageData;
   }
 
@@ -332,7 +336,7 @@ module.exports = class extends Base {
   async eventJoinList(eventId, lastSequence = '', headSequence = '', pageSize = 30) {
     const pageData = await this.eventJoinModel.cursorPage({ eventId }, lastSequence, headSequence, pageSize);
     const uidList = pageData.list.map(e => e.uid);
-    pageData.list = await this.userService.makeUserBase(uidList);
+    pageData.list = await this.pojoService.makeUserBase(uidList);
     return pageData;
   }
 
@@ -346,7 +350,7 @@ module.exports = class extends Base {
   async eventShareList(eventId, lastSequence = '', headSequence = '', pageSize = 30) {
     const pageData = await this.eventShareModel.cursorPage({ eventId }, lastSequence, headSequence, pageSize);
     const uidList = pageData.list.map(e => e.uid);
-    pageData.list = await this.userService.makeUserBase(uidList);
+    pageData.list = await this.pojoService.makeUserBase(uidList);
     return pageData;
   }
 
@@ -359,8 +363,8 @@ module.exports = class extends Base {
    */
   async eventCommentList(eventId, lastSequence = '', headSequence = '', pageSize = 30) {
     const pageData = await this.eventCommentModel.cursorPage({ eventId }, lastSequence, headSequence, pageSize);
-    const userList = await this.userService.makeUserBase(pageData.list.map(e => e.uid));
-    const replyUserList = await this.userService.makeUserBase(pageData.list.map(e => e.replyUid));
+    const userList = await this.pojoService.makeUserBase(pageData.list.map(e => e.uid));
+    const replyUserList = await this.pojoService.makeUserBase(pageData.list.map(e => e.replyUid));
     let i = -1;
 
     pageData.list = pageData.list.map((v) => {

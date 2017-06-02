@@ -26,7 +26,7 @@ module.exports = class extends Base {
     };
   }
 
-  joinAction() {
+  joinlistAction() {
     this.allowMethods = 'get';
   }
 };
