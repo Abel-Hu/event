@@ -157,7 +157,7 @@ module.exports = class extends Base {
    * @param uv 增加的uv数量
    */
   async incrUvs(uid, eventId, uv = 1) {
-    await this.eventUvModel.create({ uid, eventId });
+    await this.eventUvModel.add({ uid, eventId });
     const result = await this.eventModel.incr({ _id: eventId }, { uv });
     return result.uv || 0;
   }
