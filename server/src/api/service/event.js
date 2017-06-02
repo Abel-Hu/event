@@ -152,10 +152,12 @@ module.exports = class extends Base {
 
   /**
    * 增加活动的uv数量
+   * @param uid 用户id
    * @param eventId 活动id
    * @param uv 增加的uv数量
    */
-  async incrUvs(eventId, uv = 1) {
+  async incrUvs(uid, eventId, uv = 1) {
+    await this.eventUvModel.create({ uid, eventId });
     const result = await this.eventModel.incr({ _id: eventId }, { uv });
     return result.uv || 0;
   }
