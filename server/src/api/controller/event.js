@@ -292,4 +292,17 @@ module.exports = class extends Base {
     const pageData = await this.eventService.eventJoinList(eventId, lastSequence, headSequence, pageSize);
     return this.cursorPage(pageData);
   }
+
+  /**
+   * 分享上报
+   */
+  async shareAction() {
+    // 判断有无记录过分享，有就记录，无论如何都正确
+    const eventId = this.param('eventId');
+    const b = await this.eventService.eventHasShare(this.member.uid, eventId);
+    if (!b) {
+      await this.eventService.eventShare(this.member.uid, eventId);
+    }
+    return this.success(1);
+  }
 };

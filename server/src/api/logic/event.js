@@ -126,4 +126,14 @@ module.exports = class extends Base {
   joinlistAction() {
     this.allowMethods = 'get';
   }
+
+  /**
+   * 分享上报
+   */
+  shareAction() {
+    this.allowMethods = 'post';
+    this.rules = {
+      eventId: 'required|string',
+    };
+  }
 };

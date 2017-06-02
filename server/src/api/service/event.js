@@ -198,6 +198,18 @@ module.exports = class extends Base {
   }
 
   /**
+   * 记录分享过此活动
+   * @param uid 用户id
+   * @param eventId 活动id
+   */
+  async eventShare(uid, eventId) {
+    const share = await this.eventShareModel.add({ uid, eventId });
+    if (!think.isEmpty(share)) {
+      await this.incrShares(eventId);
+    }
+  }
+
+  /**
    * 增加活动的报名数量
    * @param eventId 活动id
    * @param join 增加的报名数量
@@ -353,8 +365,9 @@ module.exports = class extends Base {
 
     pageData.list = pageData.list.map((v) => {
       const comment = {};
-      think.extend(comment, { userBase: userList[++i] });
-      think.extend(comment, { replyUserBase: replyUserList[++i] });
+      i += 1;
+      think.extend(comment, { userBase: userList[i] });
+      think.extend(comment, { replyUserBase: replyUserList[i] });
       think.extend(comment, { commentId: v.commentId });
       think.extend(comment, { content: v.content });
       think.extend(comment, { createTime: v.createTime });

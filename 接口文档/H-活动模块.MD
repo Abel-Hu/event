@@ -291,3 +291,15 @@ headSequence	|否				|string			|顶部游标(上拉刷新)
 	"isVip": true				// 是否为大V用户
 },{...}]
 ```
+
+
+### 分享上报  POST   /api/event/share
+
+参数			|是否必要		|类型			|说明
+--				|--				|--				|--
+eventId			|是				|string			|活动id
+
+### 响应数据
+```json
+"data": 1	// 修改成功返回1，错误返回错误码
+```
