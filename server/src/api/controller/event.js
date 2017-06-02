@@ -94,7 +94,7 @@ module.exports = class extends Base {
     // 统计uv
     const b = await this.eventService.eventHasView(this.member.uid, eventId);
     if (!b) {
-      await this.eventService.incrUvs(eventId);
+      await this.eventService.incrUvs(this.member.uid, eventId);
     }
 
     // 并行获取
