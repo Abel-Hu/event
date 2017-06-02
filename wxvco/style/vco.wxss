@@ -34,7 +34,7 @@
 }
 .v-grid-item{
   padding :28rpx; text-align :center;
-  font-size :16rpx;
+  font-size :20rpx;
 }
 .v-grid-item i{
   display :block; font-size :42rpx;
