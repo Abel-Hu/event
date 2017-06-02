@@ -26,6 +26,9 @@ if (!think.isEmpty(config)) {
 
   mongoose.connection.on('connected', () => {
     LOG.warn(`Connect to mongodb://${config.host}:${config.port}/${config.database} success`);
+
+    // 自动创建索引
+    require('./ensure_index')();
   });
   mongoose.connection.on('error', (err) => {
     LOG.warn(`Connect to mongodb://${config.host}:${config.port}/${config.database} failed`);
@@ -38,7 +41,7 @@ if (!think.isEmpty(config)) {
 
   process.on('SIGINT', () => {
     mongoose.connection.close(() => {
-      console.log('Mongoose default connection disconnected through app termination');
+      LOG.error('Mongoose connection disconnected through app termination');
       process.exit(0);
     });
   });
