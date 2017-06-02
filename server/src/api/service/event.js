@@ -321,7 +321,7 @@ module.exports = class extends Base {
   async eventFavList(eventId, lastSequence = '', headSequence = '', pageSize = 30) {
     const pageData = await this.eventFavModel.cursorPage({ eventId }, lastSequence, headSequence, pageSize);
     const uidList = pageData.list.map(e => e.uid);
-    pageData.list = await this.pojoService.makeUserBase(uidList);
+    pageData.list = await this.pojoService.makeUserBase(...uidList);
     return pageData;
   }
 
@@ -335,7 +335,7 @@ module.exports = class extends Base {
   async eventJoinList(eventId, lastSequence = '', headSequence = '', pageSize = 30) {
     const pageData = await this.eventJoinModel.cursorPage({ eventId }, lastSequence, headSequence, pageSize);
     const uidList = pageData.list.map(e => e.uid);
-    pageData.list = await this.pojoService.makeUserBase(uidList);
+    pageData.list = await this.pojoService.makeUserBase(...uidList);
     return pageData;
   }
 
@@ -349,7 +349,7 @@ module.exports = class extends Base {
   async eventShareList(eventId, lastSequence = '', headSequence = '', pageSize = 30) {
     const pageData = await this.eventShareModel.cursorPage({ eventId }, lastSequence, headSequence, pageSize);
     const uidList = pageData.list.map(e => e.uid);
-    pageData.list = await this.pojoService.makeUserBase(uidList);
+    pageData.list = await this.pojoService.makeUserBase(...uidList);
     return pageData;
   }
 
@@ -362,8 +362,10 @@ module.exports = class extends Base {
    */
   async eventCommentList(eventId, lastSequence = '', headSequence = '', pageSize = 30) {
     const pageData = await this.eventCommentModel.cursorPage({ eventId }, lastSequence, headSequence, pageSize);
-    const userList = await this.pojoService.makeUserBase(pageData.list.map(e => e.uid));
-    const replyUserList = await this.pojoService.makeUserBase(pageData.list.map(e => e.replyUid));
+    const uidList = pageData.list.map(e => e.uid);
+    const replyUidList = pageData.list.map(e => e.replyUid);
+    const userList = await this.pojoService.makeUserBase(...uidList);
+    const replyUserList = await this.pojoService.makeUserBase(...replyUidList);
     let i = -1;
 
     pageData.list = pageData.list.map((v) => {

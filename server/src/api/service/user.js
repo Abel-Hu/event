@@ -108,7 +108,7 @@ module.exports = class extends Base {
   async joinList(uid, lastSequence = '', headSequence = '', pageSize = 30) {
     const pageData = await this.eventJoinModel.cursorPage({ uid }, lastSequence, headSequence, pageSize);
     const eventIdList = pageData.list.map(e => e.eventId);
-    pageData.list = await this.pojoService.makeEventBase(eventIdList);
+    pageData.list = await this.pojoService.makeEventBase(...eventIdList);
     return pageData;
   }
   /**
@@ -121,7 +121,7 @@ module.exports = class extends Base {
   async favList(uid, lastSequence = '', headSequence = '', pageSize = 30) {
     const pageData = await this.eventFavModel.cursorPage({ uid }, lastSequence, headSequence, pageSize);
     const eventIdList = pageData.list.map(e => e.eventId);
-    pageData.list = await this.pojoService.makeEventBase(eventIdList);
+    pageData.list = await this.pojoService.makeEventBase(...eventIdList);
     return pageData;
   }
 };

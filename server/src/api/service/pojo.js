@@ -16,6 +16,9 @@ module.exports = class extends Base {
    * @param uid 一堆uid
    */
   async makeUserBase(...uid) {
+    if (think.isEmpty(uid)) {
+      return [];
+    }
     const promiseArray = uid.filter(v => !think.isEmpty(v)).map(v => this.userModel.findOne({ _id: v }));
     const matcher = ['nickName', 'sex', 'avatarUrl', 'isVip', 'description'];
     const promiseResult = await Promise.all(promiseArray);
@@ -36,6 +39,9 @@ module.exports = class extends Base {
    * @param eventId 一堆活动id
    */
   async makeEventBase(...eventId) {
+    if (think.isEmpty(eventId)) {
+      return [];
+    }
     const promiseArray = eventId.filter(v => !think.isEmpty(v)).map(v => this.eventModel.findOne({ _id: v }));
     const matcher = ['title', 'images'];
     const promiseResult = await Promise.all(promiseArray);
