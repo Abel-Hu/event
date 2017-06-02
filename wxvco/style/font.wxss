@@ -1,6 +1,7 @@
 @font-face {font-family: "iconfont";
-  src: url('//at.alicdn.com/t/font_q0o2egsl9chxgvi.eot?t=1496166901661'); /* IE9*/
-  src: url('//at.alicdn.com/t/font_q0o2egsl9chxgvi.eot?t=1496166901661#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  /*src: url('//at.alicdn.com/t/font_q0o2egsl9chxgvi.eot?t=1496166901661'); !* IE9*!*/
+  src:
+          /*url('//at.alicdn.com/t/font_q0o2egsl9chxgvi.eot?t=1496166901661#iefix') format('embedded-opentype'), !* IE6-IE8 *!*/
           url('//at.alicdn.com/t/font_q0o2egsl9chxgvi.woff?t=1496166901661') format('woff'), /* chrome, firefox */
           url('//at.alicdn.com/t/font_q0o2egsl9chxgvi.ttf?t=1496166901661') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
           url('//at.alicdn.com/t/font_q0o2egsl9chxgvi.svg?t=1496166901661#iconfont') format('svg'); /* iOS 4.1- */
