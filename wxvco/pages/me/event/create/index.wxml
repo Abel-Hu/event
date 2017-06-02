@@ -1,11 +1,65 @@
 <!--index.wxml-->
 <form bindsubmit="formSubmit" bindreset="formReset">
-    <view class="cell" wx:for="{{item}}" wx:key="{{index}}">
-        <text class="title">{{item.title}}</text>
-        <input class="input" value="{{item.value}}" placeholder="{{item.placeholder}}"/>
+    <view class="v-section">
+        <view class="v-cell">
+            <text class="title">活动标题</text>
+            <input class="input" name="title" placeholder="请输入活动标题"/>
+        </view>
+        <view class="v-cell">
+            <text class="title">活动描述</text>
+            <input class="input" name="description" placeholder="请输入活动描述"/>
+        </view>
+        <view class="v-cell">
+            <text class="title">开始时间</text>
+            <picker mode="date" value="{{startTime}}" start="2017-01-01" end="2017-12-31" bindchange="bindStartTimeChange">
+                <view class="input">{{startTime}}</view>
+            </picker>
+        </view>
+        <view class="v-cell">
+            <text class="title">结束时间</text>
+            <picker mode="date" value="{{endTime}}" start="2017-01-01" end="2017-12-31" bindchange="bindEndSTimeChange">
+                <!--<input class="input" name="endTime" value="{{endTime}}" placeholder="请选择结束时间"/>-->
+                <view class="input">{{endTime}}</view>
+            </picker>
+        </view>
+        <view class="v-cell">
+            <text class="title">截止报名时间</text>
+            <picker mode="date" value="{{deadLine}}" start="2017-01-01" end="2017-12-31" bindchange="bindDeadLineChange">
+                <view class="input">{{deadLine}}</view>
+            </picker>
+        </view>
+        <view class="v-cell">
+            <text class="title">最大参与人数</text>
+            <input class="input" name="joinLimit" type="number" placeholder="请输入最大参与人数，0为不限制"/>
+        </view>
+        <view class="v-cell">
+            <text class="title">详细地址</text>
+            <button size="mini" bindtap="chooseAddress">选择地址</button>
+            <text class="input">{{address}}</text>
+        </view>
+        <view class="weui-cell__bd">
+            <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                    <view class="weui-uploader__title">活动图片上传</view>
+                    <view class="weui-uploader__info">{{files.length}}/9</view>
+                </view>
+                <view class="weui-uploader__bd">
+                    <view class="weui-uploader__files" id="uploaderFiles">
+                        <block wx:for="{{files}}" wx:key="*this">
+                            <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                                <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                            </view>
+                        </block>
+                    </view>
+                    <view class="weui-uploader__input-box">
+                        <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                    </view>
+                </view>
+            </view>
+        </view>
     </view>
-    <view class="btn-area">
-        <button formType="submit">Submit</button>
-        <button formType="reset">Reset</button>
+
+    <view class="btn-spacing">
+        <button type="primary" formType="submit">发布活动</button>
     </view>
 </form>
