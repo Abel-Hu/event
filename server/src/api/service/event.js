@@ -152,10 +152,12 @@ module.exports = class extends Base {
 
   /**
    * 增加活动的uv数量
+   * @param uid 用户id
    * @param eventId 活动id
    * @param uv 增加的uv数量
    */
-  async incrUvs(eventId, uv = 1) {
+  async incrUvs(uid, eventId, uv = 1) {
+    await this.eventUvModel.add({ uid, eventId });
     const result = await this.eventModel.incr({ _id: eventId }, { uv });
     return result.uv || 0;
   }
@@ -298,14 +300,25 @@ module.exports = class extends Base {
    */
   async eventList(uid, lastSequence = '', headSequence = '', pageSize = 30) {
     const pageData = await this.eventModel.cursorPage({}, lastSequence, headSequence, pageSize);
-    pageData.list = pageData.list.map(async (e) => {
+    const promiseArray = [];
+    pageData.list.filter((e) => {
+      promiseArray.push(this.eventHasFav(uid, e._id));
+      promiseArray.push(this.eventJoinList(e._id, '', '', 10));
+      return true;
+    });
+    const promiseResult = await Promise.all(promiseArray);
+
+    let i = -1;
+    pageData.list = pageData.list.map((e) => {
       const event = {};
       event.eventId = e._id;
       event.title = e.title;
       event.image = JSON.parse(e.images)[0];
-      event.isFav = await this.eventHasFav(uid, event.eventId);
+      i += 1;
+      event.isFav = promiseResult[i];
       event.join = e.join;
-      event.joinList = await this.eventJoinList(event.eventId, '', '', 10);
+      i += 1;
+      event.joinList = promiseResult[i].list;
       return event;
     });
     return pageData;

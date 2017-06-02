@@ -6,6 +6,7 @@ module.exports = class extends Base {
 
     // 注入service
     this.userService = requireService('user', 'api', this);
+    this.pojoService = requireService('pojo', 'api', this);
     this.eventService = requireService('event', 'api', this);
   }
 
@@ -19,7 +20,7 @@ module.exports = class extends Base {
     }
 
     // 只有大V才可以发布活动
-    const user = await this.userService.getUserInfoByUid(this.member.uid);
+    const user = await this.userService.getUserByUid(this.member.uid);
     if (!user.isVip) {
       return this.showError(ERROR.EVENT.ONLY_VIP_CAN_PUBLISH);
     }
@@ -93,7 +94,7 @@ module.exports = class extends Base {
     // 统计uv
     const b = await this.eventService.eventHasView(this.member.uid, eventId);
     if (!b) {
-      await this.eventService.incrUvs(eventId);
+      await this.eventService.incrUvs(this.member.uid, eventId);
     }
 
     // 并行获取
@@ -104,7 +105,7 @@ module.exports = class extends Base {
       favList,
       commentList,
     ] = await Promise.all([
-      this.userService.makeUserBase(event.uid),
+      this.pojoService.makeUserBase(event.uid),
       this.eventService.eventHasFav(this.member.uid, eventId),
       this.eventService.eventJoinList(eventId, '', '', 10),
       this.eventService.eventFavList(eventId, '', '', 10),
@@ -237,7 +238,7 @@ module.exports = class extends Base {
       userBases,
     ] = await Promise.all([
       this.eventService.addComment(this.member.uid, eventId, replyUid, content),
-      this.userService.makeUserBase(this.member.uid, replyUid),
+      this.pojoService.makeUserBase(this.member.uid, replyUid),
     ]);
 
     think.extend(comment, { userBase: userBases[0] });
@@ -281,7 +282,7 @@ module.exports = class extends Base {
   }
 
   /**
-   * 报名列表
+   * 活动的报名列表
    */
   async joinlistAction() {
     const eventId = this.param('eventId');

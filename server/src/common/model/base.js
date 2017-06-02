@@ -23,7 +23,7 @@ module.exports = class extends think.model.base {
         const pojo = require(`./${this.name}`) || {};
         think.extend(pojo, { createTime: { type: mongoose.Types.Long, default: 0 } });
         think.extend(pojo, { updateTime: { type: mongoose.Types.Long, default: 0 } });
-        const schema = new mongoose.Schema(pojo, { strict: true, versionKey: false });
+        const schema = new mongoose.Schema(pojo, { autoIndex: false, strict: true, versionKey: false });
         this._model = mongoose.model(this.name, schema, this.name);
       } else {
         this._model = mongoose.model(this.name);

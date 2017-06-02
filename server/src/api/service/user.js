@@ -30,8 +30,9 @@ module.exports = class extends Base {
       user.sex = wxdata.gender;
       user.isVip = vipConfig.indexOf(user.openId) > -1;
       user = await this.userModel.add(user);
+      user = this.makeUserInfo(user);
     }
-    return this.makeUserInfo(user);
+    return user;
   }
 
   /**
@@ -111,6 +112,7 @@ module.exports = class extends Base {
     pageData.list = await this.pojoService.makeEventBase(...eventIdList);
     return pageData;
   }
+
   /**
    * 我收藏过的活动列表
    * @param uid 用户id

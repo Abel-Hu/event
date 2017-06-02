@@ -121,7 +121,7 @@ module.exports = class extends Base {
   }
 
   /**
-   * 报名列表
+   * 活动的报名列表
    */
   joinlistAction() {
     this.allowMethods = 'get';
