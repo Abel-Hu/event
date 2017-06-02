@@ -7,12 +7,12 @@ const token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbnYiOiJkZXZlbG9wbWVudCIs
 
 const httpClient = axios.create({
   baseURL: host,
-  headers: { token }
+  headers: { token },
 });
 
 
 // 发布活动
-for (let i = 1; i < 10; i++) {
+for (let i = 1; i < 10; i += 1) {
   httpClient.post(`${host}/api/event/publish`, {
     title: `测试活动标题—${i}`,
     description: `${i}测试活动描述，好长啊~~好长啊~~好长啊~~测试活动描述，好长啊~~好长啊~~好长啊~~测试活动描述，好长啊~~好长啊~~好长啊~~测试活动描述，好长啊~~好长啊~~好长啊~~测试活动描述，好长啊~~好长啊~~好长啊~~测试活动描述，好长啊~~好长啊~~好长啊~~测试活动描述，好长啊~~好长啊~~好长啊~~`,
@@ -23,8 +23,8 @@ for (let i = 1; i < 10; i++) {
     startTime: '2017-06-02 23:00:00',
     endTime: '2017-06-14 18:00:00',
     joinLimit: 3,
-    deadline: '2017-06-10 18:00:00'
+    deadline: '2017-06-10 18:00:00',
   }).then((response) => {
-    console.log(response);
+    console.log(response.data);
   });
 }
