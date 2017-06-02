@@ -24,6 +24,7 @@ module.exports = class extends Base {
     }
 
     const user = await this.userService.create(wxdata, ip);
+    console.log(user);
     const token = await jwt.encrypt({ uid: user.uid, env: think.env }, jwtConfig.expire);
     think.extend(user, { token });
     return this.success(user);

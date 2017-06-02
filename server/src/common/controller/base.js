@@ -70,6 +70,10 @@ module.exports = class extends think.controller.base {
 
     delete this.member.env;
 
+    if (think.isEmpty(this.member)) {
+      return false;
+    }
+
     // 打印jwt解析出来的数据
     this.LOG.trace(`decoded jwt data: ${JSON.stringify(this.member)}`);
     return true;
