@@ -20,6 +20,7 @@ module.exports = class extends Base {
 
     // 只有大V才可以发布活动
     const user = await this.userService.getUserByUid(this.member.uid);
+    console.log(user);
     if (!user.isVip) {
       return this.showError(ERROR.EVENT.ONLY_VIP_CAN_PUBLISH);
     }
