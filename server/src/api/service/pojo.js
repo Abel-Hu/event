@@ -36,7 +36,7 @@ module.exports = class extends Base {
    * @param eventId 一堆活动id
    */
   async makeEventBase(...eventId) {
-    const promiseArray = eventId.filter(v => !think.isEmpty(v)).map((v) => this.eventModel.findOne({ _id: v }));
+    const promiseArray = eventId.filter(v => !think.isEmpty(v)).map(v => this.eventModel.findOne({ _id: v }));
     const matcher = ['title', 'images'];
     const promiseResult = await Promise.all(promiseArray);
     const list = promiseResult.map((event) => {

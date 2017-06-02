@@ -1,6 +1,6 @@
 const Base = requireBaseController();
 const qiniu = requireCommon('qiniu');
-const jwtConfig = think.config('jwt');
+// const jwtConfig = think.config('jwt');
 
 module.exports = class extends Base {
   init(...args) {

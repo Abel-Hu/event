@@ -1,6 +1,5 @@
 const Base = think.service('base', 'common');
 const timeUtil = requireCommon('time');
-const stringUtil = requireCommon('string');
 
 module.exports = class extends Base {
   // 最先执行
