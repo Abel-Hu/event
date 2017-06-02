@@ -12,6 +12,7 @@ module.exports = class extends Base {
     // 注入model
     this.userModel = this.model('user');
     this.eventModel = this.model('event');
+    this.eventFavModel = this.model('event_fav');
     this.eventJoinModel = this.model('event_join');
   }
 
@@ -106,6 +107,19 @@ module.exports = class extends Base {
    */
   async joinList(uid, lastSequence = '', headSequence = '', pageSize = 30) {
     const pageData = await this.eventJoinModel.cursorPage({ uid }, lastSequence, headSequence, pageSize);
+    const eventIdList = pageData.list.map(e => e.eventId);
+    pageData.list = await this.pojoService.makeEventBase(eventIdList);
+    return pageData;
+  }
+  /**
+   * 我收藏过的活动列表
+   * @param uid 用户id
+   * @param lastSequence 上一页游标
+   * @param headSequence 顶部游标
+   * @param pageSize 页面大小
+   */
+  async favList(uid, lastSequence = '', headSequence = '', pageSize = 30) {
+    const pageData = await this.eventFavModel.cursorPage({ uid }, lastSequence, headSequence, pageSize);
     const eventIdList = pageData.list.map(e => e.eventId);
     pageData.list = await this.pojoService.makeEventBase(eventIdList);
     return pageData;

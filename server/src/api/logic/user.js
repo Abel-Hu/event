@@ -29,4 +29,8 @@ module.exports = class extends Base {
   joinlistAction() {
     this.allowMethods = 'get';
   }
+
+  favlistAction() {
+    this.allowMethods = 'get';
+  }
 };

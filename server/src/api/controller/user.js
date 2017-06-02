@@ -68,4 +68,16 @@ module.exports = class extends Base {
     const pageData = await this.userService.joinList(this.member.uid, lastSequence, headSequence, pageSize);
     return this.cursorPage(pageData);
   }
+
+  /**
+   * 我收藏过的活动列表
+   */
+  async favlistAction() {
+    const lastSequence = this.lastSequence();
+    const headSequence = this.headSequence();
+    const pageSize = this.pageSize();
+
+    const pageData = await this.userService.favList(this.member.uid, lastSequence, headSequence, pageSize);
+    return this.cursorPage(pageData);
+  }
 };

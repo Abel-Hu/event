@@ -96,3 +96,22 @@ headSequence	|否				|string			|顶部游标(上拉刷新)
 	"image":"http://xxxx.com/xx.jpg",	// 活动图片
 },{...}]
 ```
+
+
+### 我收藏过的活动列表  GET   /api/user/favlist
+
+参数			|是否必要		|类型			|说明
+--				|--				|--				|--
+lastSequence	|否				|string			|上一页游标(第一页不传)
+pageSize		|否				|int			|页面大小(默认、最大：30)
+headSequence	|否				|string			|顶部游标(上拉刷新)
+
+
+### 响应数据
+```json
+"list":[{
+	"eventId":"bykuhioj",			// 活动id
+	"title":"耍牛满试吃",			// 活动标题
+	"image":"http://xxxx.com/xx.jpg",	// 活动图片
+},{...}]
+```
