@@ -9,23 +9,29 @@
     <!--start 会员管理-->
     <view class="v-section user">
         <navigator class="v-nav" url="/pages/me/event/index">
-            <view class="v-cell">我参与的活动</view>
+            <view class="v-cell"><i class="left-icon iconfont icon-calendar"></i>我参与的活动</view>
         </navigator>
         <navigator class="v-nav" url="/pages/me/event/index">
-            <view class="v-cell">活动收藏</view>
+            <view class="v-cell"><i class="left-icon iconfont icon-favorite"></i>活动收藏</view>
         </navigator>
         <navigator class="v-nav" url="/pages/me/setting/index">
-            <view class="v-cell">
-                个人设置
-            </view>
+            <view class="v-cell"><i class="left-icon iconfont icon-set"></i>个人设置</view>
         </navigator>
+    </view>
+    <view class="v-line"/>
+    <view class="v-section">
+        <view class="v-grid">
+            <view class="v-grid-item"><i class="iconfont icon-calendar"></i>我参与的活动</view>
+            <view class="v-grid-item"><i class="iconfont icon-favorite"></i>活动收藏</view>
+            <view class="v-grid-item"><i class="iconfont icon-set"></i>个人设置</view>
+        </view>
     </view>
     <!--end 会员管理-->
     <view class="v-line"/>
     <!--start 特权管理-->
     <view class="v-section manage">
         <navigator class="v-nav" url="/pages/me/event/create/index">
-        <view class="v-cell">我发布的活动</view>
+        <view class="v-cell"><i class="left-icon iconfont icon-form"></i>我发布的活动</view>
         </navigator>
     </view>
     <!--end 特权管理-->

@@ -5,7 +5,8 @@ const {Store, http} = wx.vco
 const Api = {
   publish: '/api/event/publish',
   update: '/api/event/update',
-  info: '/api/event/info'
+  info: '/api/event/info',
+  list: '/api/event/list'
 }
 module.exports = class extends Store {
   state () {
@@ -16,6 +17,12 @@ module.exports = class extends Store {
       form: {},
       detail: {}
     }
+  }
+
+  getList () {
+    http.get(Api.list).then((d)=>{
+      console.log(d)
+    })
   }
 
   publish () {

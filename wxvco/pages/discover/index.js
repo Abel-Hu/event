@@ -8,6 +8,7 @@ const o =  {
     wx.setNavigationBarTitle({
       title: '发现'
     })
+    this.props.event.getList()
   }
 }
-page(o, {todo: 'todo', member: 'wechat/member'})
+page(o, {member: 'wechat/member',event:'event'})
