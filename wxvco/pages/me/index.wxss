@@ -15,7 +15,3 @@
 .nickname {
 
 }
-.avatar,.nickname{
-  vertical-align:middle;
-  display:inline-block;
-}

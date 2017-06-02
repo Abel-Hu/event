@@ -3,13 +3,7 @@
  */
 const {page} = wx.vco
 const o = {
-  onShow () {
-    this.props.todo.utxt()
-  },
 
-  onHide () {
-    this.props.todo.ut()
-  },
 
   uploadAvatar (e) {
     console.log(e)
@@ -31,7 +25,6 @@ const o = {
     wx.setNavigationBarTitle({
       title: '我'
     })
-
   }
 }
-page(o, {todo: 'todo', member: 'wechat/member'})
+page(o, { member: 'wechat/member'})
