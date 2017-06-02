@@ -109,4 +109,18 @@ module.exports = class extends Base {
     const result = await this.userModel.incr({ _id: uid }, { eventJoins: 1 });
     return result.eventJoins || 0;
   }
+
+  /**
+   * 我参与过的报名列表
+   * @param uid 用户id
+   * @param lastSequence 上一页游标
+   * @param headSequence 顶部游标
+   * @param pageSize 页面大小
+   */
+  async joinList(uid, lastSequence = '', headSequence = '', pageSize = 30) {
+    const pageData = await this.eventJoinModel.cursorPage({ uid }, lastSequence, headSequence, pageSize);
+    const uidList = pageData.list.map(e => e.uid);
+    pageData.list = await this.userService.makeUserBase(uidList);
+    return pageData;
+  }
 };

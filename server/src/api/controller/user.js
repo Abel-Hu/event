@@ -56,4 +56,16 @@ module.exports = class extends Base {
     });
     return this.success(user);
   }
+
+  /**
+   * 我参与过的活动列表
+   */
+  async joinAction() {
+    const lastSequence = this.lastSequence();
+    const headSequence = this.headSequence();
+    const pageSize = this.pageSize();
+
+    const pageData = await this.userService.joinList(this.member.uid, lastSequence, headSequence, pageSize);
+    return this.cursorPage(pageData);
+  }
 };

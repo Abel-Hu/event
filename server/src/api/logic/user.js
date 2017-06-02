@@ -25,4 +25,8 @@ module.exports = class extends Base {
       description: 'string',
     };
   }
+
+  joinAction() {
+    this.allowMethods = 'get';
+  }
 };
