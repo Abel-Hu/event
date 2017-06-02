@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "eslint": "eslint src/ && eslint test/ && eslint www/ && eslint tools/",
+    "eslint": "eslint src/ && eslint test/ && eslint www/",
     "errorcode": "node tools/errorcode.js",
     "makedata": "node tools/makedata.js",
     "test": "npm run eslint && nyc --reporter=text --reporter=text-summary --exclude=**/test/** ava --no-color --no-cache -c 4 -v -s ./test"
