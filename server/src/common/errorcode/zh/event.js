@@ -34,4 +34,12 @@ module.exports = {
    * 活动已报名
    */
   HAS_JOIN: new ErrorCode(300008, '活动已报名'),
+  /**
+   * 评论不存在(300009)
+   */
+  COMMENT_NOT_EXISTS: new ErrorCode(300009, '评论不存在'),
+  /**
+   * 不是自己发的评论不可以删除(300010)
+   */
+  COMMENT_NOT_PUBLISH_BY_ME: new ErrorCode(300010, '不是自己发的评论不可以删除'),
 };

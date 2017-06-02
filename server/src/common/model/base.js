@@ -61,8 +61,8 @@ module.exports = class extends think.model.base {
    */
   async add(data) {
     this.beforeAdd(data);
-    const user = await this._model.create(data);
-    return JSON.parse(JSON.stringify(user));
+    const add = await this._model.create(data);
+    return JSON.parse(JSON.stringify(add));
   }
 
   /**

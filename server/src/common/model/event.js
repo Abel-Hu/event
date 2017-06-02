@@ -59,6 +59,10 @@ module.exports = {
    */
   join: { type: Number, default: 0 },
   /**
+   * 评论数
+   */
+  comment: { type: Number, default: 0 },
+  /**
    * 报名人数上限
    */
   joinLimit: { type: Number, default: 0 },

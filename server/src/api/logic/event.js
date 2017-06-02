@@ -90,4 +90,40 @@ module.exports = class extends Base {
       eventId: 'required|string',
     };
   }
+
+  /**
+   * 发表评论
+   */
+  commentaddAction() {
+    this.allowMethods = 'post';
+    this.rules = {
+      eventId: 'required|string',
+      content: 'required|string',
+      replyUid: 'string',
+    };
+  }
+
+  /**
+   * 删除评论
+   */
+  commentdelAction() {
+    this.allowMethods = 'post';
+    this.rules = {
+      commentId: 'required|string',
+    };
+  }
+
+  /**
+   * 评论列表
+   */
+  commentlistAction() {
+    this.allowMethods = 'get';
+  }
+
+  /**
+   * 报名列表
+   */
+  joinlistAction() {
+    this.allowMethods = 'get';
+  }
 };

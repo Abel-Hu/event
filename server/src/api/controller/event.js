@@ -89,7 +89,52 @@ module.exports = class extends Base {
     if (think.isEmpty(event)) {
       return this.showError(ERROR.EVENT.NOT_EXISTS);
     }
-    return this.success(1);
+
+    // 统计uv
+    const b = await this.eventService.eventHasView(this.member.uid, eventId);
+    if (!b) {
+      await this.eventService.incrUvs(eventId);
+    }
+
+    // 并行获取
+    const [
+      userBase,
+      isFav,
+      joinList,
+      favList,
+      commentList,
+    ] = await Promise.all([
+      this.userService.makeUserBase(event.uid),
+      this.eventService.eventHasFav(this.member.uid, eventId),
+      this.eventService.eventJoinList(eventId, '', '', 10),
+      this.eventService.eventFavList(eventId, '', '', 10),
+      this.eventService.eventCommentList(eventId, '', '', 11),
+    ]);
+
+    // 返回结果
+    const info = {};
+    think.extend(info, { title: event.title });
+    think.extend(info, { description: event.description });
+    think.extend(info, { images: JSON.parse(event.images) });
+    think.extend(info, { userBase });
+    think.extend(info, { longitude: event.longitude });
+    think.extend(info, { latitude: event.latitude });
+    think.extend(info, { address: event.address });
+    think.extend(info, { createTime: event.createTime });
+    think.extend(info, { startTime: event.startTime });
+    think.extend(info, { endTime: event.endTime });
+    think.extend(info, { isFav });
+    think.extend(info, { fav: event.fav });
+    think.extend(info, { uv: event.uv });
+    think.extend(info, { share: event.share });
+    think.extend(info, { comment: event.comment });
+    think.extend(info, { join: event.join });
+    think.extend(info, { joinLimit: event.joinLimit });
+    think.extend(info, { joinList: joinList.list });
+    think.extend(info, { favList: favList.list });
+    think.extend(info, { lastCommentSequence: commentList.lastSequence });
+    think.extend(info, { commentList: commentList.list });
+    return this.success(info);
   }
 
   /**
@@ -161,6 +206,8 @@ module.exports = class extends Base {
     // 先加1，如果加了没超过上限，证明是可以报名的
     const joins = await this.eventService.incrJoins(eventId);
     if (event.joinLimit > 0 && joins > event.joinLimit) {
+      // 由于是先加的，所以要减回来
+      await this.eventService.decrJoins(eventId);
       return this.showError(ERROR.EVENT.IS_FULL_OF_PEOPLE);
     }
 
@@ -174,5 +221,75 @@ module.exports = class extends Base {
 
     await this.eventService.eventJoin(this.member.uid, eventId);
     return this.success(1);
+  }
+
+  /**
+   * 发表评论
+   */
+  async commentaddAction() {
+    const eventId = this.param('eventId');
+    const replyUid = this.param('replyUid') || '';
+    const content = this.param('content');
+    const comment = {};
+
+    const [
+      tmp,
+      userBases,
+    ] = await Promise.all([
+      this.eventService.addComment(this.member.uid, eventId, replyUid, content),
+      this.userService.makeUserBase(this.member.uid, replyUid),
+    ]);
+
+    think.extend(comment, { userBase: userBases[0] });
+    think.extend(comment, { replyUserBase: userBases.length > 1 ? userBases[2] : {} });
+    think.extend(comment, { commentId: tmp.commentId });
+    think.extend(comment, { content: tmp.content });
+    think.extend(comment, { createTime: tmp.createTime });
+    return this.success(comment);
+  }
+
+  /**
+   * 删除评论
+   */
+  async commentdelAction() {
+    const commentId = this.param('commentId');
+    const comment = await this.eventService.getComment(commentId);
+    if (think.isEmpty(comment)) {
+      return this.showError(ERROR.EVENT.COMMENT_NOT_EXISTS);
+    }
+
+    // 不是自己发的评论不可以删除
+    if (comment.uid !== this.member.uid) {
+      return this.showError(ERROR.EVENT.COMMENT_NOT_PUBLISH_BY_ME);
+    }
+
+    await this.eventService.deleteComment(comment.eventId, commentId);
+    return this.success(1);
+  }
+
+  /**
+   * 评论列表
+   */
+  async commentlistAction() {
+    const eventId = this.param('eventId');
+    const lastSequence = this.lastSequence();
+    const headSequence = this.headSequence();
+    const pageSize = this.pageSize();
+
+    const pageData = await this.eventService.eventCommentList(eventId, lastSequence, headSequence, pageSize);
+    return this.cursorPage(pageData);
+  }
+
+  /**
+   * 报名列表
+   */
+  async joinlistAction() {
+    const eventId = this.param('eventId');
+    const lastSequence = this.lastSequence();
+    const headSequence = this.headSequence();
+    const pageSize = this.pageSize();
+
+    const pageData = await this.eventService.eventJoinList(eventId, lastSequence, headSequence, pageSize);
+    return this.cursorPage(pageData);
   }
 };

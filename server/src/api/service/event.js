@@ -15,6 +15,7 @@ module.exports = class extends Base {
     this.eventJoinModel = this.model('event_join');
     this.eventUvModel = this.model('event_uv');
     this.eventShareModel = this.model('event_share');
+    this.eventCommentModel = this.model('event_comment');
   }
 
   /**
@@ -141,8 +142,8 @@ module.exports = class extends Base {
    * @param eventId 活动id
    * @param fav 减少的收藏数量
    */
-  async decrFavs(eventId, fav = -1) {
-    const result = await this.eventModel.incr({ _id: eventId }, { fav });
+  async decrFavs(eventId, fav = 1) {
+    const result = await this.eventModel.incr({ _id: eventId }, { fav: -Math.abs(fav) });
     return result.fav || 0;
   }
 
@@ -155,17 +156,6 @@ module.exports = class extends Base {
     const result = await this.eventModel.incr({ _id: eventId }, { uv });
     return result.uv || 0;
   }
-
-  /**
-   * 减少活动的uv数量
-   * @param eventId 活动id
-   * @param uv 减少的uv数量
-   */
-  async decrUvs(eventId, uv = -1) {
-    const result = await this.eventModel.incr({ _id: eventId }, { uv });
-    return result.uv || 0;
-  }
-
 
   /**
    * 判断是否看过此活动
@@ -192,8 +182,8 @@ module.exports = class extends Base {
    * @param eventId 活动id
    * @param share 减少的分享数量
    */
-  async decrShares(eventId, share = -1) {
-    const result = await this.eventModel.incr({ _id: eventId }, { share });
+  async decrShares(eventId, share = 1) {
+    const result = await this.eventModel.incr({ _id: eventId }, { share: -Math.abs(share) });
     return result.share || 0;
   }
 
@@ -222,9 +212,66 @@ module.exports = class extends Base {
    * @param eventId 活动id
    * @param join 减少的报名数量
    */
-  async decrJoins(eventId, join = -1) {
-    const result = await this.eventModel.incr({ _id: eventId }, { join });
+  async decrJoins(eventId, join = 1) {
+    const result = await this.eventModel.incr({ _id: eventId }, { join: -Math.abs(join) });
     return result.join || 0;
+  }
+
+  /**
+   * 增加活动的评论数量
+   * @param eventId 活动id
+   * @param comment 增加的评论数量
+   */
+  async incrComment(eventId, comment = 1) {
+    const result = await this.eventModel.incr({ _id: eventId }, { comment });
+    return result.comment || 0;
+  }
+
+  /**
+   * 减少活动的评论数量
+   * @param eventId 活动id
+   * @param comment 减少的评论数量
+   */
+  async decrComment(eventId, comment = 1) {
+    const result = await this.eventModel.incr({ _id: eventId }, { comment: -Math.abs(comment) });
+    return result.comment || 0;
+  }
+
+  /**
+   * 发表评论
+   * @param uid 用户id
+   * @param eventId 活动id
+   * @param replyUid 回复的用户id
+   * @param content 评论内容
+   * @returns {Promise.<void>}
+   */
+  async addComment(uid, eventId, replyUid, content) {
+    const comment = await this.eventCommentModel.add({ uid, eventId, replyUid, content });
+    comment.commentId = comment._id;
+    delete comment._id;
+    await this.incrComment(eventId);
+    return comment;
+  }
+
+  /**
+   * 获取评论
+   * @param commentId 评论id
+   */
+  async getComment(commentId) {
+    const comment = await this.eventCommentModel.findOne({ _id: commentId });
+    return comment;
+  }
+
+  /**
+   * 删除评论
+   * @param eventId 活动id
+   * @param commentId 评论id
+   */
+  async deleteComment(eventId, commentId) {
+    const result = await this.eventCommentModel.remove({ _id: commentId });
+    if (result.ok === 1) {
+      await this.decrComment(eventId);
+    }
   }
 
   /**
@@ -243,21 +290,7 @@ module.exports = class extends Base {
       event.image = JSON.parse(e.images)[0];
       event.isFav = await this.eventHasFav(uid, event.eventId);
       event.join = e.join;
-      event.joinList = [{
-        uid: '5921d4c6ea3',
-        nickName: '小丸子',
-        description: '刷锅一枚',
-        sex: 2,
-        avatarUrl: 'http://xx/0',
-        isVip: true,
-      }, {
-        uid: '5921d4c6ea3',
-        nickName: '小丸子',
-        description: '刷锅一枚',
-        sex: 2,
-        avatarUrl: 'http://xx/0',
-        isVip: true,
-      }];
+      event.joinList = await this.eventJoinList(event.eventId, '', '', 10);
       return event;
     });
     return pageData;
@@ -271,7 +304,62 @@ module.exports = class extends Base {
    * @param pageSize 页面大小
    */
   async eventFavList(eventId, lastSequence = '', headSequence = '', pageSize = 30) {
-    const pageData = await this.eventModel.cursorPage({ _id: eventId }, lastSequence, headSequence, pageSize);
+    const pageData = await this.eventFavModel.cursorPage({ eventId }, lastSequence, headSequence, pageSize);
+    const uidList = pageData.list.map(e => e.uid);
+    pageData.list = await this.userService.makeUserBase(uidList);
+    return pageData;
+  }
+
+  /**
+   * 活动报名列表
+   * @param eventId 活动id
+   * @param lastSequence 上一页游标
+   * @param headSequence 顶部游标
+   * @param pageSize 页面大小
+   */
+  async eventJoinList(eventId, lastSequence = '', headSequence = '', pageSize = 30) {
+    const pageData = await this.eventJoinModel.cursorPage({ eventId }, lastSequence, headSequence, pageSize);
+    const uidList = pageData.list.map(e => e.uid);
+    pageData.list = await this.userService.makeUserBase(uidList);
+    return pageData;
+  }
+
+  /**
+   * 活动分享列表
+   * @param eventId 活动id
+   * @param lastSequence 上一页游标
+   * @param headSequence 顶部游标
+   * @param pageSize 页面大小
+   */
+  async eventShareList(eventId, lastSequence = '', headSequence = '', pageSize = 30) {
+    const pageData = await this.eventShareModel.cursorPage({ eventId }, lastSequence, headSequence, pageSize);
+    const uidList = pageData.list.map(e => e.uid);
+    pageData.list = await this.userService.makeUserBase(uidList);
+    return pageData;
+  }
+
+  /**
+   * 活动列表
+   * @param eventId 活动id
+   * @param lastSequence 上一页游标
+   * @param headSequence 顶部游标
+   * @param pageSize 页面大小
+   */
+  async eventCommentList(eventId, lastSequence = '', headSequence = '', pageSize = 30) {
+    const pageData = await this.eventCommentModel.cursorPage({ eventId }, lastSequence, headSequence, pageSize);
+    const userList = await this.userService.makeUserBase(pageData.list.map(e => e.uid));
+    const replyUserList = await this.userService.makeUserBase(pageData.list.map(e => e.replyUid));
+    let i = -1;
+
+    pageData.list = pageData.list.map((v) => {
+      const comment = {};
+      think.extend(comment, { userBase: userList[++i] });
+      think.extend(comment, { replyUserBase: replyUserList[++i] });
+      think.extend(comment, { commentId: v.commentId });
+      think.extend(comment, { content: v.content });
+      think.extend(comment, { createTime: v.createTime });
+      return comment;
+    });
     return pageData;
   }
 };

@@ -42,8 +42,7 @@ module.exports = class extends Base {
    * @param uid 一堆uid
    */
   async makeUserBase(...uid) {
-    const promiseArray = uid.map(v => this.getUserInfoByUid(v));
-
+    const promiseArray = uid.filter(v => !think.isEmpty(v)).map(v => this.getUserByUid(v));
     const matcher = ['uid', 'nickName', 'sex', 'avatarUrl', 'isVip', 'description'];
     const promiseResult = await Promise.all(promiseArray);
     const list = promiseResult.map((user) => {

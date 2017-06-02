@@ -31,3 +31,8 @@ db.event_uv.ensureIndex({uid:1,eventId:1},{unique:true})
 
 # uid，eventId唯一索引
 db.event_share.ensureIndex({uid:1,eventId:1},{unique:true})
+
+############## 活动评论表 ###############
+
+# eventId索引
+db.event_comment.ensureIndex({eventId:1})
