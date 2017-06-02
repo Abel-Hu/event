@@ -11,11 +11,11 @@ module.exports = () => {
     const schema = new mongoose.Schema({}, { autoIndex: true, strict: true, versionKey: false });
     indexes.filter((v) => {
       schema.index(v[0], v[1]);
-      LOG.warn(`collection ${collectionName} ensureIndex: ${JSON.stringify(v[0])}${!think.isEmpty(v[1]) ? ', '+JSON.stringify(v[1]) : ''}`);
+      LOG.warn(`collection ${collectionName} ensureIndex: ${JSON.stringify(v[0])}${!think.isEmpty(v[1]) ? `, ${JSON.stringify(v[1])}` : ''}`);
       return true;
     });
     mongoose.model(collectionName, schema, collectionName);
     return true;
   });
-  LOG.warn(`ensureIndex finish ...`);
+  LOG.warn('ensureIndex finish ...');
 };
