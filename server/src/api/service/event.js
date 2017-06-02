@@ -298,6 +298,7 @@ module.exports = class extends Base {
    */
   async eventList(uid, lastSequence = '', headSequence = '', pageSize = 30) {
     const pageData = await this.eventModel.cursorPage({}, lastSequence, headSequence, pageSize);
+    console.log(pageData);
     pageData.list = pageData.list.map(async (e) => {
       const event = {};
       event.eventId = e._id;
