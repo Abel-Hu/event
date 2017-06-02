@@ -28,7 +28,7 @@ if (!think.isEmpty(config)) {
     LOG.warn(`Connect to mongodb://${config.host}:${config.port}/${config.database} success`);
 
     // 自动创建索引
-    require('./ensure_index')();
+    // require('./ensure_index')();
   });
   mongoose.connection.on('error', (err) => {
     LOG.warn(`Connect to mongodb://${config.host}:${config.port}/${config.database} failed`);
