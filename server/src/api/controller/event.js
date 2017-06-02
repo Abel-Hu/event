@@ -282,7 +282,7 @@ module.exports = class extends Base {
   }
 
   /**
-   * 报名列表
+   * 活动的报名列表
    */
   async joinlistAction() {
     const eventId = this.param('eventId');

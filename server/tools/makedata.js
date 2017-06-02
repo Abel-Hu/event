@@ -10,10 +10,28 @@ const httpClient = axios.create({
   headers: { token },
 });
 
+// 收藏活动
+function eventFav() {
+  httpClient.post('/api/event/fav', {
+    eventId: '593177746a54be1b0d91e288'
+  }).then((response) => {
+    console.log(JSON.stringify(response.data));
+  });
+}
+
+// 取消收藏活动
+function eventUnfav() {
+  httpClient.post('/api/event/unfav', {
+    eventId: '593177746a54be1b0d91e288'
+  }).then((response) => {
+    console.log(JSON.stringify(response.data));
+  });
+}
+
 // 活动详情
 function eventInfo() {
   httpClient.get('/api/event/info?eventId=593177746a54be1b0d91e288').then((response) => {
-    console.log(JSON.stringify(response.data.data));
+    console.log(JSON.stringify(response.data));
   });
 }
 
@@ -21,7 +39,7 @@ function eventInfo() {
 // 活动列表
 function eventList() {
   httpClient.get('/api/event/list').then((response) => {
-    console.log(JSON.stringify(response.data.data));
+    console.log(JSON.stringify(response.data));
   });
 }
 
@@ -40,9 +58,19 @@ function eventPublish() {
       joinLimit: 3,
       deadline: '2017-06-10 18:00:00',
     }).then((response) => {
-      console.log(JSON.stringify(response.data.data));
+      console.log(JSON.stringify(response.data));
     });
   }
+}
+
+// 发表评论
+function eventCommentAdd() {
+  httpClient.post('/api/event/commentadd', {
+    eventId: '593177746a54be1b0d91e288',
+    content: '好好玩~！~！'
+  }).then((response) => {
+    console.log(JSON.stringify(response.data));
+  });
 }
 
 
