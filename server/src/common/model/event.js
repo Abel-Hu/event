@@ -27,6 +27,10 @@ module.exports = {
    */
   latitude: { type: Number, default: null },
   /**
+   * 活动所在地址
+   */
+  address: { type: String, default: '' },
+  /**
    * 活动开始时间
    */
   startTime: { type: mongoose.Types.Long, default: 0 },

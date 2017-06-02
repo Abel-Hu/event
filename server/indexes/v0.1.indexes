@@ -11,3 +11,23 @@ db.user.ensureIndex({mobile:1},{unique:true})
 
 # uid索引
 db.event.ensureIndex({uid:1})
+
+############## 活动收藏表 ###############
+
+# uid，eventId唯一索引
+db.event_fav.ensureIndex({uid:1,eventId:1},{unique:true})
+
+############## 活动报名表 ###############
+
+# uid，eventId唯一索引
+db.event_join.ensureIndex({uid:1,eventId:1},{unique:true})
+
+############## 活动uv表 ###############
+
+# uid，eventId唯一索引
+db.event_uv.ensureIndex({uid:1,eventId:1},{unique:true})
+
+############## 活动分享表 ###############
+
+# uid，eventId唯一索引
+db.event_share.ensureIndex({uid:1,eventId:1},{unique:true})

@@ -26,4 +26,12 @@ module.exports = {
    * 活动未收藏(300006)
    */
   HAS_NOT_FAV: new ErrorCode(300006, '活动未收藏'),
+  /**
+   * 活动报名人数已达上限(300007)
+   */
+  IS_FULL_OF_PEOPLE: new ErrorCode(300007, '活动报名人数已达上限'),
+  /**
+   * 活动已报名
+   */
+  HAS_JOIN: new ErrorCode(300008, '活动已报名'),
 };
