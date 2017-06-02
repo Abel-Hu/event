@@ -35,4 +35,12 @@ if (!think.isEmpty(config)) {
   mongoose.connection.on('disconnected', () => {
     LOG.warn(`Disconnected mongodb://${config.host}:${config.port}/${config.database}`);
   });
+
+  process.on('SIGINT', function() {
+    mongoose.connection.close(function () {
+      console.log('Mongoose default connection disconnected through app termination');
+      process.exit(0);
+    });
+  });
+
 }

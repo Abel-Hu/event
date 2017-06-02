@@ -7,6 +7,7 @@
     "start": "npm run eslint && node www/development.js",
     "eslint": "eslint src/ && eslint test/ && eslint www/ && eslint tools/",
     "errorcode": "node tools/errorcode.js",
+    "indexes": "node tools/indexes.js",
     "test": "npm run compile && nyc --reporter=text --reporter=text-summary --exclude=**/test/** ava --no-color --no-cache -c 4 -v -s ./test"
   },
   "dependencies": {
