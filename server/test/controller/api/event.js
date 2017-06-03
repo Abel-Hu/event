@@ -78,7 +78,7 @@ test('test /api/event/commentdel', async (t) => {
   });
 
   const data = await httpClient.post('/api/event/commentdel', {
-    commentId: comment.commentId
+    commentId: comment.commentId,
   });
   t.is(data, 1);
 });

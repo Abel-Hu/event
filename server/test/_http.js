@@ -33,6 +33,12 @@ const instance = new Thinkjs({
 });
 instance.load();
 
+// 关闭所有log
+think.config().log_level = 'OFF';
+think.config('log4js').levels.log_file = 'OFF';
+think.config('log4js').levels.console = 'ALL';
+think.config('log4js').levels.log_date = 'OFF';
+
 function camelCase(str) {
   let _str = str;
   if (_str.indexOf('_') > -1) {
@@ -150,4 +156,11 @@ module.exports.delete = async function (url, data = {}) {
 module.exports.service = function (name, module) {
   const Service = think.service(name, module);
   return new Service();
+};
+
+/**
+ * 获取一个工具类
+ */
+module.exports.util = function (name) {
+  return require(`${think.APP_PATH}${path.sep}common${path.sep}utils${path.sep}${name}`) || null;
 };

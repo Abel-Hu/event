@@ -7,8 +7,9 @@ module.exports = {
    * @param str 字符串或者对象
    */
   isJSON(str) {
+    const typeSet = new Set(['object', '[object object]', '[object array]']);
     const type = Object.prototype.toString.call(str).toLowerCase();
-    if (typeof (str) === 'object' && (type === '[object object]' || type === '[object array]') && !str.length) {
+    if (typeSet.has(type)) {
       return true;
     }
 
@@ -35,7 +36,7 @@ module.exports = {
    * @param str 字符串
    */
   firstUpperCase(str) {
-    const string = toString(str).trim();
+    const string = (str || '').trim();
     return think.isEmpty(string) ? '' : string.substring(0, 1).toUpperCase() + string.substring(1);
   },
   /**
