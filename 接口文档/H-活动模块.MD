@@ -85,7 +85,7 @@ eventId			|是				|string			|活动id
 	"share":235435,					// 分享的人数
 	"comment":6345455,				// 评论数
 	"join":75445,					// 已报名的人数
-	"joinLimit":100000,				// 报名人数限制
+	"joinLimit":100000,				// 报名人数限制(0为不限制)
 	"joinList":[{					// 报名人列表(取前10个)
 		"uid": "5921d4c6ea3",			// 用户id
 		"nickName": "小丸子",			// 微信昵称

@@ -49,6 +49,7 @@ module.exports = class extends Base {
       event.image = JSON.parse(event.images)[0];
       delete event._id;
       delete event.images;
+      delete event.updateTime;
       return event;
     });
     return pageData;
