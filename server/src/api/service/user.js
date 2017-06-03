@@ -41,9 +41,8 @@ module.exports = class extends Base {
    * @param data 要修改的数据
    */
   async updateUserInfo(uid, data = {}) {
-    const user = await this.userModel.update({ _id: uid }, { $set: data });
-    user.uid = user._id;
-    delete user._id;
+    await this.userModel.update({ _id: uid }, data);
+    const user = await this.getUserByUid(uid);
     return this.makeUserInfo(user);
   }
 

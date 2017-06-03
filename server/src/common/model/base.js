@@ -81,9 +81,7 @@ module.exports = class extends think.model.base {
    */
   async update(condition, data) {
     this.beforeUpdate(data);
-    const tmp = await this._model.update(condition, { $set: data });
-    think.extend(tmp, data);
-    return JSON.parse(JSON.stringify(tmp));
+    await this._model.update(condition, { $set: data }, { safe: true, strict: true });
   }
 
   /**

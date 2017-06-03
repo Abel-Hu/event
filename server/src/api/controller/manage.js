@@ -50,6 +50,24 @@ module.exports = class extends Base {
    * 修改用户数据
    */
   async userupdateAction() {
+    const uid = this.param('uid');
+    const isVip = this.param('isVip');
+
+    // 判断用户是否存在
+    const user = await this.userService.getUserByUid(uid);
+    if (think.isEmpty(user)) {
+      return this.showError(ERROR.USER.NOT_EXISTS);
+    }
+
+    let data = {};
+    if (!think.isEmpty(isVip)) {
+      data.isVip = isVip;
+    }
+
+    if (think.isEmpty(data)) {
+      return this.success(1);
+    }
+    await this.userService.updateUserInfo(uid, data);
     return this.success(1);
   }
 };

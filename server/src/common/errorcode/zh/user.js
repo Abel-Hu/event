@@ -10,4 +10,8 @@ module.exports = {
    * 用户token过期
    */
   TOKEN_EXPIRE: new ErrorCode(200002, '用户token过期'),
+  /**
+   * 用户不存在(200003)
+   */
+  NOT_EXISTS: new ErrorCode(200003, '用户不存在'),
 };
