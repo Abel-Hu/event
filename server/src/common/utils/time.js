@@ -12,7 +12,7 @@ module.exports = {
    * 获取当前时间(秒)
    */
   now() {
-    return parseInt(new Date().getTime() / 1000, 10) || 0;
+    return parseInt(new Date().getTime() / 1000, 10);
   },
   /**
    * 时间格式化

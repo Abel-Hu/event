@@ -22,6 +22,10 @@ module.exports = {
    * @param orderby asc or desc
    */
   sortArray(array, orderby = 'asc') {
+    if (!Array.isArray(array)) {
+      return array;
+    }
+
     if (orderby === 'asc') {
       array.sort((a, b) => a - b);
     } else {
