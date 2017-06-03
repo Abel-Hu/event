@@ -252,7 +252,6 @@ module.exports = class extends Base {
     const comment = {};
 
     // 判断活动是否存在
-    const eventId = this.param('eventId');
     const event = await this.eventService.getEvent(eventId);
     if (think.isEmpty(event)) {
       return this.showError(ERROR.EVENT.NOT_EXISTS);
