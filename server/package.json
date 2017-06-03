@@ -7,7 +7,7 @@
     "eslint": "eslint src/ && eslint test/ && eslint www/",
     "errorcode": "node tools/errorcode.js",
     "makedata": "node tools/makedata.js",
-    "test": "nyc --reporter=text --reporter=text-summary --exclude=**/test/** ava --no-cache -c 8 -v -s ./test"
+    "test": "nyc --reporter=text --reporter=text-summary --exclude=**/test/** --exclude=src/common/utils/qiniu.js ava --no-cache -c 8 -v -s ./test"
   },
   "dependencies": {
     "axios": "^0.16.1",

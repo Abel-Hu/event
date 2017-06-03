@@ -79,9 +79,9 @@ test('test util.secret.base64Encode()', async (t) => {
 });
 
 test('test util.secret.base64Decode()', async (t) => {
-  t.is(secret.base64Decode(secret.base64Encode(123), '123'), true);
-  t.is(secret.base64Decode(secret.base64Encode(''), ''), true);
-  t.is(secret.base64Decode(secret.base64Encode('ruanzhijun'), 'ruanzhijun'), true);
+  t.is(secret.base64Decode(secret.base64Encode(123)), '123');
+  t.is(secret.base64Decode(secret.base64Encode('')), '');
+  t.is(secret.base64Decode(secret.base64Encode('ruanzhijun')), 'ruanzhijun');
 
-  t.is(secret.base64Decode(secret.base64Encode('ruan'), 'ruanzhijun'), false);
+  t.is(secret.base64Decode(secret.base64Encode('ruan')), 'ruan');
 });
