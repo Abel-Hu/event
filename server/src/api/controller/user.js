@@ -36,7 +36,8 @@ module.exports = class extends Base {
    */
   async infoAction() {
     const uid = this.param('uid') || this.member.uid;
-    const user = await this.userService.getUserInfoByUid(uid);
+    let user = await this.userService.getUserByUid(uid);
+    user = this.userService.makeUserInfo(user);
     return this.success(user);
   }
 

@@ -31,13 +31,9 @@ module.exports = {
       'q+': Math.floor((date.getMonth() + 3) / 3), // 季度
       S: date.getMilliseconds(),             // 毫秒
     };
-    if (/(y+)/.test(_format)) {
-      _format = _format.replace(RegExp.$1, (`${date.getFullYear()}`).substr(4 - RegExp.$1.length));
-    }
+    _format = /(y+)/.test(_format) ? _format.replace(RegExp.$1, (`${date.getFullYear()}`).substr(4 - RegExp.$1.length)) : _format;
     Object.keys(o).filter((k) => {
-      if (new RegExp(`(${k})`).test(_format)) {
-        _format = _format.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : ((`00${o[k]}`).substr((`${o[k]}`).length)));
-      }
+      _format = new RegExp(`(${k})`).test(_format) ? _format.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : ((`00${o[k]}`).substr((`${o[k]}`).length))) : _format;
       return true;
     });
     return _format;
