@@ -1,8 +1,9 @@
 // 造数据
 const axios = require('axios');
 
-const host = 'https://testevent.ruanzhijun.cn';
-const token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1OTMxNzc0ZTZhNTRiZTFiMGQ5MWUyN2YiLCJlbnYiOiJkZXZlbG9wbWVudCIsImlhdCI6MTQ5NjQxNDA0NSwiZXhwIjoxNDk5MDA2MDQ1fQ.Ez6-hMZp6ILQq1P25N6YFpcSbbxcHI1PQHJ_WYyjCAJHRoPQgWVVMSXIhTYLTQBrdOWtxs_UHH9QF0MDykvcl-9bT8Ay_WhDOsAccWnrhvdv78O7TPeAp3rF2uYjEd_O6kE2PaQbOX6CnhQGwDpWBXmkkT_4WLmBW61VSbaPFNzLhkSiMxCz5XcrYza9iRkQwZXOz4LZVdwdkDZaIxuobWIb93JnC3cFJQaBM045XzoME3fz5kVaIlQVqqTAJ-dlJAphQ1lNEBmvl6nsU6uwMDRVDlQf4qC_5_R4db8mTn2X0URIYepqMqHK5NC2-vXpe50Tqvd7tPBuay0_v1UVsw';
+// const host = 'https://testevent.ruanzhijun.cn';
+const host = 'http://127.0.0.1:59394/';
+const token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1OTMxNzc0ZTZhNTRiZTFiMGQ5MWUyN2YiLCJlbnYiOiJkZXZlbG9wbWVudCIsImlhdCI6MTQ5NjQ3MjQ0NywiZXhwIjoxNDk5MDY0NDQ3fQ.c3hQWKhqEsL9JVxxYzWdIwQXrj23D_to-dqk_HvQsEk9HeCSG_SpOqJAY4e8w2s6kTxd-rB4-qIRdSNBXrJiFKsDE-J51--4zzfIC2pBIS0lM_fTc1XvTE3fbi3q7N9jwT0LhjFnsJpJYVVDlyhdfvNgFSO0Fz-xndeb9vZ1HSSpvWIJyZmpcggPDKDtLFAmOAAgg1SmDM1sXdH34vQxt4ej4lgChOYEUTWOAYvonhERAnhHdogeoLxQ0B4-00WTylc97O-Jp_H2GC06wpbk4qscwPqjxBXpE9jEJEsn0EPVcj5xnoHrqy4H500dNk3vSzDOpnkojgvm_gueMxVQhA';
 
 
 const httpClient = axios.create({
@@ -53,7 +54,7 @@ function eventPublish() {
       longitude: 113.45 + i,
       latitude: 23.54 - i,
       address: `珠江新城马场路${i * 7}号`,
-      startTime: '2017-06-02 23:00:00',
+      startTime: '2017-06-04 23:00:00',
       endTime: '2017-06-14 18:00:00',
       joinLimit: 3,
       deadline: '2017-06-10 18:00:00',
@@ -75,5 +76,5 @@ function eventCommentAdd() {
 
 
 ///////////////////////////////////////////////////////////////////
-eventInfo();
+eventPublish();
 ///////////////////////////////////////////////////////////////////

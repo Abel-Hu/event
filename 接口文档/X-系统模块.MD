@@ -22,8 +22,5 @@ file			|是				|file			|文件上传域的key
 
 ### 响应数据
 ```json
-"data": [
-	"http://image.ruanzhijun.cn/event/34323434/dPQzP21tlnXVtgBAoZClzz.jpg",	// 图片绝对路径
-	"..."
-]
+"data": "http://image.ruanzhijun.cn/event/34323434/dPQzP21tlnXVtgBAoZClzz.jpg",	// 图片绝对路径
 ```

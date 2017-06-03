@@ -17,4 +17,21 @@ module.exports = class extends Base {
       isVip: 'string|in:true,false',
     };
   }
+
+  eventlistAction() {
+    this.allowMethods = 'get';
+    this.rules = {
+      title: 'string',
+      order: 'string|in:eventId,join,share,uv,comment|default:eventId',
+      by: 'string|in:asc,desc|default:desc',
+    };
+  }
+
+  eventupdateAction() {
+    this.allowMethods = 'post';
+    this.rules = {
+      eventId: 'required|string',
+      status: 'int|in:1,0',
+    };
+  }
 };

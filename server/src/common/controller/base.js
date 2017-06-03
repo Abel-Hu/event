@@ -116,11 +116,12 @@ module.exports = class extends think.controller.base {
    * @param pageData 分页数据
    */
   cursorPage(pageData = {}) {
-    const format = {};
-    think.extend(format, { pageSize: pageData.list.length });
-    think.extend(format, { headSequence: pageData.headSequence });
-    think.extend(format, { lastSequence: pageData.lastSequence });
-    think.extend(format, { list: pageData.list });
+    const format = {
+      pageSize: pageData.list.length || 0,
+      headSequence: pageData.headSequence || '',
+      lastSequence: pageData.lastSequence || '',
+      list: pageData.list || [],
+    };
     return this.success(format);
   }
 

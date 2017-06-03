@@ -59,7 +59,7 @@ eventId			|是				|string			|活动id
 ```json
 "data": {
 	"title":"耍牛满免费试吃活动",			// 活动标题
-	"description":"有颜值的牛肉火锅",		// 当前用户发布过的总活动数
+	"description":"有颜值的牛肉火锅",		// 活动描述
 	"images":[					// 活动图片(无限张)
 		"https://xxxx.com/xxx.png",
 		"https://xxxx.com/xxx.png",

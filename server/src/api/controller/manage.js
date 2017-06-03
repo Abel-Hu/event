@@ -59,7 +59,7 @@ module.exports = class extends Base {
       return this.showError(ERROR.USER.NOT_EXISTS);
     }
 
-    let data = {};
+    const data = {};
     if (!think.isEmpty(isVip)) {
       data.isVip = isVip;
     }
@@ -69,5 +69,33 @@ module.exports = class extends Base {
     }
     await this.userService.updateUserInfo(uid, data);
     return this.success(1);
+  }
+
+  /**
+   * 活动列表
+   */
+  async eventlistAction() {
+    const lastSequence = this.lastSequence();
+    const headSequence = this.headSequence();
+    const pageSize = this.pageSize();
+
+    const title = this.param('title');
+    const order = this.param('order') === 'eventId' ? '_id' : this.param('order');
+    const by = this.param('by') === 'asc' ? 1 : -1;
+
+    let condition = {};
+    if (!think.isEmpty(title)) {
+      condition = { title: { $regex: new RegExp(title, 'ig') } };
+    }
+
+    const pageData = await this.manageService.eventList(condition, lastSequence, headSequence, pageSize, { [order]: by });
+    return this.cursorPage(pageData);
+  }
+
+  /**
+   * 修改活动数据
+   */
+  async eventupdateAction() {
+
   }
 };

@@ -142,6 +142,6 @@ module.exports = class extends think.model.base {
       list.length -= 1;
       _lastSequence = list[list.length - 1]._id;
     }
-    return { list, lastSequence: _lastSequence, headSequence: _headSequence };
+    return { list: JSON.parse(JSON.stringify(list)), lastSequence: _lastSequence, headSequence: _headSequence };
   }
 };
