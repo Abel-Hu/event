@@ -27,6 +27,9 @@ module.exports = class extends Base {
       return this.showError(ERROR.EVENT.TIME_ERROR);
     }
 
+    this.rules.startTime = timeUtil.str2time(this.rules.startTime);
+    this.rules.endTime = timeUtil.str2time(this.rules.endTime);
+    this.rules.deadline = timeUtil.str2time(this.rules.deadline);
     return true;
   }
 
@@ -118,6 +121,9 @@ module.exports = class extends Base {
    */
   commentlistAction() {
     this.allowMethods = 'get';
+    this.rules = {
+      eventId: 'required|string',
+    };
   }
 
   /**
@@ -125,6 +131,9 @@ module.exports = class extends Base {
    */
   joinlistAction() {
     this.allowMethods = 'get';
+    this.rules = {
+      eventId: 'required|string',
+    };
   }
 
   /**

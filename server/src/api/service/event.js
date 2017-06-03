@@ -348,6 +348,7 @@ module.exports = class extends Base {
     const pageData = await this.eventJoinModel.cursorPage({ eventId }, lastSequence, headSequence, pageSize);
     const uidList = pageData.list.map(e => e.uid);
     pageData.list = await this.pojoService.makeUserBase(...uidList);
+    pageData.list = !think.isArray(pageData.list) ? [pageData.list] : pageData.list;
     return pageData;
   }
 

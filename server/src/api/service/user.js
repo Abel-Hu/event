@@ -121,6 +121,7 @@ module.exports = class extends Base {
     const pageData = await this.eventJoinModel.cursorPage({ uid }, lastSequence, headSequence, pageSize);
     const eventIdList = pageData.list.map(e => e.eventId);
     pageData.list = await this.pojoService.makeEventBase(...eventIdList);
+    pageData.list = !think.isArray(pageData.list) ? [pageData.list] : pageData.list;
     return pageData;
   }
 
@@ -135,6 +136,7 @@ module.exports = class extends Base {
     const pageData = await this.eventFavModel.cursorPage({ uid }, lastSequence, headSequence, pageSize);
     const eventIdList = pageData.list.map(e => e.eventId);
     pageData.list = await this.pojoService.makeEventBase(...eventIdList);
+    pageData.list = !think.isArray(pageData.list) ? [pageData.list] : pageData.list;
     return pageData;
   }
 };

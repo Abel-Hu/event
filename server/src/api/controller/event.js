@@ -69,10 +69,10 @@ module.exports = class extends Base {
     }
 
     // 报名人数限制，只可增多，不可减少
-    let b = false;
-    b = b || (event.joinLimit === 0 && joinLimit > 0);
-    b = b || (event.joinLimit > 0 && joinLimit < event.joinLimit);
-    if (b) {
+    // 0为无限，所以给0一个最大值
+    event.joinLimit = event.joinLimit === 0 ? Number.MAX_SAFE_INTEGER : event.joinLimit;
+    if (joinLimit > 0 && joinLimit < event.joinLimit) {
+      this.LOG.warn(`join limit only can increment, eventId: ${eventId}, event.joinLimit: ${event.joinLimit === Number.MAX_SAFE_INTEGER ? '+∞' : event.joinLimit}, new joinLimit: ${joinLimit}`);
       return this.showError(ERROR.EVENT.JOIN_LIMIT_ONLY_CAN_INCREMENT);
     }
 
@@ -120,6 +120,7 @@ module.exports = class extends Base {
 
     // 返回结果
     const info = {};
+    think.extend(info, { eventId });
     think.extend(info, { title: event.title });
     think.extend(info, { description: event.description });
     think.extend(info, { images: JSON.parse(event.images) });

@@ -30,7 +30,7 @@ test('test /api/user/update', async (t) => {
 
 test('test /api/user/joinlist', async (t) => {
   const data = await httpClient.get('/api/user/joinlist');
-  t.is(data.list.length, 0);
+  t.is(data.list.length > 0, true);
 });
 
 test('test /api/user/favlist', async (t) => {

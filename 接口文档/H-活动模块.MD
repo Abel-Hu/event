@@ -58,6 +58,7 @@ eventId			|是				|string			|活动id
 ### 响应数据
 ```json
 "data": {
+	"eventId":"5932a1d7639b1051d0e26327",	// 活动id
 	"title":"耍牛满免费试吃活动",			// 活动标题
 	"description":"有颜值的牛肉火锅",		// 活动描述
 	"images":[					// 活动图片(无限张)
