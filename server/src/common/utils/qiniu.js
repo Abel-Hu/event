@@ -33,7 +33,7 @@ module.exports = {
       const uptoken = uploadToken(config.bucket, filename);
       qiniu.io.putFile(uptoken, filename, sourceFilePath, extra, (err, ret) => {
         if (!err) {
-          resolve(`http://image.ruanzhijun.cn/${ret.key}`);
+          resolve(`${config.baseURL}${ret.key}`);
         } else {
           // 上传失败， 处理返回代码
           LOG.error(err);
