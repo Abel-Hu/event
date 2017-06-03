@@ -7,6 +7,7 @@ module.exports = class extends Base {
 
     // 注入service
     this.userService = requireService('user', 'api', this);
+    this.eventService = requireService('event', 'api', this);
     this.manageService = requireService('manage', 'api', this);
   }
 
@@ -96,6 +97,25 @@ module.exports = class extends Base {
    * 修改活动数据
    */
   async eventupdateAction() {
+    const eventId = this.param('eventId');
+    const status = this.param('status');
 
+    // 判断活动是否存在
+    const event = await this.eventService.getEvent(eventId);
+    if (think.isEmpty(event)) {
+      return this.showError(ERROR.EVENT.NOT_EXISTS);
+    }
+
+    const data = {};
+    if (!think.isEmpty(status)) {
+      data.status = status;
+    }
+
+    if (think.isEmpty(data)) {
+      return this.success(1);
+    }
+
+    await this.eventService.update(eventId, data);
+    return this.success(1);
   }
 };

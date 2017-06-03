@@ -62,8 +62,7 @@ module.exports = class extends Base {
    * @param data 要修改的数据
    */
   async update(eventId, data) {
-    const event = this.eventModel.update({ _id: eventId }, { $set: data });
-    return event;
+    await this.eventModel.update({ _id: eventId }, data);
   }
 
   /**

@@ -31,7 +31,7 @@ module.exports = class extends Base {
     this.allowMethods = 'post';
     this.rules = {
       eventId: 'required|string',
-      status: 'int|in:1,0',
+      status: 'string|in:1,0',
     };
   }
 };
