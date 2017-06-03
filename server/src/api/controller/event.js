@@ -91,6 +91,12 @@ module.exports = class extends Base {
       return this.showError(ERROR.EVENT.NOT_EXISTS);
     }
 
+    // 判断是否下架
+    if (event.status !== 1) {
+      this.LOG.warn(`event is off shelf, eventId: ${eventId}`);
+      return this.showError(ERROR.EVENT.IS_OFF_SHELF);
+    }
+
     // 统计uv
     const b = await this.eventService.eventHasView(this.member.uid, eventId);
     if (!b) {
@@ -161,6 +167,12 @@ module.exports = class extends Base {
       return this.showError(ERROR.EVENT.NOT_EXISTS);
     }
 
+    // 判断是否下架
+    if (event.status !== 1) {
+      this.LOG.warn(`event is off shelf, eventId: ${eventId}`);
+      return this.showError(ERROR.EVENT.IS_OFF_SHELF);
+    }
+
     // 判断是否收藏这个活动
     const b = await this.eventService.eventHasFav(this.member.uid, eventId);
     if (b) {
@@ -203,6 +215,12 @@ module.exports = class extends Base {
       return this.showError(ERROR.EVENT.NOT_EXISTS);
     }
 
+    // 判断是否下架
+    if (event.status !== 1) {
+      this.LOG.warn(`event is off shelf, eventId: ${eventId}`);
+      return this.showError(ERROR.EVENT.IS_OFF_SHELF);
+    }
+
     // 判断报名人数是否已满
     // 先加1，如果加了没超过上限，证明是可以报名的
     const joins = await this.eventService.incrJoins(eventId);
@@ -232,6 +250,19 @@ module.exports = class extends Base {
     const replyUid = this.param('replyUid') || '';
     const content = this.param('content');
     const comment = {};
+
+    // 判断活动是否存在
+    const eventId = this.param('eventId');
+    const event = await this.eventService.getEvent(eventId);
+    if (think.isEmpty(event)) {
+      return this.showError(ERROR.EVENT.NOT_EXISTS);
+    }
+
+    // 判断是否下架
+    if (event.status !== 1) {
+      this.LOG.warn(`event is off shelf, eventId: ${eventId}`);
+      return this.showError(ERROR.EVENT.IS_OFF_SHELF);
+    }
 
     const [
       tmp,

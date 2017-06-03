@@ -42,4 +42,8 @@ module.exports = {
    * 不是自己发的评论不可以删除(300010)
    */
   COMMENT_NOT_PUBLISH_BY_ME: new ErrorCode(300010, '不是自己发的评论不可以删除'),
+  /**
+   * 活动已经下架(300011)
+   */
+  IS_OFF_SHELF: new ErrorCode(300011, '活动已经下架'),
 };
