@@ -298,7 +298,7 @@ module.exports = class extends Base {
    * @param pageSize 页面大小
    */
   async eventList(uid, lastSequence = '', headSequence = '', pageSize = 30) {
-    const pageData = await this.eventModel.cursorPage({}, lastSequence, headSequence, pageSize);
+    const pageData = await this.eventModel.cursorPage({ status: 1 }, lastSequence, headSequence, pageSize);
     const promiseArray = [];
     pageData.list.filter((e) => {
       promiseArray.push(this.eventHasFav(uid, e._id));
