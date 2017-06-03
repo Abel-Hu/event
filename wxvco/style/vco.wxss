@@ -53,3 +53,8 @@
 .v-cell.icon{
 
 }
+
+.btn-spacing {
+  padding-left: 15px;
+  padding-right: 15px;
+}

@@ -25,8 +25,10 @@ module.exports = class extends Store {
     })
   }
 
-  publish () {
-
+  publish (data) {
+    http.post(Api.publish, data).then((d)=>{
+      console.log(d)
+    })
   }
 
   update () {
