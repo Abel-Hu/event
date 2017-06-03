@@ -3,6 +3,21 @@
  */
 const host = 'https://testevent.ruanzhijun.cn'
 // const host = 'https://event.ruanzhijun.cn'
+const $tips = function (message, minsecond = 1500, icon = 'loading') {
+  let msg = ''
+  if (typeof message === 'object') {
+    Object.keys(message).map(k => {
+      msg += `${message[k]}\n`
+    })
+  } else {
+    msg = message
+  }
+  wx.showToast({
+    title: msg,
+    icon: icon,
+    duration: minsecond
+  })
+}
 const WxHttp = function (method = 'GET') {
   /**
    * @url 链接地址
@@ -34,19 +49,7 @@ const WxHttp = function (method = 'GET') {
           if (catchErrorCode && typeof catchErrorCode === 'function') {
             catchErrorCode({data, code, message})
           } else {
-            let msg = ''
-            if (typeof message === 'object') {
-              Object.keys(message).map(k => {
-                msg += `${message[k]}\n`
-              })
-            } else {
-              msg = message
-            }
-            wx.showToast({
-              title: msg,
-              icon: 'loading',
-              duration: 1500
-            })
+            $tips(message)
           }
           return reject(res.data)
         },
@@ -57,10 +60,50 @@ const WxHttp = function (method = 'GET') {
     })
   }
 }
-
+const upload = function (filePath, opt, catchErrorCode) {
+  const options = {
+    fileName: 'file',
+    url: '/api/system/upload',
+    formData: {},
+    header: {}
+  }
+  opt = Object.assign(options, opt)
+  const {fileName, url, formData, header} = opt
+  if (wx.vco.data.token) {
+    header.token = wx.vco.data.token
+  }
+  return new Promise((resolve, reject) => {
+    wx.uploadFile({
+      url: `${host}${url}`,
+      filePath: filePath,
+      header,
+      formData,
+      name: fileName,
+      complete(res) {
+        let cb = res.data
+        cb = JSON.parse(cb)
+        let {data, code, message} = cb
+        message = message || ''
+        if (code === 1) {
+          return resolve(data)
+        }
+        if (catchErrorCode && typeof catchErrorCode === 'function') {
+          catchErrorCode({data, code, message})
+        } else {
+          $tips(message)
+        }
+        return reject(res.data)
+      },
+      error(e) {
+        reject(e)
+      }
+    })
+  })
+}
 module.exports = {
   get: WxHttp('GET'),
   post: WxHttp('POST'),
   put: WxHttp('PUT'),
-  del: WxHttp('DELETE')
+  del: WxHttp('DELETE'),
+  upload
 }
