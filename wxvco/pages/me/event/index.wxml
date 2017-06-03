@@ -1,10 +1,4 @@
 
-<view class="v-section">
-<navigator class="v-nav" url="/pages/me/event/create/index">
-    <view class="v-cell">创建活动</view>
-</navigator>
-</view>
-<view class="v-line"/>
 <view wx:for="{{[0, 1]}}" wx:key="{{index}}">
     <view class="e-cell">
         <view class="h-block">

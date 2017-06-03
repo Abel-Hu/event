@@ -11,7 +11,8 @@ module.exports = function() {
     createContext: true,
     hideKeyboard: true,
     stopPullDownRefresh: true,
-    request: true
+    request: true,
+    uploadFile:true,
   }
 
   Object.keys(wx).map((key) => {

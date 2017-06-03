@@ -1,13 +1,15 @@
 <view>
     <view class="userinfo v-section">
         <view class="v-cell" bindtap="uploadAvatar">
-            <image class="avatar" src="{{props.member.member.avatarUrl}}" background-size="cover"></image>
-            <text class="nickname">{{props.member.member.nickName||'点击登录'}}</text>
+           <view class="v-box">
+               <image class="avatar" src="{{props.member.member.avatarUrl}}" background-size="cover"></image>
+               <text class="nickname">{{props.member.member.nickName||'点击登录'}}</text>
+           </view>
         </view>
     </view>
     <view class="v-line"/>
     <!--start 会员管理-->
-    <view class="v-section user">
+    <!--<view class="v-section user">
         <navigator class="v-nav" url="/pages/me/event/index">
             <view class="v-cell"><i class="left-icon iconfont icon-calendar"></i>我参与的活动</view>
         </navigator>
@@ -17,22 +19,31 @@
         <navigator class="v-nav" url="/pages/me/setting/index">
             <view class="v-cell"><i class="left-icon iconfont icon-set"></i>个人设置</view>
         </navigator>
-    </view>
-    <view class="v-line"/>
+    </view>-->
+    <view class="v-title">会员管理</view>
     <view class="v-section">
         <view class="v-grid">
-            <view class="v-grid-item"><i class="iconfont icon-calendar"></i>我参与的活动</view>
-            <view class="v-grid-item"><i class="iconfont icon-favorite"></i>活动收藏</view>
-            <view class="v-grid-item"><i class="iconfont icon-set"></i>个人设置</view>
+            <navigator  url="/pages/me/event/index"><view class="v-grid-item"><i class="iconfont icon-calendar"></i>我参与的活动</view></navigator>
+            <navigator  url="/pages/me/event/index"><view class="v-grid-item"><i class="iconfont icon-favorite"></i>活动收藏</view></navigator>
+            <navigator  url="/pages/me/setting/index"><view class="v-grid-item"><i class="iconfont icon-set"></i>个人设置</view></navigator>
         </view>
     </view>
     <!--end 会员管理-->
     <view class="v-line"/>
     <!--start 特权管理-->
+    <view class="v-title">特权管理</view>
     <view class="v-section manage">
-        <navigator class="v-nav" url="/pages/me/event/create/index">
+        <!--<navigator class="v-nav" url="/pages/me/event/create/index">
         <view class="v-cell"><i class="left-icon iconfont icon-form"></i>我发布的活动</view>
-        </navigator>
+        </navigator>-->
+        <view class="v-grid">
+            <navigator url="/pages/me/event/create/index">
+                <view class="v-grid-item"><i class="iconfont icon-form"></i>我的活动</view>
+            </navigator>
+            <navigator url="/pages/me/event/create/index">
+                <view class="v-grid-item"><i class="iconfont icon-add"></i>发布活动</view>
+            </navigator>
+        </view>
     </view>
     <!--end 特权管理-->
 

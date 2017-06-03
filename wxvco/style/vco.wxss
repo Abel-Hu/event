@@ -12,7 +12,9 @@
   display :flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
+
 .v-cell:after{
   height :1rpx;
   background :#eee;
@@ -25,12 +27,17 @@
 .v-cell .left-icon{
   margin-right :10rpx;
 }
+.v-box{
+  display :flex;
+  flex-direction: row;
+  align-items: center;
+}
 .v-grid{
   display :flex;
   flex-direction: row;
   align-items: center;
   /*justify-content: space-between;*/
-  justify-content :space-around;
+  /*justify-content :space-around;*/
 }
 .v-grid-item{
   padding :28rpx; text-align :center;
@@ -39,7 +46,9 @@
 .v-grid-item i{
   display :block; font-size :42rpx;
 }
-
+.v-title{
+  font-size :20rpx; color :#a6a6a6; padding: 0 0 10rpx 28rpx;
+}
 .v-nav{
   position :relative;
 }

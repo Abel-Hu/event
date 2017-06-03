@@ -1,17 +1,17 @@
 // index.js
-const {page} = wx.vco
-const o =  {
+const {page,http} = wx.vco
+const o = {
   /**
    * 页面的初始数据
    */
   data: {
-    item: [{title: '活动标题', value:'', placeholder: '请输入活动标题'},
-      {title: '活动图片', value:'', placeholder: '请上传活动图片'},
-      {title: '活动描述', value:'', placeholder: '请输入活动描述'},
-      {title: '开始时间', value:'', placeholder: '请输入开始时间'},
-      {title: '报名截止时间', value:'', placeholder: '请输入报名截止时间'},
-      {title: '最大参与人数', value:'', placeholder: '请输入最大参与人数'},
-      {title: '地址', value:'', placeholder: '请在地图上标出位置'},],
+    item: [{title: '活动标题', value: '', placeholder: '请输入活动标题'},
+      {title: '活动图片', value: '', placeholder: '请上传活动图片'},
+      {title: '活动描述', value: '', placeholder: '请输入活动描述'},
+      {title: '开始时间', value: '', placeholder: '请输入开始时间'},
+      {title: '报名截止时间', value: '', placeholder: '请输入报名截止时间'},
+      {title: '最大参与人数', value: '', placeholder: '请输入最大参与人数'},
+      {title: '地址', value: '', placeholder: '请在地图上标出位置'},],
     name: '',
     files: []
   },
@@ -32,38 +32,37 @@ const o =  {
   },
   chooseAddress () {
     wx.chooseLocation().then((res) => {
-        console.log(res)
-        var _latitude = res.latitude
-        var _longitude = res.longitude
-        var _name = res.name
-        var _address= res.address
-        this.setData({
-          latitude: _latitude,
-          longitude: _longitude,
-          name: _name,
-          address: _address
-        })
+      console.log(res)
+      var _latitude = res.latitude
+      var _longitude = res.longitude
+      var _name = res.name
+      var _address = res.address
+      this.setData({
+        latitude: _latitude,
+        longitude: _longitude,
+        name: _name,
+        address: _address
+      })
     }).catch((e) => {
-        console.error(e)
+      console.error(e)
     })
   },
 
   chooseImage (e) {
     console.log(e)
     var that = this
-    wx.chooseImage().then((chooseData) => {
-        var tempFilePaths = chooseData.tempFilePaths
-        wx.uploadFile({
-        url: 'https://testevent.ruanzhijun.cn/api/system/upload', //仅为示例，非真实的接口地址
-        filePath: tempFilePaths[0],
-        name: 'file'
-      }).then((uploadData) => {
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+    }).then((chooseData) => {
+      var tempFilePaths = chooseData.tempFilePaths
+
+      http.upload(tempFilePaths[0]).then((uploadData) => {
         that.setData({
           files: that.data.files.concat(chooseData.tempFilePaths)
-        });
+        })
         console.log(uploadData)
-      }).catch((e) => {
-        console.error(e)
       })
     })
   },
@@ -79,7 +78,7 @@ const o =  {
     if (e.detail.value.title.length == 0) {
       // this
     }
-    this.props.event.publish(e.detail.value).then((res)=>{
+    this.props.event.publish(e.detail.value).then((res) => {
       console.log(res)
     })
   },
@@ -90,4 +89,4 @@ const o =  {
     })
   }
 }
-page(o,{event:'event'})
+page(o, {event: 'event'})
