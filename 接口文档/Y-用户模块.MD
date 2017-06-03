@@ -25,6 +25,7 @@ encryptedData	|是				|string			|微信小程序登录返回的加密数据
 	"description":"哈哈哈",		// 个性签名
 	"eventPublishs":123,		// 发布的活动数
 	"eventJoins":123,		// 参与的活动数
+	"isManager":true,		// 是否为管理员
 	"token": "xxxxxxxxxx"		// 登录成功后，服务器颁发的token，用于后续的请求
 }
 ```

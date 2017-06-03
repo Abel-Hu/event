@@ -1,6 +1,7 @@
 const Base = requireBaseController();
 const wechatSDK = requireThirdparty('wechat');
 const jwtConfig = think.config('jwt');
+const vipConfig = think.config('vip') || [];
 
 module.exports = class extends Base {
   init(...args) {
@@ -26,6 +27,7 @@ module.exports = class extends Base {
     const user = await this.userService.create(wxdata, ip);
     const token = await jwt.encrypt({ uid: user.uid, env: think.env }, jwtConfig.expire);
     think.extend(user, { token });
+    think.extend(user, { isManager: vipConfig.indexOf(user.openId) > -1 });
     return this.success(user);
   }
 

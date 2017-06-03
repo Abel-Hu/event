@@ -42,6 +42,8 @@ module.exports = class extends Base {
    */
   async updateUserInfo(uid, data = {}) {
     const user = await this.userModel.update({ _id: uid }, { $set: data });
+    user.uid = user._id;
+    delete user._id;
     return this.makeUserInfo(user);
   }
 
@@ -54,12 +56,10 @@ module.exports = class extends Base {
       return {};
     }
     const member = {};
-    ['_id', 'nickName', 'avatarUrl', 'isVip', 'sex', 'mobile', 'birthday', 'description', 'eventPublishs', 'eventJoins'].filter((k) => {
+    ['uid', 'nickName', 'avatarUrl', 'isVip', 'sex', 'mobile', 'birthday', 'description', 'eventPublishs', 'eventJoins'].filter((k) => {
       member[k] = user[k];
       return true;
     });
-    member.uid = member._id;
-    delete member._id;
     return member;
   }
 
@@ -69,7 +69,13 @@ module.exports = class extends Base {
    */
   async getUserByUid(uid) {
     const user = await this.userModel.findOne({ _id: uid });
-    return this.makeUserInfo(user);
+    if (think.isEmpty(user)) {
+      this.LOG.error(`user not exists, uid: ${uid}`);
+      return {};
+    }
+    user.uid = user._id;
+    delete user._id;
+    return user;
   }
 
   /**
@@ -78,7 +84,13 @@ module.exports = class extends Base {
    */
   async getUserByOpenId(openId) {
     const user = await this.userModel.findOne({ openId });
-    return this.makeUserInfo(user);
+    if (think.isEmpty(user)) {
+      this.LOG.error(`user not exists, openId: ${openId}`);
+      return {};
+    }
+    user.uid = user._id;
+    delete user._id;
+    return user;
   }
 
   /**

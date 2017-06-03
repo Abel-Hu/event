@@ -10,17 +10,11 @@ module.exports = class extends Base {
     };
   }
 
-  usersetvAction() {
+  userupdateAction() {
     this.allowMethods = 'post';
     this.rules = {
       uid: 'required|string',
-    };
-  }
-
-  userremovevAction() {
-    this.allowMethods = 'post';
-    this.rules = {
-      uid: 'required|string',
+      isVip: 'string|in:true,false',
     };
   }
 };

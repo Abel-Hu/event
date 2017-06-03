@@ -116,8 +116,9 @@ module.exports = class extends think.model.base {
    * @param lastSequence 上一页游标
    * @param headSequence 顶部游标
    * @param pageSize 页面大小
+   * @param sort 排序规则
    */
-  async cursorPage(condition = {}, lastSequence = '', headSequence = '', pageSize = 30) {
+  async cursorPage(condition = {}, lastSequence = '', headSequence = '', pageSize = 30, sort = { _id: -1 }) {
     const where = {};
     // 如果有上拉刷新的需求，则优先查询上拉刷新
     if (!think.isEmpty(headSequence)) {
@@ -131,7 +132,7 @@ module.exports = class extends think.model.base {
     think.extend(where, condition);
 
     // 查询
-    const list = await this._model.find(where, {}, { sort: { _id: -1 }, limit: pageSize });
+    const list = await this._model.find(where, {}, { sort, limit: pageSize });
 
     // 顶部游标：只有"第一页的时候"或者"上拉刷新的时候"才返回
     let b = true;
