@@ -58,6 +58,8 @@ module.exports = class extends Base {
         think.extend(tmp, { [k]: stringUtil.isJSON(event[k]) ? JSON.parse(event[k])[0] : event[k] });
         return true;
       });
+      think.extend(tmp, { image: tmp.images });
+      delete tmp.images;
       return tmp;
     });
     return eventId.length === 1 ? list[0] : list;
