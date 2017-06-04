@@ -4,10 +4,10 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "eslint": "eslint src/ && eslint test/ && eslint www/",
+    "eslint": "eslint src/ && eslint test/ && eslint www/ && eslint tools/ --fix",
     "errorcode": "node tools/errorcode.js",
     "makedata": "node tools/makedata.js",
-    "test": "nyc --reporter=text --reporter=text-summary --exclude=**/test/** --exclude=src/common/utils/qiniu.js ava --no-cache -c 8 -v -s ./test"
+    "test": "nyc --reporter=text --reporter=text-summary --exclude=**/test/** --exclude=src/common/utils/qiniu.js --exclude=src/common/thirdparty/wechat/**.js --exclude=src/common/bootstrap/validate.js ava --no-cache -c 8 -v -s ./test"
   },
   "dependencies": {
     "axios": "^0.16.1",

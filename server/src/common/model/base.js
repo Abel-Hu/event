@@ -12,7 +12,7 @@ module.exports = class extends think.model.base {
 
     try {
       // 根据业务模块自动切换日志频道
-      const filename = (this.__filename || __filename).replace(think.APP_PATH, '');
+      const filename = this.__filename.replace(think.APP_PATH, '');
       const arr = filename.split(path.sep);
       const channel = `${arr[1]}.${arr[2]}.${think.camelCase(arr[3].replace('.js', ''))}`;
       this.LOG = getLogger(channel);
@@ -70,8 +70,13 @@ module.exports = class extends think.model.base {
    * @param condition 查询条件
    */
   async findOne(condition) {
-    const one = await this._model.findOne(condition);
-    return JSON.parse(JSON.stringify(one));
+    try {
+      const one = await this._model.findOne(condition);
+      return JSON.parse(JSON.stringify(one));
+    } catch (e) {
+      this.LOG.error(e);
+      return {};
+    }
   }
 
   /**

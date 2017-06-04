@@ -54,15 +54,6 @@ global.requireBaseModel = function () {
 };
 
 /**
- * 获取模块model
- * @param plugins model名
- * @param dir 模块的文件夹
- */
-global.requireModel = function (plugins, dir) {
-  return require(`${think.getPath(dir, '')}model/${plugins}`) || null;
-};
-
-/**
  * 全局错误码模板
  * @param code 错误码
  * @param message 错误提示语句

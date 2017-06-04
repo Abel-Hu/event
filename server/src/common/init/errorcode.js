@@ -10,7 +10,7 @@ fs.readdirSync(basePath).filter((lang) => {
   const errorcode = `${basePath}${path.sep}${lang}`;
   fs.readdirSync(errorcode).filter((v) => {
     const module = v.replace('.js', '').toUpperCase();
-    const kv = require(`${errorcode}${path.sep}${v}`) || {};
+    const kv = require(`${errorcode}${path.sep}${v}`);
     Object.keys(kv).filter((k) => {
       object[module] = object[module] ? object[module] : object[module] = {};
       object[module][k] = object[module][k] ? object[module][k] : object[module][k] = {};

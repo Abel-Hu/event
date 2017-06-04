@@ -6,7 +6,7 @@ test('test /api/manage/userlist', async (t) => {
     order: 'uid',
     by: 'desc',
   });
-  t.is(data.pageSize, 1);
+  t.is(data.pageSize > 0, true);
 });
 
 test('test /api/manage/userlist', async (t) => {
@@ -15,7 +15,7 @@ test('test /api/manage/userlist', async (t) => {
     order: 'uid',
     by: 'desc',
   });
-  t.is(data.pageSize, 1);
+  t.is(data.pageSize > 0, true);
 });
 
 test('test /api/manage/userupdate', async (t) => {

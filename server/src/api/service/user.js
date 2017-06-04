@@ -30,9 +30,10 @@ module.exports = class extends Base {
       user.sex = wxdata.gender;
       user.isVip = vipConfig.indexOf(user.openId) > -1;
       user = await this.userModel.add(user);
-      user = this.makeUserInfo(user);
+      user.uid = user._id;
+      delete user._id;
     }
-    return user;
+    return this.makeUserInfo(user);
   }
 
   /**
@@ -98,7 +99,7 @@ module.exports = class extends Base {
    */
   async incrEventPublishs(uid) {
     const result = await this.userModel.incr({ _id: uid }, { eventPublishs: 1 });
-    return result.eventPublishs || 0;
+    return parseInt(result.eventPublishs, 10) || 0;
   }
 
   /**
@@ -107,7 +108,7 @@ module.exports = class extends Base {
    */
   async incrEventJoins(uid) {
     const result = await this.userModel.incr({ _id: uid }, { eventJoins: 1 });
-    return result.eventJoins || 0;
+    return parseInt(result.eventJoins, 10) || 0;
   }
 
   /**
