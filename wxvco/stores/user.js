@@ -35,6 +35,10 @@ module.exports = class extends Store {
     this.$list(Api.favlist, this.favlist, reload, cb)
   }
 
+  delFavItem (index) {
+    if (index >= 0) this.favlist.data.splice(index, 1)
+  }
+
   /**
    * 获取用户数据
    * @param uid 为空返回自己的数据
