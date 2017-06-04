@@ -42,7 +42,7 @@ module.exports = class {
     let params = {
       pageSize: object$.pageSize || 10
     }
-    if (reload) {
+    if (reload && this.list.headSequence) {
       params.headSequence = object$.headSequence
     } else if (object$.lastSequence) {
       params.lastSequence = object$.lastSequence

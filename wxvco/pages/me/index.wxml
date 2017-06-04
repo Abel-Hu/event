@@ -24,7 +24,7 @@
     <view class="v-section">
         <view class="v-grid">
             <navigator  url="/pages/me/event/index"><view class="v-grid-item"><i class="iconfont icon-calendar"></i>我参与的活动</view></navigator>
-            <navigator  url="/pages/me/event/index"><view class="v-grid-item"><i class="iconfont icon-favorite"></i>活动收藏</view></navigator>
+            <navigator  url="/pages/me/fav/index"><view class="v-grid-item"><i class="iconfont icon-favorite"></i>活动收藏</view></navigator>
             <navigator  url="/pages/me/setting/index"><view class="v-grid-item"><i class="iconfont icon-set"></i>个人设置</view></navigator>
         </view>
     </view>

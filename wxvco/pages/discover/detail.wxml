@@ -1,0 +1,42 @@
+<view class="discover-detail">
+    <image class="topImg" src="{{props.event.detail.images[0]}}"></image>
+    <view class="v-section">
+        <view class="v-cell">
+            <view>
+                <text class="title">
+                    {{props.event.detail.title}}
+                </text>
+                <view class="favList">
+                    <block wx:for="{{props.event.detail.favList}}" wx:key="uid">
+                        <image src="{{item.avatarUrl}}"></image>
+                    </block>
+                </view>
+                <text class="description">
+                    {{props.event.detail.description}}
+                </text>
+                <view>{{props.event.detail.startTime}}</view>
+                <view>{{props.event.detail.endTime}}</view>
+
+                <view>{{props.event.detail.address}}</view>
+                <view>{{props.event.detail.latitude}}</view>
+                <view>{{props.event.detail.longitude}}</view>
+
+                <view>{{props.event.detail.fav}}</view>
+                <view>{{props.event.detail.favList}}</view>
+                <view>{{props.event.detail.isFav}}</view>
+
+                <view>{{props.event.detail.join}}</view>
+                <view>{{props.event.detail.joinLimit}}</view>
+                <view>{{props.event.detail.joinList}}</view>
+
+                <view>{{props.event.detail.comment}}</view>
+                <view>{{props.event.detail.commentList}}</view>
+                <view>{{props.event.detail.lastCommentSequence}}</view>
+
+                <view>{{props.event.detail.share}}</view>
+
+
+            </view>
+        </view>
+    </view>
+</view>

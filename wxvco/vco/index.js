@@ -3,6 +3,7 @@ const {observer} = require('./observer')
 const wxToPromise = require('./wx')
 const Store = require('./Store')
 const http = require('./http')
+const helper = require('./helper')
 //
 const page = function (o, inject) {
   injectStore(o, inject)
@@ -34,6 +35,7 @@ const vco = {
   Store,
   app,
   http,
+  helper,
   data: {
     token: ''
   }

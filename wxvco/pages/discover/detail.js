@@ -7,11 +7,10 @@
 const {page} = wx.vco
 const o = {
 
-  onLoad () {
-    wx.setNavigationBarTitle({
-      title: '活动详情'
-    })
-    this.props.event.getList(false, () => {
+  onLoad (opt) {
+    wx.setNavigationBarTitle({title: '活动详情'})
+    const {eventId} = opt
+    this.props.event.info(eventId,() => {
 
     })
   }

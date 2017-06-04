@@ -11,20 +11,24 @@ module.exports = class extends Store {
     return {
       favlist: {
         data: [],
+        headSequence: '',
         lastSequence: '',
-        headSequence: ''
+        pageSize: 10
       },
       joinlist: {
         data: [],
+        headSequence: '',
         lastSequence: '',
-        headSequence: ''
+        pageSize: 10
       }
     }
   }
-  getFavList(){
 
+  getJoinlist (reload = false, cb) {
+    this.$list(Api.joinlist, this.joinlist, reload, cb)
   }
-  getJoinList(){
 
+  getFavlist (reload = false, cb) {
+    this.$list(Api.favlist, this.favlist, reload, cb)
   }
 }

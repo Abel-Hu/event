@@ -1,0 +1,9 @@
+.discover-detail{
+
+}
+.discover-detail .topImg{
+  width :100%
+}
+.discover-detail .title{
+  font-size :42rpx; font-weight :bold; margin-bottom :28rpx;
+}

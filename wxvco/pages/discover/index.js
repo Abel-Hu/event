@@ -4,10 +4,11 @@
 const {page} = wx.vco
 const o = {
 
+  onShow(){
+    wx.setNavigationBarTitle({title: '发现'})
+  },
   onLoad () {
-    wx.setNavigationBarTitle({
-      title: '发现'
-    })
+
     this.props.event.getList(false, () => {
 
     })

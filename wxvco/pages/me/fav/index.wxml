@@ -1,5 +1,5 @@
-
 <!--
+
 <view wx:for="{{[0, 1]}}" wx:key="{{index}}">
     <view class="e-cell">
         <view class="h-block">
@@ -27,4 +27,4 @@
     </view>
 </view>-->
 <import src="/components/DiscoverList.wxml"/>
-<template is="DiscoverList" data="{{data:props.user.joinlist.data}}"/>
+<template is="DiscoverList" data="{{data:props.user.favlist.data}}"/>
