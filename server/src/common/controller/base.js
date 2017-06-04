@@ -1,8 +1,3 @@
-const fs = require('fs');
-const jwt = require('jsonwebtoken');
-
-const privateCert = fs.readFileSync(`${think.ROOT_PATH}/cert/private.pem`, 'utf-8');
-const publicCert = fs.readFileSync(`${think.ROOT_PATH}/cert/public.pem`, 'utf-8');
 const timeUtil = requireCommon('time');
 
 module.exports = class extends think.controller.base {
@@ -33,8 +28,55 @@ module.exports = class extends think.controller.base {
       return;
     }
 
-    // 鉴权白名单
+    // 会员对象初始化
+    this.member = null;
+
+    // 鉴权白名单初始化
     this.whiteList = [];
+  }
+
+  // 最先执行
+  async __before() {
+    const ok = await this.auth();
+    if (ok !== true) {
+      return this.showError(ERROR.USER.TOKEN_EXPIRE);
+    }
+    return true;
+  }
+
+  /**
+   * 执行鉴权逻辑
+   */
+  async auth() {
+    // 白名单内不鉴权
+    if (this.whiteList.indexOf(this.http.action) > -1) {
+      return true;
+    }
+
+    // 解析token
+    const token = this.header('token').trim() || '';
+    this.member = await jwt.decrypt(token);
+    if (think.isEmpty(this.member)) {
+      return false;
+    }
+
+    // 判断token环境
+    const ip = this.ip();
+    if (this.member.env !== think.env) {
+      this.LOG.warn(`token env error, client token env: ${this.member.env}, server token env: ${think.env}, ip: ${ip}`);
+      this.showError(ERROR.USER.TOKEN_EXPIRE);
+      return false;
+    }
+
+    delete this.member.env;
+
+    if (think.isEmpty(this.member)) {
+      return false;
+    }
+
+    // 打印jwt解析出来的数据
+    this.LOG.trace(`decoded jwt data: ${JSON.stringify(this.member)}`);
+    return true;
   }
 
   /**
@@ -46,65 +88,40 @@ module.exports = class extends think.controller.base {
   }
 
   /**
-   * 生成token
-   * @param data 要加密的数据
-   * @param expiresIn 过期时间(单位：秒)
-   */
-  async encryptToken(data, expiresIn = 86400) {
-    const token = await jwt.sign(data || {}, privateCert, { algorithm: 'RS256', expiresIn });
-    return token;
-  }
-
-  /**
-   * token解析
-   * @param token
-   */
-  async decryptToken(token) {
-    try {
-      const json = await jwt.verify(token, publicCert);
-      delete json.env;
-      delete json.iat;
-      delete json.exp;
-      return json;
-    } catch (e) {
-      this.LOG.error(e);
-      this.http.status(403);
-      return this.showError('SYSTEM_REQUEST_FAILE_ERROR', 80);
-    }
-  }
-
-  /**
    * 获取当前页面大小
    */
   pageSize() {
     const maxPageSize = 30;
     const pageSize = parseInt(this.param('pageSize'), 10) || maxPageSize;
-    return pageSize > maxPageSize ? maxPageSize : pageSize;
+    // 统一页面大小+1，用于计算lastSequence
+    return (pageSize > maxPageSize ? maxPageSize : pageSize) + 1;
+  }
+
+  /**
+   * 获取顶部游标
+   */
+  headSequence() {
+    return this.param('headSequence') || '';
+  }
+
+  /**
+   * 获取上一页的游标
+   */
+  lastSequence() {
+    return this.param('lastSequence') || '';
   }
 
   /**
    * 游标分页面列表规范
-   * @param list 返回数据(list类型)
-   * @param moreItem 额外字段(json格式)
-   * @param sequenceField 游标使用的对象字段
-   * @param lastSequence 自定义游标值,默认0
-   * @returns {{lastSequence: number, pageSize: number, list: array}}
+   * @param pageData 分页数据
    */
-  cursorPage(list = [], moreItem = {}, sequenceField, lastSequence = 0) {
-    const pageSize = this.pageSize();
-    const _list = list;
-    let _lastSequence = lastSequence;
-    if (_lastSequence === 0 && _list.length >= pageSize) {
-      _list.length -= 1;
-      const obj = _list[_list.length - 1];
-      if (think.isEmpty(obj[sequenceField])) {
-        throw new Error(`missing 'sequence' field, sequenceField :${sequenceField}`);
-      }
-      _lastSequence = parseInt(obj[sequenceField], 10) || 0;
-    }
-
-    const format = { _lastSequence, pageSize: _list.length, _list };
-    think.extend(format, moreItem);
+  cursorPage(pageData = {}) {
+    const format = {
+      pageSize: pageData.list.length || 0,
+      headSequence: pageData.headSequence || '',
+      lastSequence: pageData.lastSequence || '',
+      list: pageData.list || [],
+    };
     return this.success(format);
   }
 

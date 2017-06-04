@@ -1,10 +1,16 @@
 const vco = require('./vco/index')
-wx.vco = vco
 const {app} = vco
-const o = app({
-  vco,
-  onLaunch(){
-    console.log('onLaunch')
+const o = {
+  onLaunch() {
+    this.props.member.getMember(() => {
+      this.props.system.checkToken((data) => {
+        if (data.code === 200002) { // 如果过期 重新登录
+          this.props.member.getMember(true)
+        } else if (data) { // 更新 token
+          this.props.member.updateToken(data)
+        }
+      })
+    })
   }
-})
-App(o)
+}
+app(o, {system: 'system', member: 'wechat/member'})

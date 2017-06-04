@@ -42,3 +42,6 @@ output.tar.gz
 runtime/
 
 *.lock
+
+cert/*.*
+src/common/config/env/*.*

@@ -1,17 +1,16 @@
 const mobx = require('./mobx')
 const {observer} = require('./observer')
 const wxToPromise = require('./wx')
-const regeneratorRuntime = require('./regenerator-runtime')
-const co = require('./co')
 const Store = require('./Store')
+const http = require('./http')
 //
 const page = function (o, inject) {
   injectStore(o, inject)
-  return observer(async(o))
+  return Page(observer(o))
 }
 const app = function (o, inject) {
   injectStore(o, inject)
-  return o
+  return App(o)
 }
 const propsCache = {}
 const injectStore = function (o, inject) {
@@ -20,31 +19,26 @@ const injectStore = function (o, inject) {
     Object.keys(inject).map((key) => {
       if (!propsCache[inject[key]]) {
         const cls = require(`../stores/${inject[key]}`)
-        propsCache[inject[key]] = new cls
+        propsCache[inject[key]] = new cls()
       }
       o.props[key] = propsCache[inject[key]]
     })
   }
 }
-const async = function (o) {
-  try {
-    co.call(o, function *() {
-      yield o
-    })
-    return o // 继承对象返回 关联全局 到page
-  } catch (e) {
-    console.error(e)
-  }
-}
 // init
 wxToPromise()
-//
-module.exports = {
+const vco = {
   mobx,
   page,
   observer,
-  co,
-  regeneratorRuntime,
   Store,
-  app
+  app,
+  http,
+  data: {
+    token: ''
+  }
 }
+//全局赋值
+wx.vco = vco
+//
+module.exports = vco

@@ -1,0 +1,24 @@
+<view>
+    <view class="cell">
+        <view class="cell_header">
+            <view class="title">手机号</view>
+        </view>
+        <view class="cell_body">
+            <input class="input" placeholder="请输入手机号" />
+        </view>
+        <view class="cell_footer">
+            <view class="vCodeBtn">获取验证码</view>
+        </view>
+    </view>
+    <view class="cell">
+        <view class="cell_header">
+            <view class="title">出生日期</view>
+        </view>
+        <view class="cell_body">
+            <picker mode="date" value="{{date}}" start="1900-01-01" end="{{today}}" bindchange="bindDateChange">
+                <input class="input" value="{{date}}"placeholder="请选择日期"/>
+            </picker>
+        </view>
+    </view>
+    <button class="btn">保存</button>
+</view>

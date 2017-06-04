@@ -1,62 +1,49 @@
 /**
  * Created by ken on 2017/5/21.
  */
-const {regeneratorRuntime, Store} = wx.vco
-const LoginTimeOut = 604700 //  登陆过期时间 秒为单位 默认为 7天 ：604700
+const {Store, http} = wx.vco
 const MzMemberKey = 'member' // 登陆缓存key
 const Api = {
   login: '/api/user/login'
 }
 module.exports = class extends Store {
-  state() {
+  state () {
     return {
-      member: {},
-      ns: 'wechat/member',
-      get toMember() {
-        return JSON.stringify(this.member)
-      }
+      member: {}
     }
   }
 
-  * getMember() {
-    console.log('getmember')
-    let member = yield wx.getStorage({key: MzMemberKey})
-    member = member && member.data || {}
-
-    /**
-     * 7天时间 7天后退出登陆过
-     * @type {number}
-     */
-    if (Object.keys(member).length > 0) {
-      member.now = member.now || 0
-      let nowTimeOut = Date.now() / 1000 - member.now
-      if (nowTimeOut > LoginTimeOut) {
-        yield wx.removeStorage({key: MzMemberKey})
-        member = {}
-      }
+  getMember (cb) {
+    if (cb === true) {
+      wx.removeStorageSync(MzMemberKey)
     }
-    /**
-     * 7天后注销重新登录
-     */
-
+    const returnMember = (member) => {
+      this.member = member
+      wx.vco.data.token = member.token
+      typeof cb === 'function' && cb(member)
+    }
+    let member = wx.getStorageSync(MzMemberKey) || {}
     if (Object.keys(member).length === 0) {
-      let {code} = yield wx.login()
-      const user = yield wx.getUserInfo()
-      const {userInfo, iv, signature, encryptedData, encryptData, rawData} = user
-      member = userInfo
-      member.code = code
-      //console.log(userInfo, iv, signature, encryptedData, encryptData, rawData, code)
-      /*let {object, code, message} = yield http.post(Api.login, { code, rawData, iv, encryptedData})
-
-       if (code === 1) {
-       member = Object.assign(member, object)
-       }
-       yield wx.setStorage({key: MzMemberKey, data: member}) // 微信异步set*/
-      yield wx.setStorage({key: MzMemberKey, data: member}) // debug
+      Promise.all([
+        wx.login(),
+        wx.getUserInfo()
+      ]).then(([{code}, user]) => {
+        const {userInfo, iv, signature, encryptedData, encryptData, rawData} = user
+        const params = {code, iv, rawData, encryptedData}
+        http.post(Api.login, params).then((data) => {
+          member = Object.assign(userInfo, data)
+          wx.setStorageSync(MzMemberKey, member)
+          returnMember(member)
+        })
+      })
+    } else {
+      returnMember(member)
     }
-    this.member = member
-    //
-    //getApp().member = member// 约定token
-    return this.member
+  }
+
+  updateToken (token) {
+    this.member.token = token
+    wx.vco.data.token = token
+    wx.setStorageSync(MzMemberKey, JSON.parse(JSON.stringify(this.member)))
   }
 }

@@ -11,19 +11,6 @@ const commonpath = think.getPath('common', '');
 global.requireCommon = function (plugins, dir = 'utils') {
   return require(`${commonpath}${dir}/${plugins}`) || null;
 };
-/**
- * 集群队列执行模式
- * 获取当前实例id 默认为0
- * @type {number}
- */
-process.env.NODE_APP_INSTANCE = parseInt(process.env.NODE_APP_INSTANCE, 10) || 0;
-global.ClusterQueue = function (cb) {
-  if (think.isFunction(cb) || process.env.NODE_APP_INSTANCE !== 0) {
-    return;
-  }
-
-  cb();
-};
 
 /**
  * 获取base controller
@@ -33,10 +20,10 @@ global.requireBaseController = function () {
 };
 
 /**
- * 全局获取commonService
+ * 获取base logic
  */
-global.requireCommonService = function () {
-  return require(`${commonpath}/service/common_service`) || null;
+global.requireBaseLogic = function () {
+  return require(`${commonpath}logic/base`) || null;
 };
 
 /**
@@ -50,10 +37,13 @@ global.requireThirdparty = function (plugins, modules) {
 
 /**
  * 全局获取srvice
+ * @param service service名
+ * @param module 所属模块名
+ * @param agrs service类初始化参数
  */
-global.requireService = function (service, module) {
+global.requireService = function (service, module, ...agrs) {
   const Service = think.service(service, module);
-  return new Service();
+  return new Service(agrs);
 };
 
 /**
@@ -61,15 +51,6 @@ global.requireService = function (service, module) {
  */
 global.requireBaseModel = function () {
   return require(`${commonpath}model/base`) || null;
-};
-
-/**
- * 获取模块model
- * @param plugins model名
- * @param dir 模块的文件夹
- */
-global.requireModel = function (plugins, dir) {
-  return require(`${think.getPath(dir, '')}model/${plugins}`) || null;
 };
 
 /**

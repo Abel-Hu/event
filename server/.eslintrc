@@ -17,7 +17,8 @@
     "mocha": true
   },
   "globals": {
-    "E": true,
+    "ERROR": true,
+    "jwt": true,
     "think": true,
     "redis": true,
     "mongoose": true,
@@ -30,8 +31,10 @@
     "getCurrentTime": true,
     "getCurrentTimestamp": true,
     "requireBaseModel": true,
+    "requireBaseLogic": true,
     "requireBaseController": true,
     "requireThirdparty": true,
+    "getTestLogger": true,
     "getLogger": true
   },
   "parserOptions": {
@@ -47,6 +50,10 @@
     ],
     // 禁止变量有下划线
     "no-underscore-dangle": [
+      "off"
+    ],
+    // 一行代码最大长度
+    "max-len": [
       "off"
     ],
     // 不允许动态require

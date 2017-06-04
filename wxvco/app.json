@@ -1,13 +1,39 @@
 {
-  "pages":[
-    "pages/a",
-    "pages/b"
+  "pages": [
+
+
+    "pages/me/index",
+    "pages/me/setting/index",
+    "pages/me/event/index",
+    "pages/me/event/create/index",
+
+    "pages/discover/index"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+  "tabBar": {
+    "color":"#a6a6a6",
+    "selectedColor":"#000",
+    "borderStyle": "white",
+    "backgroundColor": "#fff",
+    "list": [{
+      "pagePath": "pages/discover/index",
+      "iconPath":"/img/icon/tab/compass.png",
+      "selectedIconPath":"/img/icon/tab/compass_on.png",
+      "text": "发现"
+    }, {
+      "pagePath":  "pages/me/index",
+      "iconPath":"/img/icon/tab/account.png",
+      "selectedIconPath":"/img/icon/tab/account_on.png",
+
+      "text": "我"
+    }]
   },
-  "debug": true
+  "window": {
+    "backgroundTextStyle": "dark",
+    "backgroundColor": "#eeeeee",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "HiBeetleEvent",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": false,
+    "disableScroll": true
+  }
 }
