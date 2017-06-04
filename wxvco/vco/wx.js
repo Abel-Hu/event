@@ -13,6 +13,7 @@ module.exports = function() {
     stopPullDownRefresh: true,
     request: true,
     uploadFile:true,
+    showModal:true,
   }
 
   Object.keys(wx).map((key) => {

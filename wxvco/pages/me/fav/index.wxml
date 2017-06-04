@@ -27,4 +27,4 @@
     </view>
 </view>-->
 <import src="/components/DiscoverList.wxml"/>
-<template is="DiscoverList" data="{{data:props.user.favlist.data}}"/>
+<template is="DiscoverList" data="{{data:props.user.favlist.data,env:'fav'}}"/>

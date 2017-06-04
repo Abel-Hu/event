@@ -1,23 +1,33 @@
 <template name="DiscoverList">
     <block wx:if="{{data.length>0}}" wx:for="{{data}}" wx:key="eventId" wx:for-index="index" wx:for-item="item">
-        <navigator url="/pages/discover/detail?eventId={{item.eventId}}">
-            <view class="box">
-                <view class="fav" bindtap="bindFav" data-item="{{item}}" data-index="{{index}}">
-                    <i wx:if="{{item.isFav}}" class="iconfont icon-favoritesfilling"></i>
-                    <i wx:if="{{!item.isFav}}" class="iconfont icon-favorite"></i>
-                    <view class="bg"></view>
-                </view>
+
+        <view class="box">
+            <view class="fav" wx:if="{{env==='discover'}}" bindtap="bindFav" data-item="{{item}}"
+                  data-index="{{index}}">
+                <i wx:if="{{item.isFav}}" class="iconfont icon-favoritesfilling"></i>
+                <i wx:if="{{!item.isFav}}" class="iconfont icon-favorite"></i>
+                <view class="bg"></view>
+            </view>
+
+
+            <view class="fav" wx:if="{{env==='fav'}}" bindtap="bindFav" data-item="{{item}}" data-index="{{index}}">
+                <i class="iconfont icon-favoritesfilling"></i>
+                <view class="bg"></view>
+            </view>
+
+            <navigator url="/pages/discover/detail?eventId={{item.eventId}}">
                 <image src="{{item.image}}" mode="aspectFill"></image>
                 <view class="title">
                     <text>{{item.title}}</text>
                 </view>
-                <view class="description">
+                <view class="description" wx:if="{{env==='discover'}}">
                     <text>
                         参入人数:{{item.join}}
                     </text>
                 </view>
-            </view>
-        </navigator>
+            </navigator>
+        </view>
+
     </block>
     <view wx:if="{{data.length==0}}" class="p404">
         <i class="iconfont icon-cry"></i>
