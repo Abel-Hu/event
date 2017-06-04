@@ -3,7 +3,7 @@
 # G-管理模块
 
 
-### 用户列表  POST   /api/manage/userlist
+### 用户列表  GET   /api/manage/userlist
 
 参数			|是否必要		|类型			|说明
 --				|--				|--				|--
@@ -47,7 +47,7 @@ isVip			|否				|boolean		|是否为大V用户
 ```
 
 
-### 活动列表  POST   /api/manage/eventlist
+### 活动列表  GET   /api/manage/eventlist
 
 参数			|是否必要		|类型			|说明
 --				|--				|--				|--

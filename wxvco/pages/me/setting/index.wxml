@@ -41,7 +41,7 @@
             <view class="title">个性签名</view>
         </view>
         <view class="cell_body">
-            <textarea class="input" placeholder="个性签名"/>
+            <textarea height="100" maxlength="-1" placeholder="请输入个性签名"/>
         </view>
     </view>
     <button class="btn">保存</button>
