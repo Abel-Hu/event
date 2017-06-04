@@ -5,6 +5,8 @@ const o =  {
     wx.setNavigationBarTitle({
       title: '个人设置'
     })
+    this.props.user.getUserInfo(null, () => {
+    })
   },
 
   bindDateChange (e) {
@@ -12,7 +14,11 @@ const o =  {
     this.setData({
       date: e.detail.value
     })
+  },
+
+  sexChange: function(e) {
+    console.log('sex发生change事件，携带value值为：', e.detail.value)
   }
 
 }
-page(o)
+page(o, {user: 'user'})
