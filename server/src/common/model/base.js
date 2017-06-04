@@ -123,11 +123,11 @@ module.exports = class extends think.model.base {
    */
   async cursorPage(condition = {}, lastSequence = '', headSequence = '', pageSize = 30, sort = { _id: -1 }) {
     const where = {};
-    // 如果有上拉刷新的需求，则优先查询上拉刷新
+    // 如果有上拉刷新的需求，则优先查询下拉刷新
     if (!think.isEmpty(headSequence)) {
       think.extend(where, { _id: { $gt: headSequence } });
     } else if (!think.isEmpty(lastSequence)) {
-      // 否则才查询下拉刷新的
+      // 否则才查询上拉刷新的
       think.extend(where, { _id: { $lt: lastSequence } });
     }
 
@@ -137,7 +137,7 @@ module.exports = class extends think.model.base {
     // 查询
     const list = await this._model.find(where, {}, { sort, limit: pageSize });
 
-    // 顶部游标：只有"第一页的时候"或者"上拉刷新的时候"才返回
+    // 顶部游标：只有"第一页的时候"或者"下拉刷新的时候"才返回
     let b = true;
     b = b && (think.isEmpty(lastSequence) || !think.isEmpty(headSequence));
     b = b && !think.isEmpty(list);
