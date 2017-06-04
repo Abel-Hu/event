@@ -41,7 +41,7 @@ module.exports = class {
    */
   $list (url, object$, reload = false, cb, method = 'get', params = {}) {
     params.pageSize = object$.pageSize || 10
-    if (reload && this.list.headSequence) {
+    if (reload && object$.headSequence) {
       params.headSequence = object$.headSequence
     } else if (object$.lastSequence) {
       params.lastSequence = object$.lastSequence
