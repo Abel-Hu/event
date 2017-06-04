@@ -2,10 +2,10 @@
   "pages": [
 
 
+    "pages/me/event/create/index",
     "pages/me/index",
     "pages/me/setting/index",
     "pages/me/event/index",
-    "pages/me/event/create/index",
 
     "pages/discover/index"
   ],
