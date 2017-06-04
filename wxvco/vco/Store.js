@@ -32,16 +32,15 @@ module.exports = class {
   /**
    * 公共的浮标翻页
    * @param url
-   * @param object$
+   * @param object$ mobx 对象
    * @param reload 上拉刷新
    * @param cb
    * @param method 获取数据的方法
+   * @param params 参数
    * @returns {*}
    */
-  $list (url, object$, reload = false, cb, method = 'get') {
-    let params = {
-      pageSize: object$.pageSize || 10
-    }
+  $list (url, object$, reload = false, cb, method = 'get', params = {}) {
+    params.pageSize = object$.pageSize || 10
     if (reload && this.list.headSequence) {
       params.headSequence = object$.headSequence
     } else if (object$.lastSequence) {

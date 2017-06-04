@@ -4,7 +4,9 @@
 const {Store, http} = wx.vco
 const Api = {
   joinlist: '/api/user/joinlist',
-  favlist: '/api/user/favlist'
+  favlist: '/api/user/favlist',
+  info: '/api/user/info',
+  update: '/api/user/update',
 }
 module.exports = class extends Store {
   state () {
@@ -20,7 +22,8 @@ module.exports = class extends Store {
         headSequence: '',
         lastSequence: '',
         pageSize: 10
-      }
+      },
+      userInfo: {}
     }
   }
 
@@ -30,5 +33,30 @@ module.exports = class extends Store {
 
   getFavlist (reload = false, cb) {
     this.$list(Api.favlist, this.favlist, reload, cb)
+  }
+
+  /**
+   * 获取用户数据
+   * @param uid 为空返回自己的数据
+   * @param cb
+   */
+  getUserInfo (uid, cb) {
+    http.get(Api.info, {uid}).then(d => {
+      this.userInfo = d
+      cb && cb()
+    })
+  }
+
+  /**
+   nickName  否  string  用户昵称
+   mobile  否  string  用户手机
+   birthday  否  date  用户生日(格式：1990-11-12)
+   sex  否  int  用户性别(1-男 2-女)
+   description  否  string  个性签名
+   */
+  update (post, cb) {
+    http.post(Api.update, post).then(d => {
+      cb && cb()
+    })
   }
 }
