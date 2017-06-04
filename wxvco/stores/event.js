@@ -16,7 +16,8 @@ module.exports = class extends Store {
       list: {
         data: [],
         headSequence: '',
-        lastSequence: ''
+        lastSequence: '',
+        pageSize: 10
       },
       form: {},
       detail: {}
@@ -25,7 +26,7 @@ module.exports = class extends Store {
 
   getList (reload = false, cb) {
     let params = {
-      pageSize: 10
+      pageSize: this.list.pageSize || 10
     }
     if (reload) {
       params.headSequence = this.list.headSequence

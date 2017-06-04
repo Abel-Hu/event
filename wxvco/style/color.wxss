@@ -1,4 +1,5 @@
-/* 配色方案 */
+/* 配色方案 http://flatuicolors.com/ */
+
 .primary{
   color:#000
 }
