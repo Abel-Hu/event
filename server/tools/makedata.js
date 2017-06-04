@@ -14,7 +14,7 @@ const httpClient = axios.create({
 // 收藏活动
 function eventFav() {
   httpClient.post('/api/event/fav', {
-    eventId: '593177746a54be1b0d91e288'
+    eventId: '593177746a54be1b0d91e288',
   }).then((response) => {
     console.log(JSON.stringify(response.data));
   });
@@ -23,7 +23,7 @@ function eventFav() {
 // 取消收藏活动
 function eventUnfav() {
   httpClient.post('/api/event/unfav', {
-    eventId: '593177746a54be1b0d91e288'
+    eventId: '593177746a54be1b0d91e288',
   }).then((response) => {
     console.log(JSON.stringify(response.data));
   });
@@ -68,13 +68,13 @@ function eventPublish() {
 function eventCommentAdd() {
   httpClient.post('/api/event/commentadd', {
     eventId: '593177746a54be1b0d91e288',
-    content: '好好玩~！~！'
+    content: '好好玩~！~！',
   }).then((response) => {
     console.log(JSON.stringify(response.data));
   });
 }
 
 
-///////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////
 eventPublish();
-///////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////

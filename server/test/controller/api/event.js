@@ -13,10 +13,42 @@ test('test /api/event/publish', async (t) => {
     address: '珠江新城马场路28号',
     startTime: '2027-02-14 18:00:00',
     endTime: '2027-03-14 18:00:00',
-    joinLimit: '2',
+    joinLimit: 2,
     deadline: '2027-03-14 18:00:00',
   });
   t.is(data.userEventPublishs > 0, true);
+});
+
+test('test /api/event/publish', async (t) => {
+  const data = await httpClient.get('/api/event/publish', {
+    title: '测试活动~~',
+    description: '测试活动描述~~',
+    images: ['http://image.ruanzhijun.cn/event/1.jpg', 'http://image.ruanzhijun.cn/event/2.JPEG', 'http://image.ruanzhijun.cn/event/3.jpg'],
+    longitude: '113.43',
+    latitude: '34.56',
+    address: '珠江新城马场路28号',
+    startTime: '2027-04-14 18:00:00',
+    endTime: '2027-03-14 18:00:00',
+    joinLimit: 2,
+    deadline: '2027-03-14 18:00:00',
+  });
+  t.is(think.isEmpty(data), true);
+});
+
+test('test /api/event/publish', async (t) => {
+  const data = await httpClient.get('/api/event/publish', {
+    title: '测试活动~~',
+    description: '测试活动描述~~',
+    images: ['http://image.ruanzhijun.cn/event/1.jpg', 'http://image.ruanzhijun.cn/event/2.JPEG', 'http://image.ruanzhijun.cn/event/3.jpg'],
+    longitude: '1113.43',
+    latitude: '34.56',
+    address: '珠江新城马场路28号',
+    startTime: '2027-04-14 18:00:00',
+    endTime: '2027-03-14 18:00:00',
+    joinLimit: 2,
+    deadline: '2027-03-14 18:00:00',
+  });
+  t.is(think.isEmpty(data), true);
 });
 
 test('test /api/event/update', async (t) => {
@@ -28,10 +60,75 @@ test('test /api/event/update', async (t) => {
     longitude: '113.43',
     latitude: '34.56',
     address: '珠江新城马场路28号',
-    startTime: '1802599200000',
-    endTime: '1805018400000',
-    joinLimit: '0',
-    deadline: '1805018400000',
+    startTime: '2027-02-14 18:00:00',
+    endTime: '2027-03-14 18:00:00',
+    joinLimit: 0,
+    deadline: '2027-03-14 18:00:00',
+  });
+  t.is(data, 1);
+});
+
+test('test /api/event/update', async (t) => {
+  const data = await httpClient.get('/api/event/update', {
+    eventId: '5932a1d7639b1051d0e26327',
+    title: '测试活动~~',
+    description: '测试活动描述~~',
+    images: ['http://image.ruanzhijun.cn/event/1.jpg', 'http://image.ruanzhijun.cn/event/2.JPEG', 'http://image.ruanzhijun.cn/event/3.jpg'],
+    longitude: '113.43',
+    latitude: '34.56',
+    address: '珠江新城马场路28号',
+    startTime: '2027-04-14 18:00:00',
+    endTime: '2027-03-14 18:00:00',
+    joinLimit: 0,
+    deadline: '2027-03-14 18:00:00',
+  });
+  t.is(think.isEmpty(data), true);
+});
+
+test('test /api/event/update', async (t) => {
+  const data = await httpClient.get('/api/event/update', {
+    eventId: '5932a1d7639b1051d0e26327',
+    title: '测试活动~~',
+    description: '测试活动描述~~',
+    images: ['http://image.ruanzhijun.cn/event/1.jpg', 'http://image.ruanzhijun.cn/event/2.JPEG', 'http://image.ruanzhijun.cn/event/3.jpg'],
+    longitude: '113.43',
+    latitude: '34.56',
+    address: '珠江新城马场路28号',
+    startTime: '2027-04-14 18:00:00',
+    endTime: '2027-03-14 18:00:00',
+    joinLimit: 5,
+    deadline: '2027-03-14 18:00:00',
+  });
+  t.is(think.isEmpty(data), true);
+});
+
+test('test /api/event/update', async (t) => {
+  const data = await httpClient.get('/api/event/update', {
+    eventId: '5932a1d7639b1051d0e26327',
+    title: '测试活动~~',
+    description: '测试活动描述~~',
+    images: ['http://image.ruanzhijun.cn/event/1.jpg', 'http://image.ruanzhijun.cn/event/2.JPEG', 'http://image.ruanzhijun.cn/event/3.jpg'],
+    longitude: '1113.43',
+    latitude: '34.56',
+    address: '珠江新城马场路28号',
+    startTime: '2027-04-14 18:00:00',
+    endTime: '2027-03-14 18:00:00',
+    joinLimit: 5,
+    deadline: '2027-03-14 18:00:00',
+  });
+  t.is(think.isEmpty(data), true);
+});
+
+test('test /api/event/update', async (t) => {
+  const data = await httpClient.get('/api/event/update', {
+    eventId: '5932a1d7639b1051d0e26327',
+    title: '测试活动~~',
+    description: '测试活动描述~~',
+    images: ['http://image.ruanzhijun.cn/event/1.jpg', 'http://image.ruanzhijun.cn/event/2.JPEG', 'http://image.ruanzhijun.cn/event/3.jpg'],
+    longitude: '113.43',
+    latitude: '34.56',
+    address: '珠江新城马场路28号',
+    joinLimit: 0,
   });
   t.is(data, 1);
 });

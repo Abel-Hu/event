@@ -62,6 +62,15 @@ module.exports = class extends Base {
    * @param data 要修改的数据
    */
   async update(eventId, data) {
+    if (!think.isEmpty(data.startTime)) {
+      think.extend(data, { startTime: timeUtil.str2time(data.startTime) });
+    }
+    if (!think.isEmpty(data.endTime)) {
+      think.extend(data, { endTime: timeUtil.str2time(data.endTime) });
+    }
+    if (!think.isEmpty(data.deadline)) {
+      think.extend(data, { deadline: timeUtil.str2time(data.deadline) });
+    }
     await this.eventModel.update({ _id: eventId }, data);
   }
 

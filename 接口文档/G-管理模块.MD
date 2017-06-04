@@ -9,7 +9,7 @@
 --				|--				|--				|--
 lastSequence	|否				|string			|上一页游标(第一页不传)
 pageSize		|否				|int			|页面大小(默认、最大：30)
-headSequence	|否				|string			|顶部游标(上拉刷新)
+headSequence	|否				|string			|顶部游标(下拉刷新)
 nickName		|否				|string			|搜索用户昵称(模糊搜索)
 order			|否				|string			|可排序属性(可选：uid-注册时间；eventPublishs-发布活动数；eventJoins-参与活动数)，默认注册时间
 by				|否				|string			|排序方式(可选：asc-顺序；desc-倒序)，默认倒序
@@ -53,7 +53,7 @@ isVip			|否				|boolean		|是否为大V用户
 --				|--				|--				|--
 lastSequence	|否				|string			|上一页游标(第一页不传)
 pageSize		|否				|int			|页面大小(默认、最大：30)
-headSequence	|否				|string			|顶部游标(上拉刷新)
+headSequence	|否				|string			|顶部游标(下拉刷新)
 title			|否				|string			|搜索活动标题(模糊搜索)
 order			|否				|string			|可排序属性(可选：uid-注册时间；eventPublishs-发布活动数；eventJoins-参与活动数)，默认注册时间
 by				|否				|string			|排序方式(可选：asc-顺序；desc-倒序)，默认倒序

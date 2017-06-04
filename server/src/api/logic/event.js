@@ -27,9 +27,6 @@ module.exports = class extends Base {
       return this.showError(ERROR.EVENT.TIME_ERROR);
     }
 
-    this.rules.startTime = timeUtil.str2time(this.rules.startTime);
-    this.rules.endTime = timeUtil.str2time(this.rules.endTime);
-    this.rules.deadline = timeUtil.str2time(this.rules.deadline);
     return true;
   }
 
@@ -37,16 +34,16 @@ module.exports = class extends Base {
     this.allowMethods = 'post';
     this.rules = {
       eventId: 'required|string',
-      title: 'required|string',
-      description: 'required|string',
-      images: 'required|array',
-      longitude: 'required|float:-180,180',
-      latitude: 'required|float:-90,90',
-      address: 'required|string',
-      startTime: 'required|string|after',
-      endTime: 'required|string|after',
-      joinLimit: 'required|int|min:0',
-      deadline: 'required|string|after',
+      title: 'string',
+      description: 'string',
+      images: 'array',
+      longitude: 'float:-180,180',
+      latitude: 'float:-90,90',
+      address: 'string',
+      startTime: 'string|after',
+      endTime: 'string|after',
+      joinLimit: 'int|min:0',
+      deadline: 'string|after',
     };
 
     // 开始时间不能小于等于结束时间

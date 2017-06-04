@@ -23,6 +23,9 @@ module.exports = class extends Base {
     const matcher = ['nickName', 'sex', 'avatarUrl', 'isVip', 'description'];
     const promiseResult = await Promise.all(promiseArray);
     const list = promiseResult.map((user) => {
+      if (think.isEmpty(user)) {
+        return {};
+      }
       const tmp = {};
       think.extend(tmp, { uid: user._id });
       matcher.filter((k) => {
@@ -46,6 +49,9 @@ module.exports = class extends Base {
     const matcher = ['title', 'images'];
     const promiseResult = await Promise.all(promiseArray);
     const list = promiseResult.map((event) => {
+      if (think.isEmpty(event)) {
+        return {};
+      }
       const tmp = {};
       think.extend(tmp, { eventId: event._id });
       matcher.filter((k) => {

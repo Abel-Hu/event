@@ -72,6 +72,9 @@ global.getTestLogger = function (channel = 'console') {
 
 async function invoke(_http) {
   try {
+    const Logic = think.lookClass(_http.url.substr(1, _http.url.lastIndexOf('/') - 1), 'logic');
+    const logic = new Logic(_http);
+
     const Controller = think.lookClass(_http.url.substr(1, _http.url.lastIndexOf('/') - 1), 'controller');
     const controller = new Controller(_http);
 
@@ -81,9 +84,14 @@ async function invoke(_http) {
     };
 
     // 因为单元测试里think不会解析这三个值，所以提前赋值给它们
-    think.extend(_http, { module: _http.url.split('/')[1] });
-    think.extend(_http, { controller: _http.url.split('/')[2] });
-    think.extend(_http, { action: _http.url.split('/')[3] });
+    let arr = _http.url.split('/').filter(v => !think.isEmpty(v));
+    arr = arr.map(v => (v.indexOf('?') > -1 ? v.substring(0, v.indexOf('?')) : v));
+    think.extend(_http, { module: arr[0] });
+    think.extend(_http, { controller: arr[1] });
+    think.extend(_http, { action: arr[2] });
+
+    // 因为单元测试里think不会自动执行logic层，所以手动帮它执行
+    await logic[`${_http.url.substr(_http.url.lastIndexOf('/') + 1)}Action`]();
 
     // 因为单元测试里think不会自动执行aop，所以手动帮它执行
     await controller.__before();
