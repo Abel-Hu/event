@@ -27,7 +27,7 @@ const o = {
   },
   bindDeadLineChange(e) {
     this.setData({
-      deadLine: e.detail.value
+      deadline: e.detail.value
     })
   },
   chooseAddress () {
@@ -60,9 +60,9 @@ const o = {
 
       http.upload(tempFilePaths[0]).then((uploadData) => {
         that.setData({
-          files: that.data.files.concat(chooseData.tempFilePaths)
+          files: that.data.files.concat(uploadData)
         })
-        console.log(uploadData)
+        console.log('图片上传成功',uploadData)
       })
     })
   },
@@ -80,7 +80,7 @@ const o = {
     var parameters = e.detail.value
     parameters.startTime = this.data.startTime
     parameters.endTime = this.data.endTime
-    parameters.deadLine = this.data.deadLine
+    parameters.deadline = this.data.deadline
     parameters.latitude = this.data.latitude
     parameters.longitude = this.data.longitude
     parameters.address = this.data.address

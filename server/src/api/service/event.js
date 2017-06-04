@@ -311,7 +311,7 @@ module.exports = class extends Base {
     const promiseArray = [];
     pageData.list.filter((e) => {
       promiseArray.push(this.eventHasFav(uid, e._id));
-      promiseArray.push(this.eventJoinList(e._id, '', '', 10));
+      promiseArray.push(this.eventJoinList(e._id, '', '', 11));
       return true;
     });
     const promiseResult = await Promise.all(promiseArray);
