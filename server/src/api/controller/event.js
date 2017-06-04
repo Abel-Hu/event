@@ -113,8 +113,8 @@ module.exports = class extends Base {
     ] = await Promise.all([
       this.pojoService.makeUserBase(event.uid),
       this.eventService.eventHasFav(this.member.uid, eventId),
-      this.eventService.eventJoinList(eventId, '', '', 10),
-      this.eventService.eventFavList(eventId, '', '', 10),
+      this.eventService.eventJoinList(eventId, '', '', 11),
+      this.eventService.eventFavList(eventId, '', '', 11),
       this.eventService.eventCommentList(eventId, '', '', 11),
     ]);
 
