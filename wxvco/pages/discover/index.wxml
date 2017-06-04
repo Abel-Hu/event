@@ -1,3 +1,2 @@
-<view>
-
-</view>
+<import src="/components/DiscoverList.wxml"/>
+<template is="DiscoverList" data="{{data:props.event.list.data}}"/>

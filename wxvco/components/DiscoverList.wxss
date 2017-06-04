@@ -1,0 +1,40 @@
+.box{
+  margin:28rpx 0; padding:28rpx; background :#fff;
+  position :relative;
+}
+.box .fav{
+ position :absolute;
+  right :38rpx;
+  top:38rpx;
+  height :60rpx; width :60rpx;line-height :60rpx;
+  text-align :center;
+  color :#fff;
+}
+.box i{
+  z-index :999; position :relative;
+}
+.box .icon-favorite{
+
+}
+.box .icon-favoritesfilling{
+  color :#e74c3c
+}
+.box .bg{
+  opacity :.4;
+  border-radius :100%;
+  background :#000;
+  height :60rpx; width :60rpx;
+  position :absolute; top:0;
+}
+.box image{
+  background :#eee;
+  border-radius :10rpx;
+  width :100%;
+  height :380rpx;
+}
+.box .title{
+  font-size :28rpx; padding :10rpx 0 0; line-height :30rpx;
+}
+.box .description{
+  font-size :20rpx; height :auto; line-height :20rpx; color :#a6a6a6;
+}

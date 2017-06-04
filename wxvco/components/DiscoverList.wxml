@@ -1,0 +1,20 @@
+<template name="DiscoverList">
+    <block wx:for="{{data}}" wx:key="eventId" wx:for-index="index" wx:for-item="item">
+        <view class="box">
+            <view class="fav" bindtap="bindFav" data-item="{{item}}" data-index="{{index}}">
+                <i wx:if="{{item.isFav}}" class="iconfont icon-favoritesfilling"></i>
+                <i wx:if="{{!item.isFav}}" class="iconfont icon-favorite"></i>
+                <view class="bg"></view>
+            </view>
+            <image src="{{item.image}}" mode="aspectFill"></image>
+            <view class="title">
+                <text>{{item.title}}</text>
+            </view>
+            <view class="description">
+                <text>
+                    参入人数:{{item.join}}
+                </text>
+            </view>
+        </view>
+    </block>
+</template>
