@@ -4,7 +4,7 @@
             <view class="title">昵称</view>
         </view>
         <view class="cell_body">
-            <input class="input" placeholder="请输入昵称"/>
+            <input class="input" value="{{props.user.userInfo.nickName}}" placeholder="请输入昵称"/>
         </view>
     </view>
     <view class="cell">
@@ -12,7 +12,7 @@
             <view class="title">手机号</view>
         </view>
         <view class="cell_body">
-            <input class="input" placeholder="请输入手机号"/>
+            <input class="input" value="{{props.user.userInfo.mobile}}" placeholder="请输入手机号"/>
         </view>
         <!--<view class="cell_footer">
             <view class="vCodeBtn">获取验证码</view>
@@ -23,8 +23,8 @@
             <view class="title">生日</view>
         </view>
         <view class="cell_body">
-            <picker mode="date" value="{{date}}" start="1900-01-01" end="{{today}}" bindchange="bindDateChange">
-                <input class="input" value="{{date}}" placeholder="请选择日期"/>
+            <picker mode="date" value="{{props.user.userInfo.birthday}}" start="1900-01-01" end="{{today}}" bindchange="bindDateChange">
+                <input class="input" value="{{props.user.userInfo.birthday}}" placeholder="请选择日期"/>
             </picker>
         </view>
     </view>
@@ -33,7 +33,14 @@
             <view class="title">性别</view>
         </view>
         <view class="cell_body">
-            <input class="input" placeholder="请输入昵称"/>
+            <radio-group class="radio-group" bindchange="sexChange">
+                <label class="radio">
+                    <radio value="1" checked="{{props.user.userInfo.sex===1}}"/>
+                    男</label>
+                <label class="radio">
+                    <radio value="2" checked="{{props.user.userInfo.sex===2}}"/>
+                    女</label>
+            </radio-group>
         </view>
     </view>
     <view class="cell">
@@ -41,8 +48,8 @@
             <view class="title">个性签名</view>
         </view>
         <view class="cell_body">
-            <textarea height="100" maxlength="-1" placeholder="请输入个性签名"/>
+            <textarea height="100" value="{{props.user.userInfo.description}}" maxlength="-1" placeholder="请输入个性签名"/>
         </view>
     </view>
-    <button class="btn">保存</button>
+    <button class="btn" type="primary">保存</button>
 </view>

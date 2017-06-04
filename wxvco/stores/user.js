@@ -45,7 +45,7 @@ module.exports = class extends Store {
    * @param cb
    */
   getUserInfo (uid, cb) {
-    http.get(Api.info, {uid}).then(d => {
+    http.get(Api.info, uid ? {uid} : {}).then(d => {
       this.userInfo = d
       cb && cb()
     })
