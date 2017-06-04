@@ -37,8 +37,8 @@
         <view class="v-cell"><i class="left-icon iconfont icon-form"></i>我发布的活动</view>
         </navigator>-->
         <view class="v-grid">
-            <navigator url="/pages/me/event/create/index">
-                <view class="v-grid-item"><i class="iconfont icon-form"></i>我的活动</view>
+            <navigator url="/pages/me/event/manage/index">
+                <view class="v-grid-item"><i class="iconfont icon-form"></i>我发布的活动</view>
             </navigator>
             <navigator url="/pages/me/event/create/index">
                 <view class="v-grid-item"><i class="iconfont icon-add"></i>发布活动</view>

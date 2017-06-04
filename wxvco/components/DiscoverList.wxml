@@ -1,5 +1,5 @@
 <template name="DiscoverList">
-    <block wx:for="{{data}}" wx:key="eventId" wx:for-index="index" wx:for-item="item">
+    <block wx:if="{{data.length>0}}" wx:for="{{data}}" wx:key="eventId" wx:for-index="index" wx:for-item="item">
         <navigator url="/pages/discover/detail?eventId={{item.eventId}}">
             <view class="box">
                 <view class="fav" bindtap="bindFav" data-item="{{item}}" data-index="{{index}}">
@@ -19,4 +19,8 @@
             </view>
         </navigator>
     </block>
+    <view wx:if="{{data.length==0}}" class="p404">
+        <i class="iconfont icon-cry"></i>
+        <text>暂无内容</text>
+    </view>
 </template>

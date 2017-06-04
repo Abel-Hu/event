@@ -1,7 +1,7 @@
 const {page} = wx.vco
 const o = {
   onLoad () {
-    wx.setNavigationBarTitle({title: '我的活动'})
+    wx.setNavigationBarTitle({title: '我参与的活动'})
     this.props.user.getJoinlist(false, () => {})
   },
   onPullDownRefresh(){
