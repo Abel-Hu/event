@@ -134,7 +134,7 @@ eventId			|是				|string			|活动id
 --				|--				|--				|--
 lastSequence	|否				|string			|上一页游标(第一页不传)
 pageSize		|否				|int			|页面大小(默认、最大：30)
-headSequence	|否				|string			|顶部游标(上拉刷新)
+headSequence	|否				|string			|顶部游标(下拉刷新)
 
 ### 响应数据
 ```json
@@ -243,7 +243,7 @@ commentId		|是				|string			|评论id
 eventId			|是				|string			|活动id
 lastSequence	|否				|string			|上一页游标(第一页不传)
 pageSize		|否				|int			|页面大小(默认、最大：30)
-headSequence	|否				|string			|顶部游标(上拉刷新)
+headSequence	|否				|string			|顶部游标(下拉刷新)
 
 
 ### 响应数据
@@ -278,7 +278,7 @@ headSequence	|否				|string			|顶部游标(上拉刷新)
 eventId			|是				|string			|活动id
 lastSequence	|否				|string			|上一页游标(第一页不传)
 pageSize		|否				|int			|页面大小(默认、最大：30)
-headSequence	|否				|string			|顶部游标(上拉刷新)
+headSequence	|否				|string			|顶部游标(下拉刷新)
 
 
 ### 响应数据
