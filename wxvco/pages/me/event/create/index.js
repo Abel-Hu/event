@@ -5,29 +5,36 @@ const o = {
    * 页面的初始数据
    */
   data: {
-    item: [{title: '活动标题', value: '', placeholder: '请输入活动标题'},
-      {title: '活动图片', value: '', placeholder: '请上传活动图片'},
-      {title: '活动描述', value: '', placeholder: '请输入活动描述'},
-      {title: '开始时间', value: '', placeholder: '请输入开始时间'},
-      {title: '报名截止时间', value: '', placeholder: '请输入报名截止时间'},
-      {title: '最大参与人数', value: '', placeholder: '请输入最大参与人数'},
-      {title: '地址', value: '', placeholder: '请在地图上标出位置'},],
-    name: '',
     files: []
+  },
+  bindStartDateChange(e) {
+    this.setData({
+      startDate: e.detail.value
+    })
   },
   bindStartTimeChange(e) {
     this.setData({
       startTime: e.detail.value
     })
   },
-  bindEndSTimeChange(e) {
+  bindEndDateChange(e) {
+    this.setData({
+      endDate: e.detail.value
+    })
+  },
+  bindEndTimeChange(e) {
     this.setData({
       endTime: e.detail.value
     })
   },
-  bindDeadLineChange(e) {
+  bindDeadLineDateChange(e) {
     this.setData({
-      deadline: e.detail.value
+      deadlineDate: e.detail.value
+    })
+  },
+  bindDeadlineTimeChange(e) {
+    this.setData({
+      deadlineTime: e.detail.value
     })
   },
   chooseAddress () {
@@ -62,7 +69,6 @@ const o = {
         that.setData({
           files: that.data.files.concat(uploadData)
         })
-        console.log('图片上传成功',uploadData)
       })
     })
   },
@@ -78,9 +84,9 @@ const o = {
       // this
     }
     var parameters = e.detail.value
-    parameters.startTime = this.data.startTime
-    parameters.endTime = this.data.endTime
-    parameters.deadline = this.data.deadline
+    parameters.startTime = this.data.startDate + ' ' + this.data.startTime
+    parameters.endTime = this.data.endDate + ' ' + this.data.endTime
+    parameters.deadline = this.data.deadlineDate + ' ' + this.data.deadlineTime
     parameters.latitude = this.data.latitude
     parameters.longitude = this.data.longitude
     parameters.address = this.data.address

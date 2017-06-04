@@ -10,22 +10,33 @@
             <input class="input" name="description" placeholder="请输入活动描述"/>
         </view>
         <view class="v-cell">
-            <text class="title">开始时间</text>
-            <picker mode="date" value="{{startTime}}" start="2017-01-01" end="2017-12-31" bindchange="bindStartTimeChange">
+            <text class="title">开始日期</text>
+            <picker mode="date" value="{{startDate}}" start="2017-01-01" end="2017-12-31" bindchange="bindStartDateChange">
+                <view class="input">{{startDate}}</view>
+            </picker>
+            <text class="title">时间</text>
+            <picker mode="time" value="{{startTime}}" start="10:00" end="23:59" bindchange="bindStartTimeChange">
                 <view class="input">{{startTime}}</view>
             </picker>
         </view>
         <view class="v-cell">
-            <text class="title">结束时间</text>
-            <picker mode="date" value="{{endTime}}" start="2017-01-01" end="2017-12-31" bindchange="bindEndSTimeChange">
-                <!--<input class="input" name="endTime" value="{{endTime}}" placeholder="请选择结束时间"/>-->
+            <text class="title">结束日期</text>
+            <picker mode="date" value="{{endDate}}" start="2017-01-01" end="2017-12-31" bindchange="bindEndDateChange">
+                <view class="input">{{endDate}}</view>
+            </picker>
+            <text class="title">时间</text>
+            <picker mode="time" value="{{endTime}}" start="00:00" end="23:59" bindchange="bindEndTimeChange">
                 <view class="input">{{endTime}}</view>
             </picker>
         </view>
         <view class="v-cell">
-            <text class="title">截止报名时间</text>
-            <picker mode="date" value="{{deadLine}}" start="2017-01-01" end="2017-12-31" bindchange="bindDeadLineChange">
-                <view class="input">{{deadLine}}</view>
+            <text class="title">截止报名日期</text>
+            <picker mode="date" value="{{deadlineDate}}" start="2017-01-01" end="2017-12-31" bindchange="bindDeadLineDateChange">
+                <view class="input">{{deadlineDate}}</view>
+            </picker>
+            <text class="title">时间</text>
+            <picker mode="time" value="{{deadlineTime}}" start="00:00" end="23:59" bindchange="bindDeadlineTimeChange">
+                <view class="input">{{deadlineTime}}</view>
             </picker>
         </view>
         <view class="v-cell">
