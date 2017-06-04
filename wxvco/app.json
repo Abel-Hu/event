@@ -7,6 +7,7 @@
     "pages/me/setting/index",
     "pages/me/event/index",
     "pages/me/event/create/index",
+    "pages/me/event/manage/index",
     "pages/me/fav/index",
     "pages/discover/detail"
 

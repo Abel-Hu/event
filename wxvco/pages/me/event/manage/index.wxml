@@ -1,0 +1,30 @@
+<!--
+
+<view wx:for="{{[0, 1]}}" wx:key="{{index}}">
+    <view class="e-cell">
+        <view class="h-block">
+            <image class="avatar"/>
+            <view class="v-block">
+                <text class="name">小丸子</text>
+                <text class="subTitle">12:30</text>
+            </view>
+        </view>
+        <view class="h-line"/>
+        <view class="h-block">
+            <image class="eventImg"/>
+        </view>
+        <view class="h-block">
+            <text class="title">耍牛满免费试吃活动</text>
+        </view>
+        <view class="h-block">
+            <view class="v-block">
+                <text class="subTitle">2017年06月03日</text>
+                <text class="subTitle">广州市天河区兴盛路6号尚东君御三楼三层</text>
+            </view>
+            <view class="v-line"></view>
+            <text class="status">报名中</text>
+        </view>
+    </view>
+</view>-->
+<import src="/components/DiscoverList.wxml"/>
+<template is="DiscoverList" data="{{data:props.manage.eventlist.data}}"/>
