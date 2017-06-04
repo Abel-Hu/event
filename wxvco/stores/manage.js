@@ -42,7 +42,7 @@ module.exports = class extends Store {
    * @param cb
    */
   getUserlist (params = {}, reload = false, cb) {
-    this.$list(Api.userlist, this.userlist, reload, cb, 'post', params)
+    this.$list(Api.userlist, this.userlist, reload, cb, 'get', params)
   }
 
   /**
@@ -66,7 +66,7 @@ module.exports = class extends Store {
    * @param cb
    */
   getEventlist (params = {}, reload = false, cb) {
-    this.$list(Api.eventlist, this.eventlist, reload, cb, 'post', params)
+    this.$list(Api.eventlist, this.eventlist, reload, cb, 'get', params)
   }
 
   /**
