@@ -6,11 +6,11 @@
 .input{
     flex: 1;
     min-width: 250rpx;
-    min-height: 22px;
+    /*min-height: 22px;*/
     margin-left: 15rpx;
-    /*height: 2.58823529em;*/
-    /*min-height: 2.58823529em;*/
-    /*line-height: 2.58823529em;*/
+    height: 2.58823529em;
+    min-height: 2.58823529em;
+    line-height: 2.58823529em;
 }
 
 .weui-cell__bd {

@@ -34,8 +34,8 @@
         </view>
         <view class="v-cell">
             <text class="title" wx:if="{{!address}}">详细地址</text>
-            <text class="title"wx:if="{{!!address}}">{{address}}</text>
             <button size="mini" bindtap="chooseAddress">选择地址</button>
+            <text class="title" wx:if="{{!!address}}">{{address}}</text>
         </view>
         <view class="weui-cell__bd">
             <view class="weui-uploader">

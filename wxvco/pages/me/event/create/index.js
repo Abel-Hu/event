@@ -74,11 +74,21 @@ const o = {
   },
 
   formSubmit (e) {
-    console.log(e)
     if (e.detail.value.title.length == 0) {
       // this
     }
-    this.props.event.publish(e.detail.value).then((res) => {
+    var parameters = e.detail.value
+    parameters.startTime = this.data.startTime
+    parameters.endTime = this.data.endTime
+    parameters.deadLine = this.data.deadLine
+    parameters.latitude = this.data.latitude
+    parameters.longitude = this.data.longitude
+    parameters.address = this.data.address
+    parameters.images = this.data.files
+
+    console.log(1111,parameters)
+
+    this.props.event.publish(parameters).then((res) => {
       console.log(res)
     })
   },
